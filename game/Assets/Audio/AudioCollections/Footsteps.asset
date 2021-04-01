@@ -9,50 +9,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8857ed26b1c471444aca7f1d53e498dd, type: 3}
+  m_Script: {fileID: 11500000, guid: a2315696fcb5d40629f9bceb87acbd77, type: 3}
   m_Name: Footsteps
   m_EditorClassIdentifier: 
   _mixerGroupName: Players
-  _volume: 0.8
+  _volume: 1
   _spatialBlend: 1
   _priority: 128
   _clipBanks:
   - description: Rock Walk
     clips:
-    - {fileID: 8300000, guid: 1f0199a4c6005ec4abbb302f71bc036d, type: 3}
-    - {fileID: 8300000, guid: 53e2adf2ac488ef46bb2b4074de9e363, type: 3}
-    - {fileID: 8300000, guid: a03a96c5d1e99b4409ddd79098abd9ab, type: 3}
-    - {fileID: 8300000, guid: 7187dc81f98b8be4eb97bfc4dd9a5abf, type: 3}
-    - {fileID: 8300000, guid: e3cfcb32689b274419ac73380ea96888, type: 3}
-    - {fileID: 8300000, guid: 314d37dfb74502a4094b835d0e0d6c23, type: 3}
-    - {fileID: 8300000, guid: f0f794c67e9233d468a38d165590d253, type: 3}
-    - {fileID: 8300000, guid: 1a7741daba5446e46a40f8074aae75dc, type: 3}
-    - {fileID: 8300000, guid: 0bc66974c41ff8c4fa15f46d21ad3548, type: 3}
+    - {fileID: 8300000, guid: 4e7332a0e4e0146d0bbb80cb63c854d0, type: 3}
+    - {fileID: 8300000, guid: 3b6223ccb8f9f44c199b88ad27cc60f9, type: 3}
+    - {fileID: 8300000, guid: c5df7450323d9400ea1ec1dbb434ca10, type: 3}
+    - {fileID: 8300000, guid: 875761ee18b28497ab4590b8b41dbbfb, type: 3}
+    - {fileID: 8300000, guid: 47ac9b3700beb485594a0a03f151deaf, type: 3}
+    - {fileID: 8300000, guid: 2e1086b54e9da4f20b89f01d1c76f4ea, type: 3}
+    - {fileID: 8300000, guid: 0622340b277cb44f6b36dc5e97e83129, type: 3}
+    - {fileID: 8300000, guid: f6d71a43ffa414a0fa2e5b9af316e6d9, type: 3}
+    - {fileID: 8300000, guid: 79f7ba71de2c34dc6bc3b1b4d13c835a, type: 3}
   - description: Rock Run
     clips:
-    - {fileID: 8300000, guid: ecd647025e0a3c04fbd5829fff509e09, type: 3}
-    - {fileID: 8300000, guid: 3bd1b93317b7a3a49b13011cdaa64d0b, type: 3}
-    - {fileID: 8300000, guid: 7b4b6eb734482064c8c1e5fd45d4d76c, type: 3}
-    - {fileID: 8300000, guid: fba95cafa5bba8649a7d269656e7317b, type: 3}
-    - {fileID: 8300000, guid: e924ff5d774024542830602ee674d9a9, type: 3}
-    - {fileID: 8300000, guid: 281c105661e5ee14b8e76523200338bd, type: 3}
-    - {fileID: 8300000, guid: 3069c9f7e833f8e4099228c28f9d65dd, type: 3}
-    - {fileID: 8300000, guid: 82354d1fee336984994fbdcc8154c89c, type: 3}
-    - {fileID: 8300000, guid: 068414160a0ccf34ca0c11b55d43ffc8, type: 3}
-    - {fileID: 8300000, guid: 02d4b2dff380d194fab91c0864b0c386, type: 3}
+    - {fileID: 8300000, guid: 67582ac6bd0d545c581dfcd307fdac36, type: 3}
+    - {fileID: 8300000, guid: cb1d413b62d0a48abb15b3a4eeb3933d, type: 3}
+    - {fileID: 8300000, guid: b92a6fd91aa9049dc8b517b05cc8108e, type: 3}
+    - {fileID: 8300000, guid: a73089272e32c40b6b13bcfcefb577b5, type: 3}
+    - {fileID: 8300000, guid: 5094e28f1f8034f42a44fdad112beabf, type: 3}
+    - {fileID: 8300000, guid: fbe359150b2c6463d9afabd60274f245, type: 3}
+    - {fileID: 8300000, guid: 836342f31b85949979a39b388b7f1c38, type: 3}
+    - {fileID: 8300000, guid: 1757739add34a499d8c407fc6f69160f, type: 3}
+    - {fileID: 8300000, guid: fd4f464ae3efc4e088c28f0245ccdfa3, type: 3}
+    - {fileID: 8300000, guid: ea7fd0b890f8f4aeeb76d4c9ecd91bb4, type: 3}
   - description: Rock Jump Start
     clips:
-    - {fileID: 8300000, guid: 8420cf17e21d6354a98e6ef6d19dc9cc, type: 3}
-    - {fileID: 8300000, guid: e708389b7a8f64a46aa12d201c187b69, type: 3}
-    - {fileID: 8300000, guid: f85e18b3e969dac4bbfc7f6b18139932, type: 3}
-    - {fileID: 8300000, guid: caceea3cf407e1b47a4024a755887675, type: 3}
-    - {fileID: 8300000, guid: 322f3dcfdbd5b5742a885bfbc4fe5365, type: 3}
-    - {fileID: 8300000, guid: 866abdf3a931850498786581089be202, type: 3}
+    - {fileID: 8300000, guid: 3ae6898240cd74f1384416a215c512a8, type: 3}
+    - {fileID: 8300000, guid: b1e128fd873ed44b282bc68bee04ccd7, type: 3}
+    - {fileID: 8300000, guid: c7e67332efcc344dd8755c6a3e5c077c, type: 3}
+    - {fileID: 8300000, guid: 0f86b9a5b426f4df19e31d5f0d6cc28b, type: 3}
+    - {fileID: 8300000, guid: 8b28a325853244746ad6483ce45cf2db, type: 3}
+    - {fileID: 8300000, guid: 0308a17fc3e1e402f91a7d5135780863, type: 3}
   - description: Rock Jump Land
     clips:
-    - {fileID: 8300000, guid: 3d8f480d252db9449b2f978284506f8e, type: 3}
-    - {fileID: 8300000, guid: 79e6e1370ee1ca747b469e68d0dcb0fe, type: 3}
-    - {fileID: 8300000, guid: b796f7e3b1a4d7344b7ee8d6c077a68f, type: 3}
-    - {fileID: 8300000, guid: 1f080a1e65d584c4ca3e3c75fbb406b3, type: 3}
-    - {fileID: 8300000, guid: 45bc125cb8cb195408490bec63fde615, type: 3}
-    - {fileID: 8300000, guid: c2e0d3f88cb48f240af40a1f1bac7e8c, type: 3}
+    - {fileID: 8300000, guid: 08fe63a315ab84044aaefab7d315a1ca, type: 3}
+    - {fileID: 8300000, guid: 9d74ba154bcf34fe1bd3232c0a3e27e9, type: 3}
+    - {fileID: 8300000, guid: dd4e5b77e38804fcfad6422a409df723, type: 3}
+    - {fileID: 8300000, guid: bfd41e65fb68d48cb9f0be5163ee9501, type: 3}
+    - {fileID: 8300000, guid: b1aea730669d5426eb9f1c3802347e0d, type: 3}
+    - {fileID: 8300000, guid: 8cfc874d81bc4455ea7c373455050e4a, type: 3}

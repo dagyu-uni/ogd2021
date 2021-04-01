@@ -40,8 +40,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7858625943318211658}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0474115335f7a09449c99436c03a8d75, type: 3}
+  m_Script: {fileID: 11500000, guid: 164b8e430ddb049f0ac250bc9675fd7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mixer: {fileID: 24100000, guid: 742da6262c87cd048a24ef128610b6b9, type: 2}
+  _mixer: {fileID: 24100000, guid: b7951002ff1ba4ecc8cec2a662dc8134, type: 2}
   _maxSounds: 10
