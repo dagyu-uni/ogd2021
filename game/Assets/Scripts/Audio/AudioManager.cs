@@ -54,7 +54,8 @@ public class AudioManager : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 		// END SINGLETON
 
-		if (!_mixer) return;
+		if (!_mixer)
+			return;
 
 		// Fetch the _mixerGroups dictionary
 		AudioMixerGroup[] groups = _mixer.FindMatchingGroups(string.Empty);

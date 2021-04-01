@@ -337,7 +337,7 @@ public class PlayerController : MonoBehaviour
 			else
 				clipToPlay = _footSteps[0];
 
-			AudioManager.Instance.PlayOneShotSound(	_footSteps.MixerGroupName, clipToPlay, transform.position,
+			AudioManager.Instance.PlayOneShotSound(_footSteps.MixerGroupName, clipToPlay, transform.position,
 													isCrouching ? _footSteps.Volume * _crouchAttenuation : _footSteps.Volume,
 													_footSteps.SpatialBlend, _footSteps.Priority);
 		}
