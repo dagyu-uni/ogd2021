@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
 	private float _stamina;
 
 	// used to know when landing
-	private bool _previouslyGrounded = true;   
+	private bool _previouslyGrounded = true;
 	private float _timeInAir = 0f;
 
 	private List<MovementType> _movements = new List<MovementType>();
