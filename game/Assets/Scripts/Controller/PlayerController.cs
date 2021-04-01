@@ -34,8 +34,11 @@ public class PlayerController : MonoBehaviour
 	private bool _forceStaminaReserve = false;
 	private float _crouchCamAdjust;
 	private float _uncrouchingFactor = 0f;
-	private bool _previouslyGrounded = true;   // used to know when landing
 	private float _stamina;
+
+	// used to know when landing
+	private bool _previouslyGrounded = true;   
+	private float _timeInAir = 0f;
 
 	private List<MovementType> _movements = new List<MovementType>();
 
@@ -103,7 +106,15 @@ public class PlayerController : MonoBehaviour
 
 		// used for landing
 		if (!_movement.grounded)
+		{
 			_previouslyGrounded = false;
+			_timeInAir += Time.deltaTime;
+		}
+		else // grounded
+		{
+			_previouslyGrounded = true;
+			_timeInAir = 0f;
+		}
 	}
 
 	void UpdateMovingStatus()
@@ -191,14 +202,11 @@ public class PlayerController : MonoBehaviour
 		HeadBob();
 
 		// Landing
-		if (!_previouslyGrounded && _movement.grounded)
+		if (!_previouslyGrounded && _movement.grounded && _timeInAir > _movement.controller.stepOffset * 0.3f)
 		{
-			_previouslyGrounded = true;
 			PlayFootStepSound(true);
 		}
 	}
-
-
 
 	private void DefaultMovement()
 	{
