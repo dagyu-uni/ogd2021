@@ -39,6 +39,10 @@ public class PlayerController : MonoBehaviour
 
 	private List<MovementType> _movements = new List<MovementType>();
 
+	// Handle Sounds
+	[SerializeField] private AudioCollection _footSteps = null;
+	[SerializeField] private float _crouchAttenuation = 0.5f;
+
 	public void ChangeStatus(Status s)
 	{
 		if (status == s)
@@ -82,7 +86,7 @@ public class PlayerController : MonoBehaviour
 		_cameraLocalPos = camera.transform.localPosition;
 		_headBob.Initialize();
 		// Register the play footStep sounds function at 1.5 time of the headBob curve.
-		//_headBob.RegisterEventCallback(1.5f, PlayFootStepSound, BocCallbackType.Vertical);
+		_headBob.RegisterEventCallback(1.5f, PlayFootStepSound, BobCallbackType.Vertical);
 	}
 
 	/******************************* UPDATE ******************************/
@@ -185,6 +189,13 @@ public class PlayerController : MonoBehaviour
 
 		// Handle HeadBob     
 		HeadBob();
+
+		// Landing
+		if (!_previouslyGrounded && _movement.grounded)
+		{
+			_previouslyGrounded = true;
+			PlayFootStepSound(true);
+		}
 	}
 
 
@@ -205,6 +216,9 @@ public class PlayerController : MonoBehaviour
 
 			_movement.Jump(Vector3.up, 1f);
 			playerInput.ResetJump();
+
+			// Play jump start sound
+			PlayFootStepSound(false);
 		}
 	}
 
@@ -308,6 +322,42 @@ public class PlayerController : MonoBehaviour
 		ChangeStatus(Status.walking);
 		return true;
 	}
+	/*********************************************************************/
+
+
+	/******************************** SOUNDS *******************************/
+	private void PlayFootStepSound()
+	{
+		if (AudioManager.Instance != null && _footSteps != null)
+		{
+			AudioClip clipToPlay;
+			bool isCrouching = status == Status.crouching;
+			if (status == Status.sprinting)
+				clipToPlay = _footSteps[1];
+			else
+				clipToPlay = _footSteps[0];
+
+			AudioManager.Instance.PlayOneShotSound(	_footSteps.MixerGroupName, clipToPlay, transform.position,
+													isCrouching ? _footSteps.Volume * _crouchAttenuation : _footSteps.Volume,
+													_footSteps.SpatialBlend, _footSteps.Priority);
+		}
+	}
+
+	private void PlayFootStepSound(bool landing)
+	{
+		if (AudioManager.Instance != null && _footSteps != null)
+		{
+			AudioClip clipToPlay;
+			if (landing)
+				clipToPlay = _footSteps[3];
+			else // jumping
+				clipToPlay = _footSteps[2];
+			AudioManager.Instance.PlayOneShotSound(_footSteps.MixerGroupName, clipToPlay, transform.position,
+													_footSteps.Volume, _footSteps.SpatialBlend, _footSteps.Priority);
+		}
+	}
+	/*********************************************************************/
+
 
 	// here for future uses based on interaction
 	//public bool hasObjectInfront(float dis, LayerMask layer)
