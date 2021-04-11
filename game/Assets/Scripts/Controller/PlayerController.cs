@@ -10,17 +10,29 @@ public enum Status { idle, walking, crouching, sprinting }
 [RequireComponent(typeof(PlayerMovement))]
 public class PlayerController : MonoBehaviour
 {
+	// Public
 	[HideInInspector] public Status status;
 	public LayerMask collisionLayer; //Default
 	public float crouchHeight = 1f;
-	public PlayerInfo info;
+	public ControllerInfo info;
 
+	// when players have an interface open some behaviors should change
+	// e.g. not being able to move while solving a puzzle interface
+	// or having the menu interface opened (useful for sounds too).
+	[HideInInspector] public bool _hasInterfaceOpen = false;
+
+	// Inspector Assigned
 	[SerializeField] private float _maxStamina = 6f;
 	[SerializeField] private float _staminaReserve = 4f;
 	[SerializeField] private float _staminaLimit = 0f;
 	[SerializeField] private float _staminaDepletion = 1f;
 	[SerializeField] private float _staminaRecovery = 1f;
 	[SerializeField] private HeadBob _headBob = new HeadBob();
+	// Handle Sounds
+	[SerializeField] private AudioCollection _footSteps = null;
+	[SerializeField] private float _crouchAttenuation = 0.5f;
+
+	// Internals
 	private Vector3 _cameraLocalPos = Vector3.zero;
 	private float _cameraResetFactor = 0f;
 	private float _firstStaminaThreshold;
@@ -42,9 +54,9 @@ public class PlayerController : MonoBehaviour
 
 	private List<MovementType> _movements = new List<MovementType>();
 
-	// Handle Sounds
-	[SerializeField] private AudioCollection _footSteps = null;
-	[SerializeField] private float _crouchAttenuation = 0.5f;
+	// Properties
+	public float MaxStamina { get { return _maxStamina; } }
+	public float Stamina { get { return _stamina; } }
 
 	public void ChangeStatus(Status s)
 	{
@@ -77,7 +89,7 @@ public class PlayerController : MonoBehaviour
 		if (GetComponentInChildren<AnimateCameraLevel>())
 			animateCamLevel = GetComponentInChildren<AnimateCameraLevel>();
 
-		info = new PlayerInfo(_movement.controller.radius, _movement.controller.height);
+		info = new ControllerInfo(_movement.controller.radius, _movement.controller.height);
 		_crouchCamAdjust = (crouchHeight - info.height) * 0.5f;
 		_stamina = _maxStamina;
 		_firstStaminaThreshold = _maxStamina * 0.5f;
@@ -119,6 +131,8 @@ public class PlayerController : MonoBehaviour
 
 	void UpdateMovingStatus()
 	{
+		if (_hasInterfaceOpen) return;
+
 		// Change the recovery rate based on how much stamina has been used.
 		if (_stamina < _secondStaminaThreshold)
 			_staminaRecovery = 0.25f;
@@ -202,7 +216,9 @@ public class PlayerController : MonoBehaviour
 		HeadBob();
 
 		// Landing
-		if (!_previouslyGrounded && _movement.grounded && _timeInAir > _movement.controller.stepOffset * 0.3f)
+		if (!_previouslyGrounded && _movement.grounded &&
+			_timeInAir > _movement.controller.stepOffset * 0.3f &&
+			status != Status.crouching)
 		{
 			PlayFootStepSound(true);
 		}
@@ -226,7 +242,8 @@ public class PlayerController : MonoBehaviour
 			playerInput.ResetJump();
 
 			// Play jump start sound
-			PlayFootStepSound(false);
+			if (!_hasInterfaceOpen)
+				PlayFootStepSound(false);
 		}
 	}
 
@@ -235,8 +252,8 @@ public class PlayerController : MonoBehaviour
 		// we are not considering vertical speed for the head bob
 		// (so that we dont have speed while crouching for example)
 		Vector3 velocityXZ = new Vector3(_movement.controller.velocity.x, 0.0f, _movement.controller.velocity.z);
-		// Are we moving
-		if (velocityXZ.sqrMagnitude > 0.01f && _movement.grounded)
+		// Are we moving (a high value like 0.9f is used to avoid small glitches when barely moving)
+		if (velocityXZ.sqrMagnitude > 0.9f && _movement.grounded)
 		{
 			float speed;
 			float[] multipliers;
@@ -286,6 +303,8 @@ public class PlayerController : MonoBehaviour
 
 	void CheckCrouching()
 	{
+		if (_hasInterfaceOpen) return;
+
 		// avoid popping when uncrouching
 		if (_uncrouchingFactor < 1 && status != Status.crouching)
 		{
@@ -377,7 +396,7 @@ public class PlayerController : MonoBehaviour
 	//}
 }
 
-public class PlayerInfo
+public class ControllerInfo
 {
 	public float rayDistance;
 	public float radius;
@@ -385,7 +404,7 @@ public class PlayerInfo
 	public float halfradius;
 	public float halfheight;
 
-	public PlayerInfo(float r, float h)
+	public ControllerInfo(float r, float h)
 	{
 		radius = r;
 		height = h;
