@@ -37,7 +37,8 @@ public abstract class PuzzleManager : InteractiveItem
 	// Check if the puzzle is solved and activate/deactivate it based on that.
 	private void Update()
 	{
-		if (!isPuzzleActive) return;
+		if (!isPuzzleActive)
+			return;
 
 		if (_nextPuzzle != null)
 			_nextPuzzle.isPuzzleActive = false;
@@ -49,10 +50,10 @@ public abstract class PuzzleManager : InteractiveItem
 	}
 
 	private void ActivateNextPuzzle()
-    {
+	{
 		if (_nextPuzzle != null)
 			_nextPuzzle.isPuzzleActive = true;
-    }
+	}
 
 	// Virtuals
 	// Check if conditions are met
@@ -60,7 +61,7 @@ public abstract class PuzzleManager : InteractiveItem
 
 	// Apply the benefits/malus achieved by solving the puzzle.
 	// Also activate the next puzzle if any (not null)
-	public virtual void ActivateReward() 
+	public virtual void ActivateReward()
 	{
 		// Activation Sound
 		if (_solvedSounds != null)
@@ -80,7 +81,7 @@ public abstract class PuzzleManager : InteractiveItem
 		{
 			_isPuzzleActive = !_deactivateAfterComplete;
 		}
-		
+
 	}
 
 	// optional method to handle situations where you want the puzzle
@@ -92,7 +93,8 @@ public abstract class PuzzleManager : InteractiveItem
 	// Overridden Interactive Methods
 	public override string GetText()
 	{
-		if (!isPuzzleActive) return "";
+		if (!isPuzzleActive)
+			return "";
 
 		if (isInterfaceActive)
 			return _interfaceActiveText;
@@ -103,14 +105,16 @@ public abstract class PuzzleManager : InteractiveItem
 	// if the puzzle has an interface, activate it and show a different text
 	public override void Activate(CharacterManager characterManager)
 	{
-		if (!isPuzzleActive) return;
+		if (!isPuzzleActive)
+			return;
 
 		OpenCloseInterface(characterManager);
 	}
 
 	public void OpenCloseInterface(CharacterManager characterManager)
 	{
-		if (_puzzleInterface == null) return;
+		if (_puzzleInterface == null)
+			return;
 
 		if (_puzzleInterface.gameObject.activeInHierarchy)
 		{
@@ -127,6 +131,6 @@ public abstract class PuzzleManager : InteractiveItem
 			Cursor.lockState = CursorLockMode.None;
 			characterManager.DisableControllerMovements();
 			characterManager.DisableCameraMovements();
-		}		
+		}
 	}
 }

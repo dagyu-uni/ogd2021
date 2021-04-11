@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public enum ScreenFadeType { FadeIn, FadeOut };
 
 [System.Serializable]
-public class InventorySlot 
+public class InventorySlot
 {
 	// actual visible slot image
 	public Image icon;
@@ -27,13 +27,13 @@ public class InventorySlot
 
 public class PlayerHUD : MonoBehaviour
 {
-    [SerializeField] private Slider _staminaSlider = null;
-    [SerializeField] private Text _interactionText = null;
+	[SerializeField] private Slider _staminaSlider = null;
+	[SerializeField] private Text _interactionText = null;
 	[SerializeField] private Text _eventText = null;
 	public List<Color> eventColors = null;
 	[SerializeField] private Image _screenFade = null;
-    [SerializeField] private Text _missionText = null;
-    [SerializeField] private float _missionTextDisplayTime = 3.0f;
+	[SerializeField] private Text _missionText = null;
+	[SerializeField] private float _missionTextDisplayTime = 3.0f;
 
 	// Inventory system for items interface elements
 	[Header("Inventory")]
@@ -47,7 +47,7 @@ public class PlayerHUD : MonoBehaviour
 
 	// Internals
 	private float _currentFadeLevel = 1.0f;
-    private IEnumerator _coroutine = null;
+	private IEnumerator _coroutine = null;
 
 	// Properties
 	public string CapacityText { set { _capacityText.text = value; } }
@@ -55,19 +55,19 @@ public class PlayerHUD : MonoBehaviour
 	public Image InventoryIcon { get { return _inventoryIcon; } }
 	public Image InventoryTooltip { get { return _inventoryTooltip; } }
 
-    void Start()
-    {
-        if (_screenFade)
-        {
-            Color color = _screenFade.color;
-            color.a = _currentFadeLevel;
-            _screenFade.color = color;
-        }
+	void Start()
+	{
+		if (_screenFade)
+		{
+			Color color = _screenFade.color;
+			color.a = _currentFadeLevel;
+			_screenFade.color = color;
+		}
 
 		_eventText.text = null;
 
 		if (_missionText)
-            Invoke("HideMissionText", _missionTextDisplayTime);
+			Invoke("HideMissionText", _missionTextDisplayTime);
 
 		// Initialize inventory slots
 		InitializeInventorySlots();
@@ -93,7 +93,8 @@ public class PlayerHUD : MonoBehaviour
 
 	private void ThrowCollectable(Collectable collectable)
 	{
-		if (collectable == null) return; 
+		if (collectable == null)
+			return;
 
 		// Set the gameobject transform properly
 		GameObject obj = collectable.gameObject;
@@ -109,8 +110,9 @@ public class PlayerHUD : MonoBehaviour
 
 	// Refreshes the values of the UI
 	public void RefreshHUD(CharacterManager cm)
-    {
-        if (cm == null) return;
+	{
+		if (cm == null)
+			return;
 		// refresh stamina slider value
 		_staminaSlider.value = cm.Controller.Stamina / cm.Controller.MaxStamina;
 	}
@@ -156,17 +158,17 @@ public class PlayerHUD : MonoBehaviour
 	// Sets the text that is displayed at the bottom of the display area.
 	// It's used to display messages relating to interacting with objects.
 	public void SetInteractionText(string text)
-    {
-        if (_interactionText)
-        {
-            _interactionText.text = text;
+	{
+		if (_interactionText)
+		{
+			_interactionText.text = text;
 
-            if (text == null)
-                _interactionText.gameObject.SetActive(false);
-            else
-                _interactionText.gameObject.SetActive(true);
-        }
-    }
+			if (text == null)
+				_interactionText.gameObject.SetActive(false);
+			else
+				_interactionText.gameObject.SetActive(true);
+		}
+	}
 
 	// used to notify any kind of dynamic event to the player
 	public IEnumerator SetEventText(string text, Color color)
@@ -180,53 +182,56 @@ public class PlayerHUD : MonoBehaviour
 		}
 	}
 
-    public void Fade(float seconds, ScreenFadeType fadeType)
-    {
-        if (_coroutine != null) StopCoroutine(_coroutine);
+	public void Fade(float seconds, ScreenFadeType fadeType)
+	{
+		if (_coroutine != null)
+			StopCoroutine(_coroutine);
 
-        float targetFade = fadeType == ScreenFadeType.FadeIn ? 0.0f : 1.0f;
+		float targetFade = fadeType == ScreenFadeType.FadeIn ? 0.0f : 1.0f;
 
-        _coroutine = FadeInternal(seconds, targetFade);
-        StartCoroutine(_coroutine);
-    }
+		_coroutine = FadeInternal(seconds, targetFade);
+		StartCoroutine(_coroutine);
+	}
 
-    private IEnumerator FadeInternal(float seconds, float targetFade)
-    {
-        if (!_screenFade) yield break;
+	private IEnumerator FadeInternal(float seconds, float targetFade)
+	{
+		if (!_screenFade)
+			yield break;
 
-        float timer = 0f;
-        float srcFade = _currentFadeLevel;
-        Color oldColor = _screenFade.color;
-        if (seconds < 0.1f) seconds = 0.1f;
+		float timer = 0f;
+		float srcFade = _currentFadeLevel;
+		Color oldColor = _screenFade.color;
+		if (seconds < 0.1f)
+			seconds = 0.1f;
 
-        // actual fade
-        while (timer < seconds)
-        {
-            timer += Time.deltaTime;
-            _currentFadeLevel = Mathf.Lerp(srcFade, targetFade, timer / seconds);
-            oldColor.a = _currentFadeLevel;
-            _screenFade.color = oldColor;
-            yield return null;
-        }
+		// actual fade
+		while (timer < seconds)
+		{
+			timer += Time.deltaTime;
+			_currentFadeLevel = Mathf.Lerp(srcFade, targetFade, timer / seconds);
+			oldColor.a = _currentFadeLevel;
+			_screenFade.color = oldColor;
+			yield return null;
+		}
 
-        // be sure that the final value is the correct one
-        oldColor.a = _currentFadeLevel = targetFade;
-        _screenFade.color = oldColor;
-    }
+		// be sure that the final value is the correct one
+		oldColor.a = _currentFadeLevel = targetFade;
+		_screenFade.color = oldColor;
+	}
 
-    // Allows to show objectives to the players.
-    public void ShowMissionText(string text)
-    {
-        if (_missionText)
-        {
-            _missionText.text = text;
-            _missionText.gameObject.SetActive(true);
-        }
-    }
+	// Allows to show objectives to the players.
+	public void ShowMissionText(string text)
+	{
+		if (_missionText)
+		{
+			_missionText.text = text;
+			_missionText.gameObject.SetActive(true);
+		}
+	}
 
-    public void HideMissionText()
-    {
-        if (_missionText)
-            _missionText.gameObject.SetActive(false);
-    }
+	public void HideMissionText()
+	{
+		if (_missionText)
+			_missionText.gameObject.SetActive(false);
+	}
 }

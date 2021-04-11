@@ -10,7 +10,7 @@ public class Collectable
 	public GameObject gameObject;
 	public PowerUp powerUp;
 	public Sprite icon;
-	[TextArea(3,10)]
+	[TextArea(3, 10)]
 	public string tooltipString;
 
 	// the unique ID of who picked this collectable
@@ -21,24 +21,24 @@ public class Collectable
 
 public class CharacterManager : MonoBehaviour
 {
-    // Ispector Assigned
-    [SerializeField] private Camera _camera = null;
-    [SerializeField] private PlayerHUD _playerHUD = null;
-    [SerializeField] private float _interactiveRayLength = 1.0f;
+	// Ispector Assigned
+	[SerializeField] private Camera _camera = null;
+	[SerializeField] private PlayerHUD _playerHUD = null;
+	[SerializeField] private float _interactiveRayLength = 1.0f;
 	[SerializeField] private AudioCollection _sprintingSounds = null;
 	[SerializeField] private int _inventoryCapacity = 0;
 
 	// Private
 	private Collider _collider = null;
-    private PlayerController _playerController = null;
-    private CharacterController _characterController = null;
+	private PlayerController _playerController = null;
+	private CharacterController _characterController = null;
 	private PlayerMovement _playerMovement = null;
 	private CameraMovement _cameraMovement = null;
-    private GameManager _gameManager = null;
-    private AudioSource _audioSource = null;    // used for mouth sounds
+	private GameManager _gameManager = null;
+	private AudioSource _audioSource = null;    // used for mouth sounds
 	private AudioCollection _previousCollection = null;
 	private int _previousClipPriority = 0;
-    private int _interactiveMask = 0;
+	private int _interactiveMask = 0;
 
 	// used to store which and how many objects the player has picked up
 	private List<Collectable> _inventory = new List<Collectable>();
@@ -52,42 +52,43 @@ public class CharacterManager : MonoBehaviour
 	public Camera Camera { get { return _camera; } }
 
 	private void Awake()
-    {
-        _collider = GetComponent<Collider>();
-        _playerController = GetComponent<PlayerController>();
-        _characterController = GetComponent<CharacterController>();
+	{
+		_collider = GetComponent<Collider>();
+		_playerController = GetComponent<PlayerController>();
+		_characterController = GetComponent<CharacterController>();
 		_playerMovement = GetComponent<PlayerMovement>();
 		_cameraMovement = _camera.GetComponent<CameraMovement>();
 		_audioSource = GetComponent<AudioSource>();
 
-        _interactiveMask = 1 << LayerMask.NameToLayer("Interactive");
-    }
+		_interactiveMask = 1 << LayerMask.NameToLayer("Interactive");
+	}
 
-    private void Start()
-    {
-        _gameManager = GameManager.Instance;
+	private void Start()
+	{
+		_gameManager = GameManager.Instance;
 
-        if (_gameManager != null)
-        {
-            PlayerInfo info = new PlayerInfo();
-            info.collider = _collider;
-            info.camera = _camera;
-            info.characterManager = this;
-            info.role = gameObject.tag == Role.King.ToString() ? Role.King : Role.Wizard;
+		if (_gameManager != null)
+		{
+			PlayerInfo info = new PlayerInfo();
+			info.collider = _collider;
+			info.camera = _camera;
+			info.characterManager = this;
+			info.role = gameObject.tag == Role.King.ToString() ? Role.King : Role.Wizard;
 
-            _gameManager.RegisterPlayerInfo(_collider.GetInstanceID(), info);
-        }
+			_gameManager.RegisterPlayerInfo(_collider.GetInstanceID(), info);
+		}
 
-        // When players spawn start fading in
-        if (_playerHUD) _playerHUD.Fade(2.0f, ScreenFadeType.FadeIn);
+		// When players spawn start fading in
+		if (_playerHUD)
+			_playerHUD.Fade(2.0f, ScreenFadeType.FadeIn);
 
 		// Set inventory capacity
 		_inventory.Capacity = _inventoryCapacity;
 		_playerHUD.CapacityText = _inventory.Count.ToString() + " / " + _inventoryCapacity.ToString();
 	}
 
-    private void Update()
-    {
+	private void Update()
+	{
 		// Get Inventory Input
 		if (Input.GetButtonDown("Inventory"))
 		{
@@ -112,8 +113,9 @@ public class CharacterManager : MonoBehaviour
 
 		DetectInteractiveItems();
 
-        // refresh HUD
-        if (_playerHUD) _playerHUD.RefreshHUD(this);
+		// refresh HUD
+		if (_playerHUD)
+			_playerHUD.RefreshHUD(this);
 
 		// Play Sprinting Sounds
 		SprintingSounds();
@@ -133,57 +135,57 @@ public class CharacterManager : MonoBehaviour
 		}
 	}
 
-    private void DetectInteractiveItems()
-    {
-        // rays to handle interactive items
-        Ray ray;
-        RaycastHit hit;
-        RaycastHit[] hits;
+	private void DetectInteractiveItems()
+	{
+		// rays to handle interactive items
+		Ray ray;
+		RaycastHit hit;
+		RaycastHit[] hits;
 
-        // Process Interactive Objects
-        ray = _camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-        // adjust ray length based on where we are looking (1 if ahead, more if in diagonal)
-        float rayLength = Mathf.Lerp(_interactiveRayLength, _interactiveRayLength * 1.8f, Mathf.Abs(Vector3.Dot(_camera.transform.forward, Vector3.up)));
-        // Cast the ray (only hitting the interactive layer)
-        hits = Physics.RaycastAll(ray, rayLength, _interactiveMask);
-        // Process hits
-        if (hits.Length > 0)
-        {
-            // record which is the highest priority interactive item hit
-            int highestPriority = int.MinValue;
-            InteractiveItem priorityObject = null;
+		// Process Interactive Objects
+		ray = _camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+		// adjust ray length based on where we are looking (1 if ahead, more if in diagonal)
+		float rayLength = Mathf.Lerp(_interactiveRayLength, _interactiveRayLength * 1.8f, Mathf.Abs(Vector3.Dot(_camera.transform.forward, Vector3.up)));
+		// Cast the ray (only hitting the interactive layer)
+		hits = Physics.RaycastAll(ray, rayLength, _interactiveMask);
+		// Process hits
+		if (hits.Length > 0)
+		{
+			// record which is the highest priority interactive item hit
+			int highestPriority = int.MinValue;
+			InteractiveItem priorityObject = null;
 
-            for (int i = 0; i < hits.Length; i++)
-            {
-                hit = hits[i];
-                InteractiveItem item = _gameManager.GetInteractiveItem(hit.collider.GetInstanceID());
+			for (int i = 0; i < hits.Length; i++)
+			{
+				hit = hits[i];
+				InteractiveItem item = _gameManager.GetInteractiveItem(hit.collider.GetInstanceID());
 
-                if (item != null && item.RayPriority > highestPriority)
-                {
-                    priorityObject = item;
-                    highestPriority = item.RayPriority;
-                }
-            }
+				if (item != null && item.RayPriority > highestPriority)
+				{
+					priorityObject = item;
+					highestPriority = item.RayPriority;
+				}
+			}
 
-            if (priorityObject != null)
-            {
-                if (_playerHUD)
-                    _playerHUD.SetInteractionText(priorityObject.GetText());
+			if (priorityObject != null)
+			{
+				if (_playerHUD)
+					_playerHUD.SetInteractionText(priorityObject.GetText());
 
-                if (Input.GetButtonDown("Use"))
-                    priorityObject.Activate(this);
-            }
-        }
-        else    // no hits detected
-        {
-            if (_playerHUD)
-                _playerHUD.SetInteractionText(null);
-        }
-    }
+				if (Input.GetButtonDown("Use"))
+					priorityObject.Activate(this);
+			}
+		}
+		else    // no hits detected
+		{
+			if (_playerHUD)
+				_playerHUD.SetInteractionText(null);
+		}
+	}
 
-    // provide an API for collectable items
-    public bool StoreCollectable(Collectable collectable)
-    {
+	// provide an API for collectable items
+	public bool StoreCollectable(Collectable collectable)
+	{
 		// inventory full
 		if (_inventory.Count == _inventory.Capacity)
 		{
@@ -238,36 +240,36 @@ public class CharacterManager : MonoBehaviour
 	// NOTE to work properly, every audio collection for the players' mouth sounds
 	// should have different priority values.
 	public void SpeakSound(AudioCollection voiceLine, int bank = 0, bool isLooping = false)
-    {
-        // if the new clip has a lower priority don't override the one you are playing
-        if (_audioSource.clip == null || voiceLine.Priority > _previousClipPriority)
-        {
+	{
+		// if the new clip has a lower priority don't override the one you are playing
+		if (_audioSource.clip == null || voiceLine.Priority > _previousClipPriority)
+		{
 			_previousCollection = voiceLine;
 			_previousClipPriority = voiceLine.Priority;
-            _audioSource.clip = voiceLine[bank];
+			_audioSource.clip = voiceLine[bank];
 			_audioSource.loop = isLooping;
-            _audioSource.volume = voiceLine.Volume;
-            _audioSource.spatialBlend = voiceLine.SpatialBlend;
-            _audioSource.outputAudioMixerGroup = AudioManager.Instance.GetMixerGroupFromName(voiceLine.MixerGroupName);
-            StartCoroutine(PlayCharacterSound(isLooping));
-        }
-    }
+			_audioSource.volume = voiceLine.Volume;
+			_audioSource.spatialBlend = voiceLine.SpatialBlend;
+			_audioSource.outputAudioMixerGroup = AudioManager.Instance.GetMixerGroupFromName(voiceLine.MixerGroupName);
+			StartCoroutine(PlayCharacterSound(isLooping));
+		}
+	}
 
-    public void StopSpokenSound()
-    {
-        _audioSource.Stop();
-        _audioSource.clip = null;
-    }
+	public void StopSpokenSound()
+	{
+		_audioSource.Stop();
+		_audioSource.clip = null;
+	}
 
-    private IEnumerator PlayCharacterSound(bool isLooping)
-    {
-        _audioSource.Play();
-        if (!isLooping)
-        {
-            yield return new WaitForSeconds(_audioSource.clip.length);
+	private IEnumerator PlayCharacterSound(bool isLooping)
+	{
+		_audioSource.Play();
+		if (!isLooping)
+		{
+			yield return new WaitForSeconds(_audioSource.clip.length);
 			_audioSource.clip = null;
 		}
-    }
+	}
 
 	// Block all the player's movement, both controller and camera.
 	public void DisableControllerMovements()

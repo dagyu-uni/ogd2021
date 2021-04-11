@@ -19,7 +19,7 @@ public abstract class PowerUp : MonoBehaviour
 				if (info.role == Role.Wizard)
 					PowerUpEffects(info.characterManager);
 			}
-		}		
+		}
 	}
 
 	public void RemovePowerUp(CharacterManager charManager)

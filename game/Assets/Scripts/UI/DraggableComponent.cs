@@ -59,7 +59,7 @@ public class DraggableComponent : EventTrigger
 		// Cache the distance from the pivot
 		Vector2 distFromPivot = (Vector2)_rect.transform.position - eventData.pressPosition;
 		// Supposing that the window is stretched using its anchors, find its width and height.
-		
+
 		// Percentage of how distant you clicked from the pivot.
 		Vector2 pointerOffset = new Vector2(distFromPivot.x / (_windowWidth * 0.01f),
 											distFromPivot.y / (_windowHeight * 0.01f));

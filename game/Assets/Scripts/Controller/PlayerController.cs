@@ -131,7 +131,8 @@ public class PlayerController : MonoBehaviour
 
 	void UpdateMovingStatus()
 	{
-		if (_hasInterfaceOpen) return;
+		if (_hasInterfaceOpen)
+			return;
 
 		// Change the recovery rate based on how much stamina has been used.
 		if (_stamina < _secondStaminaThreshold)
@@ -303,7 +304,8 @@ public class PlayerController : MonoBehaviour
 
 	void CheckCrouching()
 	{
-		if (_hasInterfaceOpen) return;
+		if (_hasInterfaceOpen)
+			return;
 
 		// avoid popping when uncrouching
 		if (_uncrouchingFactor < 1 && status != Status.crouching)

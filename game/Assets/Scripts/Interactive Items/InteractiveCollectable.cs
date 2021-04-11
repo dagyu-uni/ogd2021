@@ -17,22 +17,22 @@ public class InteractiveCollectable : InteractiveItem
 	[SerializeField] private string _tooltipContent = null;
 	// if it's not pickable, give a feedback to the player
 	[TextArea(3, 10)]
-    [SerializeField] private string _activatedText = null;
-    [SerializeField] private float _activatedTextDuration = 3.0f;
-    // leave the collection to null if you don't want to play any sound
+	[SerializeField] private string _activatedText = null;
+	[SerializeField] private float _activatedTextDuration = 3.0f;
+	// leave the collection to null if you don't want to play any sound
 	[Tooltip("Use the first bank for fail sounds and the second one for success sounds.")]
-    [SerializeField] private AudioCollection _audioCollection = null;
-    [SerializeField] private PowerUp _powerUp = null;
-	
+	[SerializeField] private AudioCollection _audioCollection = null;
+	[SerializeField] private PowerUp _powerUp = null;
+
 	// Internals
 	private IEnumerator _coroutine = null;
-    private float _hideActivatedTextTime = 0.0f;
+	private float _hideActivatedTextTime = 0.0f;
 	private Collectable _thisCollectable = new Collectable();
 	private CharacterManager _charManager = null;
 	private Rigidbody _rb = null;
 
-    // Properties
-    public bool isPickable { set { _isPickable = value; } }
+	// Properties
+	public bool isPickable { set { _isPickable = value; } }
 	public CharacterManager CharManager { get { return _charManager; } }
 
 	private void Awake()
@@ -58,15 +58,15 @@ public class InteractiveCollectable : InteractiveItem
 	}
 
 	public override string GetText()
-    {
-        if (Time.time < _hideActivatedTextTime)
-            return _activatedText;
-        else
-            return "Pick " + _name;
-    }
+	{
+		if (Time.time < _hideActivatedTextTime)
+			return _activatedText;
+		else
+			return "Pick " + _name;
+	}
 
-    public override void Activate(CharacterManager characterManager)
-    {
+	public override void Activate(CharacterManager characterManager)
+	{
 		int bank = -1;
 		// Play audio based on collectable status
 		if (_audioCollection != null && _coroutine == null)
@@ -82,13 +82,13 @@ public class InteractiveCollectable : InteractiveItem
 		}
 		// if it is, also store it
 		else
-        {
+		{
 			if (!characterManager.StoreCollectable(_thisCollectable)) // inventory full
 			{
 				// you can play "inventory full" fail sounds here
-				return; 
+				return;
 			}
-				
+
 
 			PlayCoroutine(bank);
 
@@ -111,19 +111,21 @@ public class InteractiveCollectable : InteractiveItem
 
 	// Use the first bank for fail sounds and the second one for success sounds
 	private IEnumerator PlayCollectableSound(int bank)
-    {
-        if (AudioManager.Instance == null) yield break;
+	{
+		if (AudioManager.Instance == null)
+			yield break;
 
 		//int bank = isPickable ? 1 : 0;
-        AudioClip clip = _audioCollection[bank];
-        if (clip == null) yield break;
+		AudioClip clip = _audioCollection[bank];
+		if (clip == null)
+			yield break;
 
-        AudioManager.Instance.PlayOneShotSound(_audioCollection.MixerGroupName, clip, transform.position,
-                                                _audioCollection.Volume, _audioCollection.SpatialBlend,
-                                                _audioCollection.Priority);
+		AudioManager.Instance.PlayOneShotSound(_audioCollection.MixerGroupName, clip, transform.position,
+												_audioCollection.Volume, _audioCollection.SpatialBlend,
+												_audioCollection.Priority);
 
-        yield return new WaitForSeconds(clip.length);
+		yield return new WaitForSeconds(clip.length);
 
-        _coroutine = null;
-    }
+		_coroutine = null;
+	}
 }
