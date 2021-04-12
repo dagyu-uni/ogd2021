@@ -36,13 +36,16 @@ namespace Photon.Pun.Demo.PunBasics
 
 		#region Private Fields
 
-		[Tooltip("The distance in the local x-z plane to the target")] [SerializeField]
+		[Tooltip("The distance in the local x-z plane to the target")]
+		[SerializeField]
 		private float distance = 7.0f;
 
-		[Tooltip("The height we want the camera to be above the target")] [SerializeField]
+		[Tooltip("The height we want the camera to be above the target")]
+		[SerializeField]
 		private float height = 3.0f;
 
-		[Tooltip("The Smooth time lag for the height of the camera.")] [SerializeField]
+		[Tooltip("The Smooth time lag for the height of the camera.")]
+		[SerializeField]
 		private float heightSmoothLag = 0.3f;
 
 		[Tooltip(
@@ -77,7 +80,8 @@ namespace Photon.Pun.Demo.PunBasics
 		private void Start()
 		{
 			// Start following the target if wanted.
-			if (followOnStart) OnStartFollowing();
+			if (followOnStart)
+				OnStartFollowing();
 		}
 
 		/// <summary>
@@ -89,10 +93,12 @@ namespace Photon.Pun.Demo.PunBasics
 		{
 			// The transform target may not destroy on level load, 
 			// so we need to cover corner cases where the Main Camera is different everytime we load a new scene, and reconnect when that happens
-			if (cameraTransform == null && isFollowing) OnStartFollowing();
+			if (cameraTransform == null && isFollowing)
+				OnStartFollowing();
 
 			// only follow is explicitly declared
-			if (isFollowing) Apply();
+			if (isFollowing)
+				Apply();
 		}
 
 		#endregion

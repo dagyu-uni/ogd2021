@@ -59,7 +59,7 @@ namespace Photon.Pun.Demo.PunBasics
 				popUpMessage = "Exactly 3 players are required to start the game!";
 				StartCoroutine(PopUpMessage(popUpMessage));
 			}
-				
+
 		}
 
 		// Photon Methods
