@@ -24,6 +24,13 @@ public class PlayerMovement : InterpolatedTransform
 	private float _jumpPower;
 	private UnityEvent _onReset = new UnityEvent();
 
+	// Properties
+	public float JumpSpeed
+	{
+		get { return _jumpSpeed; }
+		set { _jumpSpeed = value; }
+	}
+
 	public override void OnEnable()
 	{
 		base.OnEnable();
