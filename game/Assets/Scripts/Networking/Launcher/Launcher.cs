@@ -10,11 +10,7 @@ namespace Photon.Pun.Demo.PunBasics
 		[SerializeField] private GameObject menuManager;
 		[SerializeField] private byte maxPlayersPerRoom = 3;
 
-		[Space(10)]
-		[Header("Custom Variables")]
-
 		public Text connectionStatusLabel;
-		public Text playerStatusLabel;
 		public Text popUpMessageLabel;
 		public GameObject leaveRoomButton;
 		public GameObject loadRoomButton;
@@ -52,14 +48,7 @@ namespace Photon.Pun.Demo.PunBasics
 		//Onclick LoadRoomButton
 		public void LoadRoom()
 		{
-			if (PhotonNetwork.CurrentRoom.PlayerCount <= maxPlayersPerRoom) //<= per testare con 2
-				PhotonNetwork.LoadLevel("Prototype"); //Start level for both players
-			else
-			{
-				popUpMessage = "Exactly 3 players are required to start the game!";
-				StartCoroutine(PopUpMessage(popUpMessage));
-			}
-
+			PhotonNetwork.LoadLevel("Prototype"); //Start level for both players
 		}
 
 		// Photon Methods
@@ -82,10 +71,13 @@ namespace Photon.Pun.Demo.PunBasics
 		{
 			popUpMessage = newPlayer.NickName + " joined the room";
 			StartCoroutine(PopUpMessage(popUpMessage));
-			if (PhotonNetwork.CurrentRoom.PlayerCount <= maxPlayersPerRoom) //<= per testare con 2
+			if (PhotonNetwork.IsMasterClient)
 			{
-				leaveRoomButton.SetActive(false);
-				loadRoomButton.SetActive(true);
+				if (PhotonNetwork.CurrentRoom.PlayerCount <= maxPlayersPerRoom) //<= per testare con 2
+				{
+					leaveRoomButton.SetActive(false);
+					loadRoomButton.SetActive(true);
+				}
 			}
 		}
 

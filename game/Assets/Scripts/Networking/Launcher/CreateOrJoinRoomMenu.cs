@@ -6,18 +6,11 @@ namespace Photon.Pun.Demo.PunBasics
 {
 	public class CreateOrJoinRoomMenu : MonoBehaviourPunCallbacks
 	{
-		[Space(10)]
-		[Header("Custom Variables")]
-
 		[SerializeField] private byte maxPlayersPerRoom = 3;
 		[SerializeField] private GameObject canvas;
 
 		public InputField playerNameField;
 		public InputField roomNameField;
-
-		[Space(5)]
-		[Header("Text Box")]
-
 		public Text playerStatusLabel;
 
 		private string playerName = "";
@@ -72,20 +65,14 @@ namespace Photon.Pun.Demo.PunBasics
 				RoomOptions option = new RoomOptions();
 				option.MaxPlayers = maxPlayersPerRoom;
 				PhotonNetwork.JoinOrCreateRoom(roomName, option, TypedLobby.Default);
+				playerStatusLabel.text = "";
+				playerStatusLabel.enabled = true;
 			}
 		}
 
 		public override void OnCreatedRoom()
 		{
 			base.OnCreatedRoom();
-			if (PhotonNetwork.IsMasterClient)
-			{
-				playerStatusLabel.text = "Your are the lobby leader.\nWait for the other players to join.";
-			}
-			else
-			{
-				playerStatusLabel.text = "Connected to lobby.\nWait for the leader to start the game.";
-			}
 			_networkingCanvasManager.CurrentRoomCanvas.Show();
 			_networkingCanvasManager.CreateOrJoinRoomCanvas.Hide();
 		}
@@ -98,14 +85,6 @@ namespace Photon.Pun.Demo.PunBasics
 
 		public override void OnJoinedRoom()
 		{
-			if (PhotonNetwork.IsMasterClient)
-			{
-				playerStatusLabel.text = "Your are the lobby leader.\nWait for the other players to join.";
-			}
-			else
-			{
-				playerStatusLabel.text = "Connected to lobby.\nWait for the leader to start the game.";
-			}
 			_networkingCanvasManager.CurrentRoomCanvas.Show();
 			_networkingCanvasManager.CreateOrJoinRoomCanvas.Hide();
 		}
