@@ -29,11 +29,11 @@ public class InventorySlot
 public class SkillSlot
 {
 	public Image icon;
-	public Image mask; 
+	public Image mask;
 }
 
 public class PlayerHUD : MonoBehaviour
-{	
+{
 	[SerializeField] private Slider _staminaSlider = null;
 	[SerializeField] private Text _interactionText = null;
 	[SerializeField] private Text _eventText = null;
@@ -123,7 +123,7 @@ public class PlayerHUD : MonoBehaviour
 		{
 			if (_pauseInterface.activeInHierarchy)
 			{
-				Resume();	
+				Resume();
 			}
 			else
 			{
@@ -131,7 +131,7 @@ public class PlayerHUD : MonoBehaviour
 				_charManager.DisableCameraMovements();
 				_pauseInterface.SetActive(true);
 				Cursor.lockState = CursorLockMode.None;
-				Cursor.visible = true;	
+				Cursor.visible = true;
 			}
 		}
 	}
@@ -182,7 +182,7 @@ public class PlayerHUD : MonoBehaviour
 					skill.currentCooldown = skill.baseCooldown;
 					_skillSlots[i].icon.color = Color.white;
 				}
-					
+
 			}
 
 			// Input

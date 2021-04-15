@@ -54,7 +54,7 @@ public class PowerUp : ScriptableObject
 			_unlockedSkill.currentDuration = 0f;
 			_unlockedSkill.currentCooldown = _unlockedSkill.baseCooldown;
 			charManager.PlayerHUD.InitiliazeSkillSlots();
-		}		
+		}
 	}
 	protected virtual void RemoveEffects(CharacterManager charManager)
 	{
