@@ -26,7 +26,8 @@ public class CharacterManager : MonoBehaviour
 	[SerializeField] private PlayerHUD _playerHUD = null;
 	[SerializeField] private float _interactiveRayLength = 1.0f;
 	[SerializeField] private AudioCollection _sprintingSounds = null;
-	[SerializeField] private int _inventoryCapacity = 0;
+	// list of current skills owned by the player
+	[SerializeField] private List<Skill> _skills = new List<Skill>();
 
 	// Private
 	private Collider _collider = null;
@@ -49,7 +50,10 @@ public class CharacterManager : MonoBehaviour
 	// Properties
 	public PlayerController Controller { get { return _playerController; } }
 	public PlayerMovement Movement { get { return _playerMovement; } }
+	public PlayerHUD PlayerHUD { get { return _playerHUD; } }
 	public Camera Camera { get { return _camera; } }
+	public List<Collectable> Inventory { get { return _inventory; } }
+	public List<Skill> Skills { get { return _skills; } }
 
 	private void Awake()
 	{
@@ -61,6 +65,8 @@ public class CharacterManager : MonoBehaviour
 		_audioSource = GetComponent<AudioSource>();
 
 		_interactiveMask = 1 << LayerMask.NameToLayer("Interactive");
+
+		_playerHUD.CharManager = this;
 	}
 
 	private void Start()
@@ -82,35 +88,25 @@ public class CharacterManager : MonoBehaviour
 		if (_playerHUD)
 			_playerHUD.Fade(2.0f, ScreenFadeType.FadeIn);
 
-		// Set inventory capacity
-		_inventory.Capacity = _inventoryCapacity;
-		_playerHUD.CapacityText = _inventory.Count.ToString() + " / " + _inventoryCapacity.ToString();
+		// Inventory Capacity
+		_inventory.Capacity = _playerHUD.InventoryCapacity;
+		_playerHUD.CapacityText = _inventory.Count.ToString() + " / " + _inventory.Capacity.ToString();
+		// Skills Capacity
+		_skills.Capacity = _playerHUD.SkillsCapacity;
+
+		// Initialize starting skills and set the structure in the HUD
+		int maxP = 100;
+		foreach (Skill skill in _skills)
+		{
+			skill.Initialize(this);
+			//skill.isBaseSkill = true;
+			skill.uiPriority = maxP;
+			maxP -= 10;
+		}
 	}
 
 	private void Update()
 	{
-		// Get Inventory Input
-		if (Input.GetButtonDown("Inventory"))
-		{
-			if (_playerHUD.InventoryUI.activeInHierarchy)
-			{
-				Cursor.visible = false;
-				Cursor.lockState = CursorLockMode.Locked;
-				_playerHUD.InventoryUI.SetActive(false);
-				_playerHUD.InventoryTooltip.gameObject.SetActive(false);
-				_playerHUD.InventoryIcon.color = new Color32(255, 255, 255, 255);
-				EnableCameraMovements();
-			}
-			else
-			{
-				Cursor.visible = true;
-				Cursor.lockState = CursorLockMode.None;
-				_playerHUD.InventoryUI.SetActive(true);
-				_playerHUD.InventoryIcon.color = new Color32(170, 170, 170, 255);
-				DisableCameraMovements();
-			}
-		}
-
 		DetectInteractiveItems();
 
 		// refresh HUD
@@ -120,6 +116,7 @@ public class CharacterManager : MonoBehaviour
 		// Play Sprinting Sounds
 		SprintingSounds();
 	}
+
 
 	private void SprintingSounds()
 	{
@@ -193,10 +190,16 @@ public class CharacterManager : MonoBehaviour
 			return false;
 		}
 
+		if (collectable.powerUp.HasSkill && _skills.Count == _skills.Capacity)
+		{
+			StartCoroutine(_playerHUD.SetEventText("You can't control any more skills for now.", _playerHUD.eventColors[0]));
+			return false;
+		}
+
 		_inventory.Add(collectable);
-		RefreshCollectablesHUD(collectable, true);
 		if (collectable.powerUp != null)
 			collectable.powerUp.ApplyPowerUp(this);
+		RefreshCollectablesHUD(collectable, true);
 
 		// Cache the unique ID
 		collectable._collectorID = _collider.GetInstanceID();
@@ -214,9 +217,9 @@ public class CharacterManager : MonoBehaviour
 			{
 				res = _inventory[i];
 				_inventory.RemoveAt(i);
-				RefreshCollectablesHUD(res, false);
 				if (res.powerUp != null)
 					res.powerUp.RemovePowerUp(this);
+				RefreshCollectablesHUD(res, false);
 				break;
 			}
 		}
@@ -269,6 +272,12 @@ public class CharacterManager : MonoBehaviour
 			yield return new WaitForSeconds(_audioSource.clip.length);
 			_audioSource.clip = null;
 		}
+	}
+
+	// workaround to call a coroutine inside a scriptable object.
+	public void CallCoroutine(IEnumerator c)
+	{
+		StartCoroutine(c);
 	}
 
 	// Block all the player's movement, both controller and camera.

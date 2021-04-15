@@ -69,9 +69,10 @@ public abstract class PuzzleManager : InteractiveItem
 									_solvedSounds.MixerGroupName, _solvedSounds.AudioClip,
 									transform.position, _solvedSounds.Volume, _solvedSounds.SpatialBlend,
 									_solvedSounds.Priority);
-
+		// Next puzzle
 		ActivateNextPuzzle();
 
+		// (de)activate the puzzle
 		if (_puzzleCollectable == null && _deactivateAfterComplete)
 		{
 			_isPuzzleActive = false;
