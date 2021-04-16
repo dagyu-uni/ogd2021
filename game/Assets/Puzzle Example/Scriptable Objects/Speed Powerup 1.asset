@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971f532b18554ab49878569b698e95ff, type: 3}
   m_Name: Speed Powerup 1
   m_EditorClassIdentifier: 
-  _isGlobal: 1
+  _isGlobal: 0
   _unlockedSkill: {fileID: 11400000, guid: 8c9339d32aff24a40ad137747d40c1c2, type: 2}

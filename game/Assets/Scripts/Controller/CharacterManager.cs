@@ -35,6 +35,7 @@ public class CharacterManager : MonoBehaviour
 	private CharacterController _characterController = null;
 	private PlayerMovement _playerMovement = null;
 	private CameraMovement _cameraMovement = null;
+	private Animator _animator = null;
 	private GameManager _gameManager = null;
 	private AudioSource _audioSource = null;    // used for mouth sounds
 	private AudioCollection _previousCollection = null;
@@ -46,6 +47,14 @@ public class CharacterManager : MonoBehaviour
 
 	// Cache all the player current speeds
 	private CurrentSpeeds _currentSpeeds = new CurrentSpeeds();
+
+	// Animator Hashes (for optimized calls)
+	private int _speedXHash = Animator.StringToHash("SpeedX");
+	private int _speedYHash = Animator.StringToHash("SpeedY");
+	private int _crouchingHash = Animator.StringToHash("isCrouching");
+	private int _walkingHash = Animator.StringToHash("isWalking");
+	private int _sprintingHash = Animator.StringToHash("isSprinting");
+	private int _jumpingHash = Animator.StringToHash("isJumping");
 
 	// Properties
 	public PlayerController Controller { get { return _playerController; } }
@@ -62,6 +71,7 @@ public class CharacterManager : MonoBehaviour
 		_characterController = GetComponent<CharacterController>();
 		_playerMovement = GetComponent<PlayerMovement>();
 		_cameraMovement = _camera.GetComponent<CameraMovement>();
+		_animator = GetComponent<Animator>();
 		_audioSource = GetComponent<AudioSource>();
 
 		_interactiveMask = 1 << LayerMask.NameToLayer("Interactive");
@@ -107,6 +117,8 @@ public class CharacterManager : MonoBehaviour
 
 	private void Update()
 	{
+		UpdateAnimator();
+
 		DetectInteractiveItems();
 
 		// refresh HUD
@@ -117,6 +129,15 @@ public class CharacterManager : MonoBehaviour
 		SprintingSounds();
 	}
 
+	private void UpdateAnimator()
+	{
+		_animator.SetFloat(_speedXHash, Input.GetAxis("Horizontal"));
+		_animator.SetFloat(_speedYHash, Input.GetAxis("Vertical"));
+		_animator.SetBool(_crouchingHash, _playerController.status == Status.crouching);
+		_animator.SetBool(_walkingHash, _playerController.status == Status.walking);
+		_animator.SetBool(_sprintingHash, _playerController.status == Status.sprinting);
+		_animator.SetBool(_jumpingHash, _playerController.IsJumping);
+	}
 
 	private void SprintingSounds()
 	{
@@ -190,7 +211,7 @@ public class CharacterManager : MonoBehaviour
 			return false;
 		}
 
-		if (collectable.powerUp.HasSkill && _skills.Count == _skills.Capacity)
+		if (collectable.powerUp != null && collectable.powerUp.HasSkill && _skills.Count == _skills.Capacity)
 		{
 			StartCoroutine(_playerHUD.SetEventText("You can't control any more skills for now.", _playerHUD.eventColors[0]));
 			return false;
@@ -338,4 +359,16 @@ public class CharacterManager : MonoBehaviour
 			sensitivity = sens;
 		}
 	}
+
+	// Set a procedural head movement based on player's main camera orientation
+	// NOTE: remember to have the IK pass activated, otherwise it won't work.
+	private void OnAnimatorIK(int layerIndex)
+	{
+		if (_animator != null)
+		{
+			_animator.SetLookAtWeight(0.4f);
+			_animator.SetLookAtPosition(_camera.transform.position + _camera.transform.forward);
+		}
+	}
+
 }

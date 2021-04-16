@@ -7,7 +7,6 @@ public abstract class Skill : ScriptableObject
 {
 	public string skillName = "New Skill";
 	[SerializeField] private string _fireButton = "";
-	public bool isBaseSkill = false;
 
 	public Sprite sprite;
 	public AudioCollection audioCollection;

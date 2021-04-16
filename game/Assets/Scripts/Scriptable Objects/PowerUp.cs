@@ -4,6 +4,8 @@ using UnityEngine;
 
 // NOTE: this is just a parent class from which inherit specific power-ups script generators
 // use this as generator if you only need to reference a skill and nothing else.
+
+// NOTE 2: the isGlobal property only supports powerups (passive skills) not active skills.
 [CreateAssetMenu(menuName = "Powerup/Skill only")]
 public class PowerUp : ScriptableObject
 {
@@ -45,7 +47,7 @@ public class PowerUp : ScriptableObject
 	// actual methods to override to describe specifics effects of the power-up.
 	protected virtual void PowerUpEffects(CharacterManager charManager)
 	{
-		if (_unlockedSkill != null)
+		if (_unlockedSkill != null && !_isGlobal)
 		{
 			_unlockedSkill.uiPriority = charManager.Inventory[charManager.Inventory.Count - 1].uiPriority;
 			charManager.Skills.Add(_unlockedSkill);
@@ -58,7 +60,7 @@ public class PowerUp : ScriptableObject
 	}
 	protected virtual void RemoveEffects(CharacterManager charManager)
 	{
-		if (_unlockedSkill != null)
+		if (_unlockedSkill != null && !_isGlobal)
 		{
 			for (int i = 0; i < charManager.Skills.Count; i++)
 			{
