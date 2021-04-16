@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
 			_isJumping = false;
 			_jumpCheck = 0.3f;
 		}
-		else if(_isJumping)
+		else if (_isJumping)
 		{
 			_jumpCheck -= Time.deltaTime;
 		}

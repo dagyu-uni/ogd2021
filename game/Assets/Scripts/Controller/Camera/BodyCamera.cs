@@ -21,7 +21,7 @@ public class BodyCamera : MonoBehaviour
 	private Vector3 _movingJump;
 
 	void Start()
-    {
+	{
 		_idlePos = new Vector3(0f, 0.5f, 0.15f);
 		_walkingPos = new Vector3(0f, 0.5f, 0.3f);
 		_runningPos = new Vector3(0f, 0.67f, 0.42f);
@@ -31,8 +31,8 @@ public class BodyCamera : MonoBehaviour
 		_movingJump = new Vector3(0f, 0.4f, 0.3f);
 	}
 
-    void Update()
-    {
+	void Update()
+	{
 		// walking
 		if (_playerController.status == Status.walking && !_playerController.IsJumping)
 		{
@@ -71,6 +71,6 @@ public class BodyCamera : MonoBehaviour
 		else
 		{
 			transform.localPosition = Vector3.Lerp(transform.localPosition, _idlePos, Time.deltaTime * lerpSpeed);
-		}		
+		}
 	}
 }
