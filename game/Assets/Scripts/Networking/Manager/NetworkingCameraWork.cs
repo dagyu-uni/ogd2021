@@ -15,7 +15,7 @@ namespace Photon.Pun.Demo.PunBasics
 	/// <summary>
 	///     Camera work. Follow a target
 	/// </summary>
-	public class CameraWork : MonoBehaviour
+	public class NetworkingCameraWork : MonoBehaviour
 	{
 		#region Public Methods
 

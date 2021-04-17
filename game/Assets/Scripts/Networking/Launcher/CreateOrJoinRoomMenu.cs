@@ -47,15 +47,9 @@ namespace Photon.Pun.Demo.PunBasics
 
 		public void JoinRoom()
 		{
-			if (playerName == null || playerName.Equals(""))
+			if (playerName == null || playerName.Equals("") || roomName == null || roomName.Equals(""))
 			{
-				playerStatusLabel.text = "Username cannot be empty";
-				return;
-			}
-
-			if (roomName == null || roomName.Equals(""))
-			{
-				playerStatusLabel.text = "Room Name cannot be empty";
+				playerStatusLabel.text = "Username and room name cannot be empty";
 				return;
 			}
 
@@ -77,16 +71,16 @@ namespace Photon.Pun.Demo.PunBasics
 			_networkingCanvasManager.CreateOrJoinRoomCanvas.Hide();
 		}
 
-		public override void OnJoinRoomFailed(short returnCode, string message)
-		{
-			base.OnJoinRoomFailed(returnCode, message);
-			playerStatusLabel.text = "Photon: " + message;
-		}
-
 		public override void OnJoinedRoom()
 		{
 			_networkingCanvasManager.CurrentRoomCanvas.Show();
 			_networkingCanvasManager.CreateOrJoinRoomCanvas.Hide();
+		}
+
+		public override void OnJoinRoomFailed(short returnCode, string message)
+		{
+			base.OnJoinRoomFailed(returnCode, message);
+			playerStatusLabel.text = "Photon: " + message;
 		}
 	}
 }

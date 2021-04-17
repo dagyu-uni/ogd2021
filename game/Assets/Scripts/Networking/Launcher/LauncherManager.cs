@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Photon.Pun.Demo.PunBasics
 {
-	public class Launcher : MonoBehaviourPunCallbacks
+	public class LauncherManager : MonoBehaviourPunCallbacks
 	{
 		[SerializeField] private GameObject menuManager;
 		[SerializeField] private byte maxPlayersPerRoom = 3;
@@ -23,11 +23,10 @@ namespace Photon.Pun.Demo.PunBasics
 			PhotonNetwork.AutomaticallySyncScene = true;
 		}
 
-		// Start Method
 		private void Start()
 		{
 			PlayerPrefs.DeleteAll();
-			connectionStatusLabel.text = "Connecting to Photon!";
+			connectionStatusLabel.text = "Connecting to Photon...";
 
 			if (!PhotonNetwork.IsConnected)
 				ConnectToPhoton();
@@ -38,20 +37,12 @@ namespace Photon.Pun.Demo.PunBasics
 			}
 		}
 
-		// Tutorial Methods
 		private void ConnectToPhoton()
 		{
 			PhotonNetwork.GameVersion = gameVersion;
 			PhotonNetwork.ConnectUsingSettings();
 		}
 
-		//Onclick LoadRoomButton
-		public void LoadRoom()
-		{
-			PhotonNetwork.LoadLevel("Prototype"); //Start level for both players
-		}
-
-		// Photon Methods
 		public override void OnConnected()
 		{
 			base.OnConnected();
@@ -65,6 +56,12 @@ namespace Photon.Pun.Demo.PunBasics
 			menuManager.SetActive(true);
 			connectionStatusLabel.text = "Disconnected. Please check your Internet connection.";
 			connectionStatusLabel.color = Color.Lerp(Color.red, Color.white, 0.5f);
+		}
+
+		public override void OnConnectedToMaster()
+		{
+			if (!PhotonNetwork.InLobby)
+				PhotonNetwork.JoinLobby();
 		}
 
 		public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -89,15 +86,9 @@ namespace Photon.Pun.Demo.PunBasics
 			leaveRoomButton.SetActive(true);
 		}
 
-		public override void OnConnectedToMaster()
+		IEnumerator PopUpMessage(string message)
 		{
-			if (!PhotonNetwork.InLobby)
-				PhotonNetwork.JoinLobby();
-		}
-
-		IEnumerator PopUpMessage(string Message)
-		{
-			popUpMessageLabel.text = Message;
+			popUpMessageLabel.text = message;
 			popUpMessageLabel.enabled = true;
 			yield return new WaitForSeconds(3f);
 			popUpMessageLabel.enabled = false;
