@@ -57,6 +57,7 @@ public class CharacterManager : MonoBehaviour
 	private int _walkingHash = Animator.StringToHash("isWalking");
 	private int _sprintingHash = Animator.StringToHash("isSprinting");
 	private int _jumpingHash = Animator.StringToHash("isJumping");
+	private int _fellHash = Animator.StringToHash("hasFell");
 
 	// Properties
 	public PlayerController Controller { get { return _playerController; } }
@@ -139,9 +140,9 @@ public class CharacterManager : MonoBehaviour
 		_animator.SetBool(_walkingHash, _playerController.status == Status.walking);
 		_animator.SetBool(_sprintingHash, _playerController.status == Status.sprinting);
 		_animator.SetBool(_jumpingHash, _playerController.IsJumping);
-		if (_playerController.IsLanding && _previousNotLanding)
+		if (_playerController.HasFell && _previousNotLanding)
 		{
-			_animator.SetTrigger("isLanding");
+			_animator.SetTrigger(_fellHash);
 			_previousNotLanding = false;
 			StartCoroutine(CanLandAgain());
 		}

@@ -5787,6 +5787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 7741838355604131783}
+  _bodyCameraMovement: {fileID: 7042985201789371699}
   _playerHUD: {fileID: 4416246692416642448}
   _interactiveRayLength: 1.2
   _sprintingSounds: {fileID: 11400000, guid: 8f65ae3dd55f53c42b862555fc12a4e1, type: 2}
