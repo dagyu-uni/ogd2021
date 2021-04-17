@@ -51,7 +51,7 @@ namespace Photon.Pun.Demo.PunBasics
 					playerStatusLabel.text = "Connected to lobby.\nWait for the leader to start the game.";
 				else
 					playerStatusLabel.text = "Connected to lobby.\nWait for other players to join.";
-			}	
+			}
 		}
 	}
 }

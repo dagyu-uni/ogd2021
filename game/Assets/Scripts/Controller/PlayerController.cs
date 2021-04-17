@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
 	// Public
 	[HideInInspector] public Status status;
 	public LayerMask collisionLayer; //Default
-	public float crouchHeight = 1f;
 	public ControllerInfo info;
 
 	// when players have an interface open some behaviors should change
@@ -46,17 +45,24 @@ public class PlayerController : MonoBehaviour
 	private bool _forceStaminaReserve = false;
 	private float _crouchCamAdjust;
 	private float _uncrouchingFactor = 0f;
+	private float crouchHeight = 0f;
 	private float _stamina;
 
 	// used to know when landing
 	private bool _previouslyGrounded = true;
 	private float _timeInAir = 0f;
+	private bool _isJumping = false;
+	private float _jumpCheck = 0.3f;
+	private bool _canJumpAgain = true;
+	private bool _hasFell = false;
 
 	private List<MovementType> _movements = new List<MovementType>();
 
 	// Properties
 	public float MaxStamina { get { return _maxStamina; } }
 	public float Stamina { get { return _stamina; } }
+	public bool IsJumping { get { return _isJumping; } }
+	public bool HasFell { get { return _hasFell; } }
 
 	public void ChangeStatus(Status s)
 	{
@@ -90,6 +96,7 @@ public class PlayerController : MonoBehaviour
 			animateCamLevel = GetComponentInChildren<AnimateCameraLevel>();
 
 		info = new ControllerInfo(_movement.controller.radius, _movement.controller.height);
+		crouchHeight = info.height * 0.5f;
 		_crouchCamAdjust = (crouchHeight - info.height) * 0.5f;
 		_stamina = _maxStamina;
 		_firstStaminaThreshold = _maxStamina * 0.5f;
@@ -126,6 +133,17 @@ public class PlayerController : MonoBehaviour
 		{
 			_previouslyGrounded = true;
 			_timeInAir = 0f;
+		}
+
+		// this is a dirty way to be sure that you are really jumping
+		if (_isJumping && _movement.grounded && _jumpCheck <= 0f)
+		{
+			_isJumping = false;
+			_jumpCheck = 0.3f;
+		}
+		else if (_isJumping)
+		{
+			_jumpCheck -= Time.deltaTime;
 		}
 	}
 
@@ -221,8 +239,21 @@ public class PlayerController : MonoBehaviour
 			_timeInAir > _movement.controller.stepOffset * 0.3f &&
 			status != Status.crouching)
 		{
+			if (!_isJumping)
+				_hasFell = true;
+			StartCoroutine(WaitToJumpAgain());
 			PlayFootStepSound(true);
 		}
+		else
+			_hasFell = false;
+	}
+
+	// you don't want to be able to immediatly jump after a landing, otherwise
+	// the animator won't follow properly the movement.
+	private IEnumerator WaitToJumpAgain()
+	{
+		yield return new WaitForSeconds(0.1f);
+		_canJumpAgain = true;
 	}
 
 	private void DefaultMovement()
@@ -239,12 +270,18 @@ public class PlayerController : MonoBehaviour
 					return;
 			}
 
+			if (!_canJumpAgain)
+				return;
+
 			_movement.Jump(Vector3.up, 1f);
 			playerInput.ResetJump();
 
 			// Play jump start sound
 			if (!_hasInterfaceOpen)
 				PlayFootStepSound(false);
+
+			_isJumping = true;
+			_canJumpAgain = false;
 		}
 	}
 

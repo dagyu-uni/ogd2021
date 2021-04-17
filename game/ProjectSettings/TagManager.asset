@@ -5,7 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wizard
+  - King
   - InventoryUI
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -15,10 +17,10 @@ TagManager:
   - UI
   - Interactive
   - Player
-  - 
-  - 
-  - 
-  - 
+  - Wizard
+  - King
+  - WizardBody
+  - KingBody
   - 
   - 
   - 

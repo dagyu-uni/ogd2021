@@ -25,6 +25,13 @@ public class InventorySlot
 	}
 }
 
+[System.Serializable]
+public class SkillSlot
+{
+	public Image icon;
+	public Image mask;
+}
+
 public class PlayerHUD : MonoBehaviour
 {
 	[SerializeField] private Slider _staminaSlider = null;
@@ -35,6 +42,12 @@ public class PlayerHUD : MonoBehaviour
 	[SerializeField] private Text _missionText = null;
 	[SerializeField] private float _missionTextDisplayTime = 3.0f;
 
+	// Pause Menu
+	[Header("Pause Menu")]
+	[SerializeField] private GameObject _pauseInterface = null;
+	[SerializeField] private Button _resumeButton = null;
+	[SerializeField] private Button _quitButton = null;
+
 	// Inventory system for items interface elements
 	[Header("Inventory")]
 	[SerializeField] private GameObject _inventoryUI = null;
@@ -43,17 +56,23 @@ public class PlayerHUD : MonoBehaviour
 	[SerializeField] private Image _inventoryTooltip = null;
 	[SerializeField] private Text _capacityText = null;
 
-	//TODO skills
+	// Skills
+	[Header("Skills")]
+	[SerializeField] private List<SkillSlot> _skillSlots = new List<SkillSlot>();
+	// if you still don't have that skill, show an empty icon
+	[SerializeField] private Sprite _emptyIcon = null;
 
 	// Internals
+	private CharacterManager _charManager = null;
 	private float _currentFadeLevel = 1.0f;
 	private IEnumerator _coroutine = null;
 
 	// Properties
+	public CharacterManager CharManager { set { _charManager = value; } }
+	public int SkillsCapacity { get { return _skillSlots.Count; } }
+	public int InventoryCapacity { get { return _inventorySlots.Count; } }
 	public string CapacityText { set { _capacityText.text = value; } }
-	public GameObject InventoryUI { get { return _inventoryUI; } }
-	public Image InventoryIcon { get { return _inventoryIcon; } }
-	public Image InventoryTooltip { get { return _inventoryTooltip; } }
+
 
 	void Start()
 	{
@@ -69,8 +88,147 @@ public class PlayerHUD : MonoBehaviour
 		if (_missionText)
 			Invoke("HideMissionText", _missionTextDisplayTime);
 
+		// Initialize Pause Menu
+		InitializePauseMenu();
+
+		// Initialize skills slots
+		InitiliazeSkillSlots();
+
 		// Initialize inventory slots
 		InitializeInventorySlots();
+	}
+
+	private void Update()
+	{
+		// Pause Menu
+		HandlePauseMenu();
+
+		// Skills (inputs, cooldowns etc.)
+		HandleSkills();
+
+		// Inventory
+		HandleInventoryInput();
+	}
+
+	// Set buttons listeners
+	private void InitializePauseMenu()
+	{
+		_resumeButton.onClick.AddListener(() => Resume());
+		_quitButton.onClick.AddListener(() => Quit());
+	}
+
+	private void HandlePauseMenu()
+	{
+		if (Input.GetButtonDown("Cancel"))
+		{
+			if (_pauseInterface.activeInHierarchy)
+			{
+				Resume();
+			}
+			else
+			{
+				_charManager.DisableControllerMovements();
+				_charManager.DisableCameraMovements();
+				_pauseInterface.SetActive(true);
+				Cursor.lockState = CursorLockMode.None;
+				Cursor.visible = true;
+			}
+		}
+	}
+
+	public void InitiliazeSkillSlots()
+	{
+		for (int i = 0; i < _charManager.Skills.Count; i++)
+		{
+			InitSkillMask(_skillSlots[i], _charManager.Skills[i]);
+
+			_skillSlots[i].icon.sprite = _charManager.Skills[i].sprite;
+
+			if (_charManager.Skills[i].currentDuration == 0f)
+				_skillSlots[i].icon.color = Color.white;
+			else
+				_skillSlots[i].icon.color = new Color(0.33f, 0.33f, 0.33f, 1f);
+		}
+		// set the empty slots to a default state
+		for (int i = _charManager.Skills.Count; i < _skillSlots.Count; i++)
+		{
+			_skillSlots[i].icon.color = new Color(0.33f, 0.33f, 0.33f, 1f);
+			_skillSlots[i].icon.sprite = _emptyIcon;
+			_skillSlots[i].mask.fillAmount = 0f;
+		}
+	}
+
+	// If the skill has no durable effects it only starts a cooldown
+	// otherwise it starts a duration timer and AFTER that the cooldown one.
+	private void HandleSkills()
+	{
+		//foreach (Skill skill in _charManager.Skills)
+		for (int i = 0; i < _charManager.Skills.Count; i++)
+		{
+			Skill skill = _charManager.Skills[i];
+			// Cooldown
+			if (skill.currentCooldown > 0f)
+			{
+				skill.currentCooldown = Mathf.Max(0.0f, skill.currentCooldown - Time.deltaTime);
+			}
+
+			// Duration
+			if (skill.currentDuration > 0f)
+			{
+				skill.currentDuration = Mathf.Max(0.0f, skill.currentDuration - Time.deltaTime);
+
+				if (skill.currentDuration == 0f)
+				{
+					skill.currentCooldown = skill.baseCooldown;
+					_skillSlots[i].icon.color = Color.white;
+				}
+
+			}
+
+			// Input
+			if (Input.GetButtonDown(skill.FireButton) && skill.currentCooldown == 0f && skill.currentDuration == 0f)
+			{
+				skill.TriggerSkill();
+
+				if (skill.isOneShotSkill)
+				{
+					skill.currentCooldown = skill.baseCooldown;
+				}
+				else // has a duration
+				{
+					skill.currentDuration = skill.baseDuration;
+					_skillSlots[i].icon.color = new Color(0.33f, 0.33f, 0.33f, 1f);
+				}
+			}
+
+			InitSkillMask(_skillSlots[i], skill);
+		}
+	}
+
+	private void InitSkillMask(SkillSlot skillSlot, Skill skill)
+	{
+		Image mask = skillSlot.mask;
+
+		// HUD cooldown feedback
+		if (skill.currentCooldown != 0f)
+		{
+			mask.fillMethod = Image.FillMethod.Radial360;
+			mask.fillOrigin = 2;
+			mask.color = new Color(0.18f, 0.18f, 0.18f, 0.75f); // dark grey
+			mask.fillAmount = skill.currentCooldown / skill.baseCooldown;
+		}
+		// HUD duration feedback
+		else if (skill.currentDuration != 0f)
+		{
+			mask.fillMethod = Image.FillMethod.Vertical;
+			mask.fillOrigin = 0;
+			mask.color = new Color(0f, 1f, 0f, 0.45f); // light green
+			mask.fillAmount = skill.currentDuration / skill.baseDuration;
+		}
+		else // both equal to 0
+		{
+			mask.fillAmount = 0f;
+		}
 	}
 
 	// Initialize slot UI elements (throw button, tooltip)
@@ -91,21 +249,28 @@ public class PlayerHUD : MonoBehaviour
 		}
 	}
 
-	private void ThrowCollectable(Collectable collectable)
+	private void HandleInventoryInput()
 	{
-		if (collectable == null)
-			return;
-
-		// Set the gameobject transform properly
-		GameObject obj = collectable.gameObject;
-		PlayerInfo info = GameManager.Instance.GetPlayerInfo(collectable._collectorID);
-		Transform cameraTransform = info.characterManager.Camera.transform;
-		obj.transform.position = cameraTransform.position + cameraTransform.forward * 1.5f;
-		obj.transform.rotation = Quaternion.identity;
-		obj.SetActive(true);
-		collectable.rb.velocity = cameraTransform.forward * 1.5f;
-
-		info.characterManager.SubtractCollectable(collectable.name);
+		if (Input.GetButtonDown("Inventory"))
+		{
+			if (_inventoryUI.activeInHierarchy)
+			{
+				Cursor.visible = false;
+				Cursor.lockState = CursorLockMode.Locked;
+				_inventoryUI.SetActive(false);
+				_inventoryTooltip.gameObject.SetActive(false);
+				_inventoryIcon.color = new Color32(255, 255, 255, 255);
+				_charManager.EnableCameraMovements();
+			}
+			else
+			{
+				Cursor.visible = true;
+				Cursor.lockState = CursorLockMode.None;
+				_inventoryUI.SetActive(true);
+				_inventoryIcon.color = new Color32(170, 170, 170, 255);
+				_charManager.DisableCameraMovements();
+			}
+		}
 	}
 
 	// Refreshes the values of the UI
@@ -125,6 +290,7 @@ public class PlayerHUD : MonoBehaviour
 		{
 			_inventorySlots[i].collectable = inventory[i];
 			_inventorySlots[i].icon.sprite = inventory[i].icon;
+			_inventorySlots[i].icon.color = Color.white;
 			string tooltip = inventory[i].tooltipString + "\nClick To Drop";
 			_inventorySlots[i].TooltipTrigger.tooltipString = tooltip;
 		}
@@ -133,6 +299,7 @@ public class PlayerHUD : MonoBehaviour
 		{
 			_inventorySlots[i].collectable = null;
 			_inventorySlots[i].icon.sprite = null;
+			_inventorySlots[i].icon.color = new Color32(142, 142, 142, 255);
 			_inventorySlots[i].TooltipTrigger.tooltipString = "";
 		}
 
@@ -234,4 +401,39 @@ public class PlayerHUD : MonoBehaviour
 		if (_missionText)
 			_missionText.gameObject.SetActive(false);
 	}
+
+
+	//****************** BUTTONS METHODS ******************
+	private void ThrowCollectable(Collectable collectable)
+	{
+		if (collectable == null)
+			return;
+
+		// Set the gameobject transform properly
+		GameObject obj = collectable.gameObject;
+		PlayerInfo info = GameManager.Instance.GetPlayerInfo(collectable._collectorID);
+		Transform cameraTransform = info.characterManager.Camera.transform;
+		obj.transform.position = cameraTransform.position + cameraTransform.forward * 1.5f;
+		obj.transform.rotation = Quaternion.identity;
+		obj.SetActive(true);
+		collectable.rb.velocity = cameraTransform.forward * 1.5f;
+
+		info.characterManager.SubtractCollectable(collectable.name);
+	}
+
+	private void Resume()
+	{
+		_charManager.EnableControllerMovements();
+		_charManager.EnableCameraMovements();
+		_pauseInterface.SetActive(false);
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
+	}
+
+	private void Quit()
+	{
+		Application.Quit();
+	}
+
+	//******************
 }

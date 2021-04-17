@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2315696fcb5d40629f9bceb87acbd77, type: 3}
+  m_Name: collectable sounds
+  m_EditorClassIdentifier: 
+  _mixerGroupName: Scene
+  _volume: 1
+  _spatialBlend: 1
+  _priority: 128
+  _clipBanks:
+  - description: Success Sounds
+    clips:
+    - {fileID: 8300000, guid: bc3cde0a53c0a4655a01bed1c208ab70, type: 3}
+    - {fileID: 8300000, guid: b7b187e0ddde74484bf6327a3aea254f, type: 3}
+    - {fileID: 8300000, guid: c14078a89102c4a8ea7669bf6710d3fa, type: 3}
+    - {fileID: 8300000, guid: 3785d8ac40117479db29c77ba5e9e35c, type: 3}
+    - {fileID: 8300000, guid: 53eb625c12993420581dd4f7a92c5f88, type: 3}
+    - {fileID: 8300000, guid: 0e8af21029ca84f6995b560fceb26c24, type: 3}
+    - {fileID: 8300000, guid: ff8b6116e7a154fe68be9a9a96feb52d, type: 3}
+    - {fileID: 8300000, guid: 6aad2e17e4da64711b8dba3cbffbd2d9, type: 3}
+    - {fileID: 8300000, guid: be10ca1bcb20d4eccb1c965c5659fced, type: 3}
+    - {fileID: 8300000, guid: 0a9adfe2d05564b099ef8b5079f19a70, type: 3}
+  - description: Fail Sounds
+    clips:
+    - {fileID: 8300000, guid: b40773553864749bd93d334a5632efaf, type: 3}
+    - {fileID: 8300000, guid: 093642190a0784da2a758f0437756476, type: 3}
+    - {fileID: 8300000, guid: 036e33a422d874c8b9b9ea4b316fa632, type: 3}
+    - {fileID: 8300000, guid: 7a30c0fbd672a44b78fef1d9d1223e1b, type: 3}
+    - {fileID: 8300000, guid: 966831b3116c1438b95b34dc882654ed, type: 3}

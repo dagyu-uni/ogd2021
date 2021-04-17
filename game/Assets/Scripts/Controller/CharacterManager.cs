@@ -23,10 +23,12 @@ public class CharacterManager : MonoBehaviour
 {
 	// Ispector Assigned
 	[SerializeField] private Camera _camera = null;
+	[SerializeField] private CameraMovement _bodyCameraMovement = null;
 	[SerializeField] private PlayerHUD _playerHUD = null;
 	[SerializeField] private float _interactiveRayLength = 1.0f;
 	[SerializeField] private AudioCollection _sprintingSounds = null;
-	[SerializeField] private int _inventoryCapacity = 0;
+	// list of current skills owned by the player
+	[SerializeField] private List<Skill> _skills = new List<Skill>();
 
 	// Private
 	private Collider _collider = null;
@@ -34,11 +36,13 @@ public class CharacterManager : MonoBehaviour
 	private CharacterController _characterController = null;
 	private PlayerMovement _playerMovement = null;
 	private CameraMovement _cameraMovement = null;
+	private Animator _animator = null;
 	private GameManager _gameManager = null;
 	private AudioSource _audioSource = null;    // used for mouth sounds
 	private AudioCollection _previousCollection = null;
 	private int _previousClipPriority = 0;
 	private int _interactiveMask = 0;
+	private bool _previousNotLanding = true;
 
 	// used to store which and how many objects the player has picked up
 	private List<Collectable> _inventory = new List<Collectable>();
@@ -46,10 +50,22 @@ public class CharacterManager : MonoBehaviour
 	// Cache all the player current speeds
 	private CurrentSpeeds _currentSpeeds = new CurrentSpeeds();
 
+	// Animator Hashes (for optimized calls)
+	private int _speedXHash = Animator.StringToHash("SpeedX");
+	private int _speedYHash = Animator.StringToHash("SpeedY");
+	private int _crouchingHash = Animator.StringToHash("isCrouching");
+	private int _walkingHash = Animator.StringToHash("isWalking");
+	private int _sprintingHash = Animator.StringToHash("isSprinting");
+	private int _jumpingHash = Animator.StringToHash("isJumping");
+	private int _fellHash = Animator.StringToHash("hasFell");
+
 	// Properties
 	public PlayerController Controller { get { return _playerController; } }
 	public PlayerMovement Movement { get { return _playerMovement; } }
+	public PlayerHUD PlayerHUD { get { return _playerHUD; } }
 	public Camera Camera { get { return _camera; } }
+	public List<Collectable> Inventory { get { return _inventory; } }
+	public List<Skill> Skills { get { return _skills; } }
 
 	private void Awake()
 	{
@@ -58,9 +74,12 @@ public class CharacterManager : MonoBehaviour
 		_characterController = GetComponent<CharacterController>();
 		_playerMovement = GetComponent<PlayerMovement>();
 		_cameraMovement = _camera.GetComponent<CameraMovement>();
+		_animator = GetComponent<Animator>();
 		_audioSource = GetComponent<AudioSource>();
 
 		_interactiveMask = 1 << LayerMask.NameToLayer("Interactive");
+
+		_playerHUD.CharManager = this;
 	}
 
 	private void Start()
@@ -82,34 +101,26 @@ public class CharacterManager : MonoBehaviour
 		if (_playerHUD)
 			_playerHUD.Fade(2.0f, ScreenFadeType.FadeIn);
 
-		// Set inventory capacity
-		_inventory.Capacity = _inventoryCapacity;
-		_playerHUD.CapacityText = _inventory.Count.ToString() + " / " + _inventoryCapacity.ToString();
+		// Inventory Capacity
+		_inventory.Capacity = _playerHUD.InventoryCapacity;
+		_playerHUD.CapacityText = _inventory.Count.ToString() + " / " + _inventory.Capacity.ToString();
+		// Skills Capacity
+		_skills.Capacity = _playerHUD.SkillsCapacity;
+
+		// Initialize starting skills and set the structure in the HUD
+		int maxP = 100;
+		foreach (Skill skill in _skills)
+		{
+			skill.Initialize(this);
+			//skill.isBaseSkill = true;
+			skill.uiPriority = maxP;
+			maxP -= 10;
+		}
 	}
 
 	private void Update()
 	{
-		// Get Inventory Input
-		if (Input.GetButtonDown("Inventory"))
-		{
-			if (_playerHUD.InventoryUI.activeInHierarchy)
-			{
-				Cursor.visible = false;
-				Cursor.lockState = CursorLockMode.Locked;
-				_playerHUD.InventoryUI.SetActive(false);
-				_playerHUD.InventoryTooltip.gameObject.SetActive(false);
-				_playerHUD.InventoryIcon.color = new Color32(255, 255, 255, 255);
-				EnableCameraMovements();
-			}
-			else
-			{
-				Cursor.visible = true;
-				Cursor.lockState = CursorLockMode.None;
-				_playerHUD.InventoryUI.SetActive(true);
-				_playerHUD.InventoryIcon.color = new Color32(170, 170, 170, 255);
-				DisableCameraMovements();
-			}
-		}
+		UpdateAnimator();
 
 		DetectInteractiveItems();
 
@@ -119,6 +130,28 @@ public class CharacterManager : MonoBehaviour
 
 		// Play Sprinting Sounds
 		SprintingSounds();
+	}
+
+	private void UpdateAnimator()
+	{
+		_animator.SetFloat(_speedXHash, Input.GetAxis("Horizontal"));
+		_animator.SetFloat(_speedYHash, Input.GetAxis("Vertical"));
+		_animator.SetBool(_crouchingHash, _playerController.status == Status.crouching);
+		_animator.SetBool(_walkingHash, _playerController.status == Status.walking);
+		_animator.SetBool(_sprintingHash, _playerController.status == Status.sprinting);
+		_animator.SetBool(_jumpingHash, _playerController.IsJumping);
+		if (_playerController.HasFell && _previousNotLanding)
+		{
+			_animator.SetTrigger(_fellHash);
+			_previousNotLanding = false;
+			StartCoroutine(CanLandAgain());
+		}
+	}
+
+	private IEnumerator CanLandAgain()
+	{
+		yield return new WaitForSeconds(0.1f);
+		_previousNotLanding = true;
 	}
 
 	private void SprintingSounds()
@@ -193,10 +226,16 @@ public class CharacterManager : MonoBehaviour
 			return false;
 		}
 
+		if (collectable.powerUp != null && collectable.powerUp.HasSkill && _skills.Count == _skills.Capacity)
+		{
+			StartCoroutine(_playerHUD.SetEventText("You can't control any more skills for now.", _playerHUD.eventColors[0]));
+			return false;
+		}
+
 		_inventory.Add(collectable);
-		RefreshCollectablesHUD(collectable, true);
 		if (collectable.powerUp != null)
 			collectable.powerUp.ApplyPowerUp(this);
+		RefreshCollectablesHUD(collectable, true);
 
 		// Cache the unique ID
 		collectable._collectorID = _collider.GetInstanceID();
@@ -214,9 +253,9 @@ public class CharacterManager : MonoBehaviour
 			{
 				res = _inventory[i];
 				_inventory.RemoveAt(i);
-				RefreshCollectablesHUD(res, false);
 				if (res.powerUp != null)
 					res.powerUp.RemovePowerUp(this);
+				RefreshCollectablesHUD(res, false);
 				break;
 			}
 		}
@@ -271,6 +310,12 @@ public class CharacterManager : MonoBehaviour
 		}
 	}
 
+	// workaround to call a coroutine inside a scriptable object.
+	public void CallCoroutine(IEnumerator c)
+	{
+		StartCoroutine(c);
+	}
+
 	// Block all the player's movement, both controller and camera.
 	public void DisableControllerMovements()
 	{
@@ -301,11 +346,13 @@ public class CharacterManager : MonoBehaviour
 	{
 		_currentSpeeds.SetCameraSensitivity(_cameraMovement.Sensitivity);
 		_cameraMovement.Sensitivity = Vector2.zero;
+		_bodyCameraMovement.Sensitivity = Vector2.zero;
 	}
 
 	public void EnableCameraMovements()
 	{
 		_cameraMovement.Sensitivity = _currentSpeeds.sensitivity;
+		_bodyCameraMovement.Sensitivity = _currentSpeeds.sensitivity;
 	}
 
 	private class CurrentSpeeds
@@ -324,9 +371,21 @@ public class CharacterManager : MonoBehaviour
 			jumpSpeed = jump;
 		}
 
-		public void SetCameraSensitivity(Vector2 sens)
+		public void SetCameraSensitivity(Vector2 mainSens)
 		{
-			sensitivity = sens;
+			sensitivity = mainSens;
 		}
 	}
+
+	// Set a procedural head movement based on player's main camera orientation
+	// NOTE: remember to have the IK pass activated, otherwise it won't work.
+	private void OnAnimatorIK(int layerIndex)
+	{
+		if (_animator != null)
+		{
+			_animator.SetLookAtWeight(0.4f);
+			_animator.SetLookAtPosition(_camera.transform.position + _camera.transform.forward);
+		}
+	}
+
 }
