@@ -23,6 +23,7 @@ public class CharacterManager : MonoBehaviour
 {
 	// Ispector Assigned
 	[SerializeField] private Camera _camera = null;
+	[SerializeField] private CameraMovement _bodyCameraMovement = null;
 	[SerializeField] private PlayerHUD _playerHUD = null;
 	[SerializeField] private float _interactiveRayLength = 1.0f;
 	[SerializeField] private AudioCollection _sprintingSounds = null;
@@ -41,6 +42,7 @@ public class CharacterManager : MonoBehaviour
 	private AudioCollection _previousCollection = null;
 	private int _previousClipPriority = 0;
 	private int _interactiveMask = 0;
+	private bool _previousNotLanding = true;
 
 	// used to store which and how many objects the player has picked up
 	private List<Collectable> _inventory = new List<Collectable>();
@@ -137,6 +139,18 @@ public class CharacterManager : MonoBehaviour
 		_animator.SetBool(_walkingHash, _playerController.status == Status.walking);
 		_animator.SetBool(_sprintingHash, _playerController.status == Status.sprinting);
 		_animator.SetBool(_jumpingHash, _playerController.IsJumping);
+		if (_playerController.IsLanding && _previousNotLanding)
+		{
+			_animator.SetTrigger("isLanding");
+			_previousNotLanding = false;
+			StartCoroutine(CanLandAgain());
+		}
+	}
+
+	private IEnumerator CanLandAgain()
+	{
+		yield return new WaitForSeconds(0.1f);
+		_previousNotLanding = true;
 	}
 
 	private void SprintingSounds()
@@ -331,11 +345,13 @@ public class CharacterManager : MonoBehaviour
 	{
 		_currentSpeeds.SetCameraSensitivity(_cameraMovement.Sensitivity);
 		_cameraMovement.Sensitivity = Vector2.zero;
+		_bodyCameraMovement.Sensitivity = Vector2.zero;
 	}
 
 	public void EnableCameraMovements()
 	{
 		_cameraMovement.Sensitivity = _currentSpeeds.sensitivity;
+		_bodyCameraMovement.Sensitivity = _currentSpeeds.sensitivity;
 	}
 
 	private class CurrentSpeeds
@@ -354,9 +370,9 @@ public class CharacterManager : MonoBehaviour
 			jumpSpeed = jump;
 		}
 
-		public void SetCameraSensitivity(Vector2 sens)
+		public void SetCameraSensitivity(Vector2 mainSens)
 		{
-			sensitivity = sens;
+			sensitivity = mainSens;
 		}
 	}
 

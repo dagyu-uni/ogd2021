@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
 	private bool _isJumping = false;
 	private float _jumpCheck = 0.3f;
 	private bool _canJumpAgain = true;
+	private bool _isLanding = false;
 
 	private List<MovementType> _movements = new List<MovementType>();
 
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
 	public float MaxStamina { get { return _maxStamina; } }
 	public float Stamina { get { return _stamina; } }
 	public bool IsJumping { get { return _isJumping; } }
+	public bool IsLanding { get { return _isLanding; } }
 
 	public void ChangeStatus(Status s)
 	{
@@ -237,9 +239,13 @@ public class PlayerController : MonoBehaviour
 			_timeInAir > _movement.controller.stepOffset * 0.3f &&
 			status != Status.crouching)
 		{
+			if (!_isJumping)
+				_isLanding = true;
 			StartCoroutine(WaitToJumpAgain());
 			PlayFootStepSound(true);
 		}
+		else
+			_isLanding = false;
 	}
 
 	// you don't want to be able to immediatly jump after a landing, otherwise

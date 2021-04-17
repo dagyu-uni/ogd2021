@@ -19,6 +19,9 @@ public class BodyCamera : MonoBehaviour
 	private Vector3 _movingCrouchPos;
 	private Vector3 _idleJump;
 	private Vector3 _movingJump;
+	private Vector3 _idleFall;
+
+	private Coroutine _coroutine = null;
 
 	void Start()
     {
@@ -29,10 +32,19 @@ public class BodyCamera : MonoBehaviour
 		_movingCrouchPos = new Vector3(0f, 1.1f, 0.5f);
 		_idleJump = new Vector3(0f, 0.0f, 0.38f);
 		_movingJump = new Vector3(0f, 0.4f, 0.3f);
+		_idleFall = new Vector3(0f, -0.3f, 0.7f);
 	}
 
     void Update()
     {
+		if (_coroutine != null) return;
+
+		// Landing after fall (not after jumping)
+		if (_playerController.IsLanding)
+		{
+			transform.localPosition = Vector3.Lerp(transform.localPosition, _idleFall, Time.deltaTime * lerpSpeed * 100f);
+			_coroutine = StartCoroutine(WaitFallingAnimation());
+		}
 		// walking
 		if (_playerController.status == Status.walking && !_playerController.IsJumping)
 		{
@@ -72,5 +84,11 @@ public class BodyCamera : MonoBehaviour
 		{
 			transform.localPosition = Vector3.Lerp(transform.localPosition, _idlePos, Time.deltaTime * lerpSpeed);
 		}		
+	}
+
+	private IEnumerator WaitFallingAnimation()
+	{
+		yield return new WaitForSeconds(0.2f);
+		_coroutine = null;
 	}
 }
