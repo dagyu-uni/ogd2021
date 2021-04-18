@@ -22,30 +22,13 @@ namespace Photon.Pun.Demo.PunBasics
 	/// </summary>
 	public class NetworkingPlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 	{
-		#region Public Fields
-
-		[Tooltip("The current Health of our player")]
-		public float Health = 1f;
-
-		[Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
 		public static GameObject LocalPlayerInstance;
 
-		#endregion
+		[SerializeField] private GameObject _camera;
 
-		#region Private Fields
-
-		[Tooltip("The Player's UI GameObject Prefab")]
-		[SerializeField]
-		private GameObject playerUiPrefab;
-
-		[Tooltip("The Beams GameObject to control")]
-		[SerializeField]
+		private float Health = 1f;
 		private GameObject beams;
-
-		//True, when the user is firing
 		private bool IsFiring;
-
-		#endregion
 
 		#region MonoBehaviour CallBacks
 
@@ -54,16 +37,13 @@ namespace Photon.Pun.Demo.PunBasics
 		/// </summary>
 		public void Awake()
 		{
-			if (beams == null)
-				Debug.LogError("<Color=Red><b>Missing</b></Color> Beams Reference.", this);
-			else
-				beams.SetActive(false);
-
 			// #Important
 			// used in GameManager.cs: we keep track of the localPlayer instance to prevent instanciation when levels are synchronized
 			if (photonView.IsMine)
+			{
 				LocalPlayerInstance = gameObject;
-
+				_camera.SetActive(true);
+			}
 			// #Critical
 			// we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
 			DontDestroyOnLoad(gameObject);
@@ -74,29 +54,6 @@ namespace Photon.Pun.Demo.PunBasics
 		/// </summary>
 		public void Start()
 		{
-			var _cameraWork = gameObject.GetComponent<CameraWork>();
-
-			if (_cameraWork != null)
-			{
-				if (photonView.IsMine)
-					_cameraWork.OnStartFollowing();
-			}
-			else
-			{
-				Debug.LogError("<Color=Red><b>Missing</b></Color> CameraWork Component on player Prefab.", this);
-			}
-
-			// Create the UI
-			if (playerUiPrefab != null)
-			{
-				var _uiGo = Instantiate(playerUiPrefab);
-				_uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
-			}
-			else
-			{
-				Debug.LogWarning("<Color=Red><b>Missing</b></Color> PlayerUiPrefab reference on player Prefab.", this);
-			}
-
 #if UNITY_5_4_OR_NEWER
 			// Unity 5.4 has a new scene management. register a method to call CalledOnLevelWasLoaded.
 			SceneManager.sceneLoaded += OnSceneLoaded;
@@ -180,11 +137,11 @@ namespace Photon.Pun.Demo.PunBasics
 
 
 #if !UNITY_5_4_OR_NEWER
-		/// <summary>See CalledOnLevelWasLoaded. Outdated in Unity 5.4.</summary>
-		void OnLevelWasLoaded(int level)
-		{
-			this.CalledOnLevelWasLoaded(level);
-		}
+        /// <summary>See CalledOnLevelWasLoaded. Outdated in Unity 5.4.</summary>
+        void OnLevelWasLoaded(int level)
+        {
+            this.CalledOnLevelWasLoaded(level);
+        }
 #endif
 
 
@@ -197,11 +154,6 @@ namespace Photon.Pun.Demo.PunBasics
 		private void CalledOnLevelWasLoaded(int level)
 		{
 			// check if we are outside the Arena and if it's the case, spawn around the center of the arena in a safe zone
-			if (!Physics.Raycast(transform.position, -Vector3.up, 5f))
-				transform.position = new Vector3(0f, 5f, 0f);
-
-			var _uiGo = Instantiate(playerUiPrefab);
-			_uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
 		}
 
 		#endregion

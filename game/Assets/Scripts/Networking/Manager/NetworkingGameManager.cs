@@ -7,21 +7,20 @@ namespace Photon.Pun.Demo.PunBasics
 {
 	public class NetworkingGameManager : MonoBehaviourPunCallbacks
 	{
-		public GameObject winnerUI;
+		public static NetworkingGameManager Instance;
 
-		public GameObject player1SpawnPosition;
-		public GameObject player2SpawnPosition;
+		public GameObject KingSpawnPosition;
+		public GameObject Wizard1SpawnPosition;
+		public GameObject Wizard2SpawnPosition;
+		public List<GameObject> playerPrefabs;
 
-		public List<GameObject> Prefabs;
-
-		private GameObject player;
-
-		// Start Method
 		private void Start()
 		{
+			Instance = this;
+
 			var pool = PhotonNetwork.PrefabPool as DefaultPool;
-			if (pool != null && pool.ResourceCache.Count == 0 && Prefabs != null)
-				foreach (var prefab in Prefabs)
+			if (pool != null && pool.ResourceCache.Count == 0 && playerPrefabs != null)
+				foreach (var prefab in playerPrefabs)
 					pool.ResourceCache.Add(prefab.name, prefab);
 
 			if (!PhotonNetwork.IsConnected)
@@ -30,31 +29,28 @@ namespace Photon.Pun.Demo.PunBasics
 				return;
 			}
 
-			if (PlayerManager.LocalPlayerInstance == null)
+			if (NetworkingPlayerManager.LocalPlayerInstance == null)
 			{
 				if (PhotonNetwork.IsMasterClient)
 				{
-					Debug.Log("Instantiating Female");
-					player = PhotonNetwork.Instantiate("OnlineFemalePrefab", player1SpawnPosition.transform.position,
-						player1SpawnPosition.transform.rotation);
-					GameObject.Find("MaleGrid").SetActive(false);
+					Debug.Log("Instantiating King");
+					PhotonNetwork.Instantiate("King Container", KingSpawnPosition.transform.position,
+						KingSpawnPosition.transform.rotation);
 					//AudioManager.instance._ownerMapName = "FemaleMap";
 				}
 				else
 				{
-					Debug.Log("Instantiating Malemale");
-					player = PhotonNetwork.Instantiate("OnlineMalePrefab", player2SpawnPosition.transform.position,
-						player2SpawnPosition.transform.rotation);
-					GameObject.Find("FemaleGrid").SetActive(false);
+					Debug.Log("Instantiating Wizard");
+					PhotonNetwork.Instantiate("Capsule Container", Wizard1SpawnPosition.transform.position,
+						Wizard1SpawnPosition.transform.rotation);
 					//AudioManager.instance._ownerMapName = "MaleMap";
 				}
 			}
 		}
 
-		// Photon Methods
 		public override void OnPlayerLeftRoom(Player other)
 		{
-			Debug.Log("OnPlayerLeftRoom() " + other.NickName); // See when others disconnect
+			Debug.Log(other.NickName + "disconnected."); //Aggiugere eventualmente un pop up di avviso.
 			PhotonNetwork.LeaveRoom();
 			SceneManager.LoadScene("Launcher");
 		}
@@ -62,7 +58,6 @@ namespace Photon.Pun.Demo.PunBasics
 		public void ExitRoom()
 		{
 			PhotonNetwork.LeaveRoom();
-			SceneManager.LoadScene("Launcher");
 			SceneManager.LoadScene("Launcher");
 		}
 	}

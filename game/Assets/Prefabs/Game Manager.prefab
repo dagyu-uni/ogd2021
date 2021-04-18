@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5171685466116195191}
   - component: {fileID: 162815936436534528}
+  - component: {fileID: -6690346839976859009}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -43,3 +44,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f46df0f58f90411cbf1d149982c80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6690346839976859009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700970999366434923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2dc1729c5a906d4e863d7386157e8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KingSpawnPosition: {fileID: 0}
+  Wizard1SpawnPosition: {fileID: 0}
+  Wizard2SpawnPosition: {fileID: 0}
+  playerPrefabs:
+  - {fileID: 658935914034816615, guid: 41d03154acceba049a904556e16cd95c, type: 3}
+  - {fileID: 3568715586536984553, guid: b11708c783335e24ea1f855dd83dd39c, type: 3}

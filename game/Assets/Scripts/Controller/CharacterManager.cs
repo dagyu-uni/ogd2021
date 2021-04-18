@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ public class Collectable
 	[HideInInspector] public Rigidbody rb = null;
 }
 
-public class CharacterManager : MonoBehaviour
+public class CharacterManager : MonoBehaviourPun
 {
 	// Ispector Assigned
 	[SerializeField] private Camera _camera = null;
@@ -120,6 +121,11 @@ public class CharacterManager : MonoBehaviour
 
 	private void Update()
 	{
+		if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
+		{
+			return;
+		}
+
 		UpdateAnimator();
 
 		DetectInteractiveItems();

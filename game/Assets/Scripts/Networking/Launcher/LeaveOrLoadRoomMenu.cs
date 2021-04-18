@@ -23,11 +23,6 @@ namespace Photon.Pun.Demo.PunBasics
 			_networkingCanvasManager = canvases;
 		}
 
-		public void LoadRoom()
-		{
-			PhotonNetwork.LoadLevel("Prototype");
-		}
-
 		public void LeaveRoom()
 		{
 			PhotonNetwork.LeaveRoom(true);

@@ -796,9 +796,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 144677610}
-        m_TargetAssemblyTypeName: Photon.Pun.Demo.PunBasics.LeaveOrLoadRoomMenu,
-          Assembly-CSharp
+      - m_Target: {fileID: 1156401659}
+        m_TargetAssemblyTypeName: Photon.Pun.Demo.PunBasics.LauncherManager, Assembly-CSharp
         m_MethodName: LoadRoom
         m_Mode: 1
         m_Arguments:

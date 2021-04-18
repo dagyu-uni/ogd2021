@@ -86,6 +86,11 @@ namespace Photon.Pun.Demo.PunBasics
 			leaveRoomButton.SetActive(true);
 		}
 
+		public void LoadRoom()
+		{
+			PhotonNetwork.LoadLevel("Prototype");
+		}
+
 		IEnumerator PopUpMessage(string message)
 		{
 			popUpMessageLabel.text = message;
