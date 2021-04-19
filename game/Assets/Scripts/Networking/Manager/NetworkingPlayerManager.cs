@@ -143,11 +143,11 @@ namespace Photon.Pun.Demo.PunBasics
 
 
 #if !UNITY_5_4_OR_NEWER
-        /// <summary>See CalledOnLevelWasLoaded. Outdated in Unity 5.4.</summary>
-        void OnLevelWasLoaded(int level)
-        {
-            this.CalledOnLevelWasLoaded(level);
-        }
+		/// <summary>See CalledOnLevelWasLoaded. Outdated in Unity 5.4.</summary>
+		void OnLevelWasLoaded(int level)
+		{
+			this.CalledOnLevelWasLoaded(level);
+		}
 #endif
 
 
