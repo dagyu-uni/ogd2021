@@ -34,9 +34,11 @@ public class SkillSlot
 
 public class PlayerHUD : MonoBehaviour
 {
+	[SerializeField] private Text _remainingTimeText = null;
 	[SerializeField] private Slider _staminaSlider = null;
 	[SerializeField] private Text _interactionText = null;
 	[SerializeField] private Text _eventText = null;
+	[SerializeField] private Text _captureText = null;
 	public List<Color> eventColors = null;
 	[SerializeField] private Image _screenFade = null;
 	[SerializeField] private Text _missionText = null;
@@ -72,6 +74,7 @@ public class PlayerHUD : MonoBehaviour
 	public int SkillsCapacity { get { return _skillSlots.Count; } }
 	public int InventoryCapacity { get { return _inventorySlots.Count; } }
 	public string CapacityText { set { _capacityText.text = value; } }
+	public Text CaptureText { get { return _captureText; } }
 
 
 	void Start()
@@ -100,6 +103,9 @@ public class PlayerHUD : MonoBehaviour
 
 	private void Update()
 	{
+		// Refresh the match time
+		_remainingTimeText.text = GameManager.Instance.FormatMatchTime();
+
 		// Pause Menu
 		HandlePauseMenu();
 
@@ -334,6 +340,14 @@ public class PlayerHUD : MonoBehaviour
 				_interactionText.gameObject.SetActive(false);
 			else
 				_interactionText.gameObject.SetActive(true);
+		}
+	}
+
+	public void SetCaptureText(string text)
+	{
+		if (_captureText)
+		{
+			_captureText.text = text;
 		}
 	}
 
