@@ -12,29 +12,17 @@ public class BodyCamera : MonoBehaviour
 
 	public float lerpSpeed = 10f;
 
-	private Vector3 _idlePos;
-	private Vector3 _walkingPos;
-	private Vector3 _runningPos;
-	private Vector3 _idleCrouchPos;
-	private Vector3 _movingCrouchPos;
-	private Vector3 _idleJump;
-	private Vector3 _movingJump;
-	private Vector3 _fall;
+	[Header("Camera Positions")]
+	public Vector3 _idlePos = new Vector3(0f, 0.5f, 0.15f);
+	public Vector3 _walkingPos = new Vector3(0f, 0.5f, 0.3f);
+	public Vector3 _runningPos = new Vector3(0f, 0.67f, 0.42f);
+	public Vector3 _idleCrouchPos = new Vector3(0f, 0.93f, 0.25f);
+	public Vector3 _movingCrouchPos = new Vector3(0f, 1.1f, 0.5f);
+	public Vector3 _idleJump = new Vector3(0f, 0.0f, 0.38f);
+	public Vector3 _movingJump = new Vector3(0f, 0.4f, 0.3f);
+	public Vector3 _fall = new Vector3(0f, -0.3f, 0.7f);
 
 	private Coroutine _coroutine = null;
-
-	void Start()
-	{
-		_idlePos = new Vector3(0f, 0.5f, 0.15f);
-		_walkingPos = new Vector3(0f, 0.5f, 0.3f);
-		_runningPos = new Vector3(0f, 0.67f, 0.42f);
-		_idleCrouchPos = new Vector3(0f, 0.93f, 0.25f);
-		_movingCrouchPos = new Vector3(0f, 1.1f, 0.5f);
-		_idleJump = new Vector3(0f, 0.0f, 0.38f);
-		_movingJump = new Vector3(0f, 0.4f, 0.3f);
-		_fall = new Vector3(0f, -0.3f, 0.7f);
-	}
-
 
 	void Update()
 	{
@@ -61,7 +49,7 @@ public class BodyCamera : MonoBehaviour
 		else if (_playerController.status == Status.crouching
 					&& Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0f)
 		{
-			transform.localPosition = Vector3.Lerp(transform.localPosition, _idleCrouchPos, Time.deltaTime * lerpSpeed);
+			transform.localPosition = Vector3.Lerp(transform.localPosition, _idleCrouchPos, Time.deltaTime * lerpSpeed * 0.5f);
 		}
 		// moving crouching
 		else if (_playerController.status == Status.crouching
