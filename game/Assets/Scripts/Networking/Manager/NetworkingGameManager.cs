@@ -33,14 +33,12 @@ namespace Photon.Pun.Demo.PunBasics
 			{
 				if (PhotonNetwork.IsMasterClient)
 				{
-					Debug.Log("Instantiating King");
 					PhotonNetwork.Instantiate("King Container", KingSpawnPosition.transform.position,
 						KingSpawnPosition.transform.rotation);
 					//AudioManager.instance._ownerMapName = "FemaleMap";
 				}
 				else
 				{
-					Debug.Log("Instantiating Wizard");
 					PhotonNetwork.Instantiate("Wizard Container", Wizard1SpawnPosition.transform.position,
 						Wizard1SpawnPosition.transform.rotation);
 					//AudioManager.instance._ownerMapName = "MaleMap";

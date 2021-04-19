@@ -26,14 +26,6 @@ namespace Photon.Pun.Demo.PunBasics
 
 		[SerializeField] private GameObject _camera;
 
-		private CharacterManager _characterManager;
-		private MovementType _movementType;
-		private PlayerController _playerController;
-		private PlayerInput _playerInput;
-		private PlayerMovement _playerMovement;
-
-		private AudioSource _audioSource;
-
 		private float Health = 1f;
 		private GameObject beams;
 		private bool IsFiring;
@@ -54,21 +46,10 @@ namespace Photon.Pun.Demo.PunBasics
 			}
 			else
 			{
-				Debug.Log("Prendo e disabilito component");
-				/*_characterManager = GetComponent<CharacterManager>();
-				_movementType = GetComponent<MovementType>();
-				_playerController = GetComponent<PlayerController>();
-				_playerInput = GetComponent<PlayerInput>();
-				_playerMovement = GetComponent<PlayerMovement>();
-
-				Debug.Log("Prendo component audio");
-				_audioSource = GetComponent<AudioSource>();*/
-
-				GetComponent<CharacterManager>().enabled = false;
-				GetComponent<MovementType>().enabled = false;
-				GetComponent<PlayerController>().enabled = false;
 				GetComponent<PlayerInput>().enabled = false;
 				GetComponent<PlayerMovement>().enabled = false;
+				GetComponent<PlayerController>().enabled = false;
+				GetComponent<CharacterManager>().enabled = false;
 			}
 			// #Critical
 			// we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
@@ -80,22 +61,11 @@ namespace Photon.Pun.Demo.PunBasics
 		/// </summary>
 		public void Start()
 		{
-			/*Debug.Log("Disabilito component");
-			_characterManager.enabled = false;
-			_movementType.enabled = false;
-			_playerController.enabled = false;
-			_playerInput.enabled = false;
-			_playerMovement.enabled = false;
-
-			Debug.Log("Disabilito component audio");
-			_audioSource.enabled = false;*/
-
 #if UNITY_5_4_OR_NEWER
 				// Unity 5.4 has a new scene management. register a method to call CalledOnLevelWasLoaded.
 				SceneManager.sceneLoaded += OnSceneLoaded;
 #endif
 		}
-
 
 		public override void OnDisable()
 		{
