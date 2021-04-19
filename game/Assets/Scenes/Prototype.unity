@@ -209,7 +209,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-<<<<<<< HEAD
     - target: {fileID: -6690346839976859009, guid: cbb51a814556f499b884bd7955e54ce2, type: 3}
       propertyPath: KingSpawnPosition
       value: 
@@ -222,7 +221,6 @@ PrefabInstance:
       propertyPath: Wizard2SpawnPosition
       value: 
       objectReference: {fileID: 244652197}
-=======
     - target: {fileID: 162815936436534528, guid: cbb51a814556f499b884bd7955e54ce2, type: 3}
       propertyPath: _captureTransform
       value: 
@@ -231,7 +229,6 @@ PrefabInstance:
       propertyPath: _remainingMatchTime
       value: 1200
       objectReference: {fileID: 0}
->>>>>>> sviluppo
     - target: {fileID: 700970999366434923, guid: cbb51a814556f499b884bd7955e54ce2, type: 3}
       propertyPath: m_Name
       value: Game Manager
