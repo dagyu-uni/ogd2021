@@ -41,7 +41,7 @@ public class KingCapture : MonoBehaviour
 			CheckForWizard(other);
 			_checkCooldown = 0.2f;
 		}
-			
+
 		// Manage the actual king input to capture the wizard
 		if (_wizardIsVisible && other.gameObject.CompareTag("Wizard"))
 		{

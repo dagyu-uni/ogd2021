@@ -62,7 +62,8 @@ public class GameManager : MonoBehaviour
 	// returns a properly formatted time string for the current match
 	public string FormatMatchTime()
 	{
-		if (_remainingMatchTime < 0) return null;
+		if (_remainingMatchTime < 0)
+			return null;
 
 		int minutes = Mathf.FloorToInt(_remainingMatchTime / 60.0f);
 		int seconds = Mathf.FloorToInt(_remainingMatchTime % 60);
