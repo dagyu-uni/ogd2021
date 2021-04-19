@@ -41,7 +41,7 @@ namespace Photon.Pun.Demo.PunBasics
 				else
 				{
 					Debug.Log("Instantiating Wizard");
-					PhotonNetwork.Instantiate("Capsule Container", Wizard1SpawnPosition.transform.position,
+					PhotonNetwork.Instantiate("Wizard Container", Wizard1SpawnPosition.transform.position,
 						Wizard1SpawnPosition.transform.rotation);
 					//AudioManager.instance._ownerMapName = "MaleMap";
 				}

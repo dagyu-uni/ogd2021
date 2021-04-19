@@ -61,4 +61,4 @@ MonoBehaviour:
   Wizard2SpawnPosition: {fileID: 0}
   playerPrefabs:
   - {fileID: 658935914034816615, guid: 41d03154acceba049a904556e16cd95c, type: 3}
-  - {fileID: 3568715586536984553, guid: b11708c783335e24ea1f855dd83dd39c, type: 3}
+  - {fileID: 1656544713204674161, guid: 5cb5c76afdad2344cb640603fca2a280, type: 3}
