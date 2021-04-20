@@ -31,18 +31,22 @@ namespace Photon.Pun.Demo.PunBasics
 
 			if (NetworkingPlayerManager.LocalPlayerInstance == null)
 			{
+				GameObject player;
+
 				if (PhotonNetwork.IsMasterClient)
 				{
-					PhotonNetwork.Instantiate("King Container", KingSpawnPosition.transform.position,
+					player = PhotonNetwork.Instantiate("King Container", KingSpawnPosition.transform.position,
 						KingSpawnPosition.transform.rotation);
 					//AudioManager.instance._ownerMapName = "FemaleMap";
 				}
 				else
 				{
-					PhotonNetwork.Instantiate("Wizard Container", Wizard1SpawnPosition.transform.position,
+					player = PhotonNetwork.Instantiate("Wizard Container", Wizard1SpawnPosition.transform.position,
 						Wizard1SpawnPosition.transform.rotation);
 					//AudioManager.instance._ownerMapName = "MaleMap";
 				}
+
+				AudioManager.Instance.ListenerPos = player.GetComponentInChildren<AudioListener>().transform;
 			}
 		}
 

@@ -120,7 +120,7 @@ public class InteractiveCollectable : InteractiveItem
 		if (clip == null)
 			yield break;
 
-		AudioManager.Instance.PlayOneShotSound(_audioCollection.MixerGroupName, clip, transform.position,
+		AudioManager.Instance.PhotonPlayOneShotSound(_audioCollection.MixerGroupName, clip.name, transform.position,
 												_audioCollection.Volume, _audioCollection.SpatialBlend,
 												_audioCollection.Priority);
 

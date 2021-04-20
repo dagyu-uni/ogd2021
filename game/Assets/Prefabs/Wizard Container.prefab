@@ -4708,6 +4708,7 @@ MonoBehaviour:
   _staminaSlider: {fileID: 2845049320610966529}
   _interactionText: {fileID: 2845049321885682292}
   _eventText: {fileID: 1330692235297047268}
+  _captureText: {fileID: 0}
   eventColors:
   - {r: 0.754717, g: 0.1459594, b: 0.1459594, a: 1}
   - {r: 0.22983855, g: 0.735849, b: 0.17702027, a: 1}

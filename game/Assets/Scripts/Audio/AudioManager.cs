@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.SceneManagement;
+using Photon.Pun;
+//using UnityEngine.SceneManagement;
+
 
 // This manager provides an API to allow every game object to reproduce sounds.
 
@@ -85,25 +87,9 @@ public class AudioManager : MonoBehaviour
 			poolItem.gameObject.SetActive(false);
 			_pool.Add(poolItem);
 		}
-	}
 
-	// *** Always find an audio listener ***
-	private void OnEnable()
-	{
-		SceneManager.sceneLoaded += OnSceneLoaded;
+		_photonView = GetComponent<PhotonView>();
 	}
-
-	private void OnDisable()
-	{
-		SceneManager.sceneLoaded -= OnSceneLoaded;
-	}
-
-	// Call this when a new scene is added or loaded
-	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-	{
-		_listenerPos = FindObjectOfType<AudioListener>().transform;
-	}
-	// ***
 
 	// INTERNALS
 	[SerializeField] private AudioMixer _mixer = null;
@@ -118,6 +104,34 @@ public class AudioManager : MonoBehaviour
 	// the unique id given to sounds (increased by 1 at every call)
 	private ulong _idGiver = 0;
 	private Transform _listenerPos = null;
+
+	private PhotonView _photonView = null;
+	// all the game audio collections used
+	public List<AudioCollection> gameAudioCollections = new List<AudioCollection>();
+	// audio clips are uniquely identified by their name
+	private Dictionary<string, AudioClip> _clipHash = new Dictionary<string, AudioClip>();
+
+	public Transform ListenerPos { set { _listenerPos = value; } }
+
+	private void Start()
+	{
+		// Initialize the clip dictionary
+		for (int i = 0; i < gameAudioCollections.Count; i++)
+		{
+			AudioCollection collection = gameAudioCollections[i];
+
+			for (int j = 0; j < collection.ClipBanks.Count; j++)
+			{
+				ClipBank bank = collection.ClipBanks[j];
+
+				for (int k = 0; k < bank.clips.Count; k++)
+				{
+					string stringCode = bank.clips[k].name;
+					_clipHash[stringCode] = bank.clips[k];
+				}
+			}
+		}
+	}
 
 	public AudioMixerGroup GetMixerGroupFromName(string name)
 	{
@@ -256,10 +270,13 @@ public class AudioManager : MonoBehaviour
 		}
 	}
 
-	// Scripts can call this to play a sound...
-	public ulong PlayOneShotSound(string mixerGroupName, AudioClip clip, Vector3 position, float volume,
+
+	[PunRPC]
+	private ulong PlayOneShotSound(string mixerGroupName, string clipName, Vector3 position, float volume,
 										float spatialBlend, int priority = 128)
 	{
+		AudioClip clip = _clipHash[clipName];
+
 		if (!_mixerGroups.ContainsKey(mixerGroupName) || clip == null || volume == 0.0f)
 			return 0;
 
@@ -297,6 +314,13 @@ public class AudioManager : MonoBehaviour
 										float spatialBlend, float duration, int priority = 128)
 	{
 		yield return new WaitForSeconds(duration);
-		PlayOneShotSound(mixerGroupName, clip, position, volume, spatialBlend, priority);
+		PlayOneShotSound(mixerGroupName, clip.name, position, volume, spatialBlend, priority);
+	}
+
+	// scripts can call this to play a clip for every client.
+	public void PhotonPlayOneShotSound(string mixerGroupName, string clipName, Vector3 position, float volume,
+										float spatialBlend, int priority = 128)
+	{
+		_photonView.RPC("PlayOneShotSound", RpcTarget.All, mixerGroupName, clipName, position, volume, spatialBlend, priority);
 	}
 }

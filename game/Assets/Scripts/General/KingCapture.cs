@@ -11,7 +11,6 @@ public class KingCapture : MonoBehaviour
 	[SerializeField] private PlayerHUD _playerHUD = null;
 
 	private bool _wizardIsVisible = false;
-	private int _layerMask = 0;
 
 	// these are just utility internals
 	private float _checkCooldown = 0.2f;

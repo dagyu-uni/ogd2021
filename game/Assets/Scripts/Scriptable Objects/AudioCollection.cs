@@ -24,6 +24,7 @@ public class AudioCollection : ScriptableObject
 	public float Volume { get { return _volume; } }
 	public float SpatialBlend { get { return _spatialBlend; } }
 	public int Priority { get { return _priority; } }
+	public List<ClipBank> ClipBanks { get { return _clipBanks; } }
 	public int BankCount { get { return _clipBanks.Count; } }
 
 	// Allow to get a clipBank as we are accessing an array
