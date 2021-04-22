@@ -14,6 +14,8 @@ namespace Photon.Pun.Demo.PunBasics
 		public GameObject Wizard2SpawnPosition;
 		public List<GameObject> playerPrefabs;
 
+		private GameObject player;
+
 		private void Start()
 		{
 			Instance = this;
@@ -31,20 +33,7 @@ namespace Photon.Pun.Demo.PunBasics
 
 			if (NetworkingPlayerManager.LocalPlayerInstance == null)
 			{
-				GameObject player;
-
-				if (PhotonNetwork.IsMasterClient)
-				{
-					player = PhotonNetwork.Instantiate("King Container", KingSpawnPosition.transform.position,
-						KingSpawnPosition.transform.rotation);
-					//AudioManager.instance._ownerMapName = "FemaleMap";
-				}
-				else
-				{
-					player = PhotonNetwork.Instantiate("Wizard Container", Wizard1SpawnPosition.transform.position,
-						Wizard1SpawnPosition.transform.rotation);
-					//AudioManager.instance._ownerMapName = "MaleMap";
-				}
+				InstanciatePlayerPrefab();
 
 				AudioManager.Instance.ListenerPos = player.GetComponentInChildren<AudioListener>().transform;
 			}
@@ -61,6 +50,30 @@ namespace Photon.Pun.Demo.PunBasics
 		{
 			PhotonNetwork.LeaveRoom();
 			SceneManager.LoadScene("Launcher");
+		}
+
+		private void InstanciatePlayerPrefab()
+		{
+			List<int> playerCodeList = new List<int>();
+			int index=0, localPlayerCode = PhotonNetwork.LocalPlayer.ActorNumber;
+
+			foreach (Player player in PhotonNetwork.PlayerList)
+			{
+				playerCodeList.Add(player.ActorNumber);
+			}
+
+			while (playerCodeList[index] != localPlayerCode)
+				index++;
+
+			if (index == 0)
+				player = PhotonNetwork.Instantiate("King Container", KingSpawnPosition.transform.position,
+						KingSpawnPosition.transform.rotation);
+			else if (index == 1)
+				player = PhotonNetwork.Instantiate("Wizard Container", Wizard1SpawnPosition.transform.position,
+						Wizard1SpawnPosition.transform.rotation);
+			else
+				player = PhotonNetwork.Instantiate("Wizard Container", Wizard2SpawnPosition.transform.position,
+						Wizard2SpawnPosition.transform.rotation);
 		}
 	}
 }
