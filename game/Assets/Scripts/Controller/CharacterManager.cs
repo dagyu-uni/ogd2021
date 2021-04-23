@@ -393,7 +393,8 @@ public class CharacterManager : MonoBehaviour
 
 	public void DisableCursor()
 	{
-		if (_cameraDisabled != 0) return;
+		if (_cameraDisabled != 0)
+			return;
 
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
@@ -401,7 +402,8 @@ public class CharacterManager : MonoBehaviour
 
 	public void EnableCursor()
 	{
-		if (_cameraDisabled != -1) return;
+		if (_cameraDisabled != -1)
+			return;
 
 		Cursor.lockState = CursorLockMode.None;
 		Cursor.visible = true;
