@@ -243,7 +243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5171685466116195191, guid: cbb51a814556f499b884bd7955e54ce2, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5171685466116195191, guid: cbb51a814556f499b884bd7955e54ce2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -336,6 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rayPriority: 0
   _isPickable: 1
+  _isTreasure: 0
   _inventoryPriority: 5
   _name: Blue Sphere
   _icon: {fileID: 21300000, guid: 61e241843db9776428a67771756028c0, type: 3}
@@ -471,6 +472,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rayPriority: 0
   _isPickable: 0
+  _isTreasure: 0
   _inventoryPriority: 10
   _name: Golden Sphere
   _icon: {fileID: 21300000, guid: 17e25aded41e3c14cb4df67d2d716fb6, type: 3}
@@ -823,19 +825,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7858625943318211656, guid: 1d9702a6e766b45678e681f752024e5d, type: 3}
       propertyPath: gameAudioCollections.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7858625943318211656, guid: 1d9702a6e766b45678e681f752024e5d, type: 3}
       propertyPath: gameAudioCollections.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: c25ec51bffcce4679bd5d74b269a05d2, type: 2}
+    - target: {fileID: 7858625943318211656, guid: 1d9702a6e766b45678e681f752024e5d, type: 3}
+      propertyPath: gameAudioCollections.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7d130364b7d242e4eb7bf0c58160d789, type: 2}
     - target: {fileID: 7858625943318211658, guid: 1d9702a6e766b45678e681f752024e5d, type: 3}
       propertyPath: m_Name
       value: Audio Manager
       objectReference: {fileID: 0}
     - target: {fileID: 7858625943318211659, guid: 1d9702a6e766b45678e681f752024e5d, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7858625943318211659, guid: 1d9702a6e766b45678e681f752024e5d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -961,7 +967,7 @@ Transform:
   - {fileID: 1699617637}
   - {fileID: 2002463913}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &488915515
 GameObject:
@@ -1072,6 +1078,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rayPriority: 0
   _isPickable: 1
+  _isTreasure: 0
   _inventoryPriority: 5
   _name: Blue Sphere
   _icon: {fileID: 21300000, guid: 61e241843db9776428a67771756028c0, type: 3}
@@ -1455,7 +1462,7 @@ Transform:
   - {fileID: 1311968124}
   - {fileID: 244652198}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
@@ -1614,7 +1621,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &783546580
 GameObject:
@@ -1881,6 +1888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rayPriority: 0
   _isPickable: 1
+  _isTreasure: 1
   _inventoryPriority: 1
   _name: Green Sphere
   _icon: {fileID: 21300000, guid: efb977a04b85dac498ab7af28c28e280, type: 3}
@@ -1995,7 +2003,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1057028114
 GameObject:
@@ -2684,6 +2692,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1236097448}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1248187748 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 700970999366434923, guid: cbb51a814556f499b884bd7955e54ce2, type: 3}
+  m_PrefabInstance: {fileID: 182536231}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1248187749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248187748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 3
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1311968123
 GameObject:
   m_ObjectHideFlags: 0
@@ -2744,7 +2779,7 @@ Transform:
   m_Father: {fileID: 695156729}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1374839664
+--- !u!1001 &1475765255
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2753,7 +2788,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 658935914034816614, guid: 41d03154acceba049a904556e16cd95c, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 658935914034816614, guid: 41d03154acceba049a904556e16cd95c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2809,10 +2844,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4081278671036496992, guid: 41d03154acceba049a904556e16cd95c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6570489824316725546, guid: 41d03154acceba049a904556e16cd95c, type: 3}
-      propertyPath: sceneViewId
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3324,6 +3355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rayPriority: 0
   _isPickable: 1
+  _isTreasure: 1
   _inventoryPriority: 1
   _name: Green Sphere
   _icon: {fileID: 21300000, guid: efb977a04b85dac498ab7af28c28e280, type: 3}
@@ -3459,6 +3491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rayPriority: 0
   _isPickable: 1
+  _isTreasure: 0
   _inventoryPriority: 1
   _name: Skill Cube 1
   _icon: {fileID: 21300000, guid: efb977a04b85dac498ab7af28c28e280, type: 3}
@@ -4104,6 +4137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rayPriority: 0
   _isPickable: 1
+  _isTreasure: 0
   _inventoryPriority: 2
   _name: Skill Cube
   _icon: {fileID: 21300000, guid: 61e241843db9776428a67771756028c0, type: 3}

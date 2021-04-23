@@ -4,10 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Wizard
   - King
   - InventoryUI
   - Bullet
+  - Wizard_1
+  - Wizard_2
   layers:
   - Default
   - TransparentFX

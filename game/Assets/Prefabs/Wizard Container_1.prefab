@@ -826,8 +826,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1656544713204674160}
   m_Layer: 8
-  m_Name: Wizard Container
-  m_TagString: Wizard
+  m_Name: Wizard Container_1
+  m_TagString: Wizard_1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5948,7 +5948,7 @@ GameObject:
   - component: {fileID: 2021509546567086079}
   m_Layer: 8
   m_Name: Wizard
-  m_TagString: Wizard
+  m_TagString: Wizard_1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6291,6 +6291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 902626122059735737}
+  _playerHUD: {fileID: 3981966934296013295}
 --- !u!114 &4088902307236981764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6313,7 +6314,7 @@ MonoBehaviour:
   - {fileID: 4089717503359580397}
   - {fileID: 6722766365143557364}
   - {fileID: 2021509546567086079}
-  sceneViewId: 0
+  sceneViewId: 5
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &6722766365143557364

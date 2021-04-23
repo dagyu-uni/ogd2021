@@ -24,7 +24,7 @@ public class PowerUp : ScriptableObject
 		{
 			foreach (PlayerInfo info in GameManager.Instance.PlayersInfo.Values)
 			{
-				if (info.role == Role.Wizard)
+				if (info.role > 0)
 					PowerUpEffects(info.characterManager);
 			}
 		}
@@ -38,7 +38,7 @@ public class PowerUp : ScriptableObject
 		{
 			foreach (PlayerInfo info in GameManager.Instance.PlayersInfo.Values)
 			{
-				if (info.role == Role.Wizard)
+				if (info.role > 0)
 					RemoveEffects(info.characterManager);
 			}
 		}

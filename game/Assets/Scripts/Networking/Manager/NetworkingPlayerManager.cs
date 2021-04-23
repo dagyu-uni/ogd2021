@@ -25,6 +25,7 @@ namespace Photon.Pun.Demo.PunBasics
 		public static GameObject LocalPlayerInstance;
 
 		[SerializeField] private GameObject _camera;
+		[SerializeField] private GameObject _playerHUD;
 
 		private float Health = 1f;
 		private GameObject beams;
@@ -46,6 +47,7 @@ namespace Photon.Pun.Demo.PunBasics
 			}
 			else
 			{
+				_playerHUD.SetActive(false);
 				GetComponent<PlayerInput>().enabled = false;
 				GetComponent<PlayerMovement>().enabled = false;
 				GetComponent<PlayerController>().enabled = false;

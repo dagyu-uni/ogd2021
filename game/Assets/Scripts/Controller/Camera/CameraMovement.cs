@@ -25,9 +25,6 @@ public class CameraMovement : MonoBehaviour
 
 	void Start()
 	{
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Locked;
-
 		// Cache camera's initial orientation.
 		_targetOrientation = Quaternion.Euler(transform.localRotation.eulerAngles);
 
