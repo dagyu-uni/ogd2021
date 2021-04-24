@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 // NOTE: the game manager is supposed to handle everything that requires
 // a higher level management, usually aspects not directly related
@@ -29,6 +30,8 @@ public class GameManager : MonoBehaviour
 		}
 
 		DontDestroyOnLoad(gameObject);
+
+		_photonView = GetComponent<PhotonView>();
 	}
 
 	// Public
@@ -38,25 +41,81 @@ public class GameManager : MonoBehaviour
 
 	// Internals
 	private bool _isGameOver = false;
+	private Role winner;
+	private int numOfTreasures = 0;
+	private Coroutine _gameCycleRoutine = null;
+	private PhotonView _photonView = null;
 
 	// Every component in the scene has a unique id used as key of the dictionary
-	private Dictionary<int, PlayerInfo> _playersInfo = new Dictionary<int, PlayerInfo>();
+	private Dictionary<Role, PlayerInfo> _playersInfo = new Dictionary<Role, PlayerInfo>();
 	private Dictionary<int, InteractiveItem> _interactiveItems = new Dictionary<int, InteractiveItem>();
 
 	// Properties
-	public Dictionary<int, PlayerInfo> PlayersInfo { get { return _playersInfo; } }
+	public Dictionary<Role, PlayerInfo> PlayersInfo { get { return _playersInfo; } }
+
+	private void Start()
+	{
+		// game cycle
+		if (_gameCycleRoutine == null)
+		{
+			_gameCycleRoutine = StartCoroutine(GameCycle());
+		}
+	}
 
 	private void Update()
 	{
 		_remainingMatchTime -= Time.deltaTime;
 
-		if (_remainingMatchTime <= 0.0f)
-			_isGameOver = true;
+		// check wizard captures
+		int numOfCaptures = 0;
 
-		//while (!_isGameOver)
-		//{
-		//	// do stuff
-		//}
+		foreach (PlayerInfo info in _playersInfo.Values)
+		{
+			// info.role > 0 means if it's a wizard, one or the other
+			if (info.role > 0 && info.characterManager.IsCaptured)
+			{
+				numOfCaptures++;
+			}
+		}
+
+		// check remeining time
+		if (_remainingMatchTime <= 0.0f || numOfCaptures == 2)
+		{
+			_isGameOver = true;
+			winner = Role.King;
+		}
+	}
+
+	// Manage the whole match cycle
+	private IEnumerator GameCycle()
+	{
+		// Play
+		while (!_isGameOver)
+		{
+			// do stuff
+			yield return null;
+		}
+
+		// Handle the game over and the winner
+		if (winner == Role.King)
+		{
+			// do stuff
+		}
+		else
+		{
+			// do other stuff
+		}
+	}
+
+	// called by players when they gather a treasure.
+	public void AddTreasure()
+	{
+		numOfTreasures++;
+
+		if (numOfTreasures >= 2)
+		{
+			// unlock doors or something
+		}
 	}
 
 	// returns a properly formatted time string for the current match
@@ -83,23 +142,29 @@ public class GameManager : MonoBehaviour
 		// TODO play some particle effects (smoke or something)
 
 		// teleport the wizard in a prison or something
-		charManager.transform.position = _captureTransform.position;
-		charManager.transform.rotation = _captureTransform.rotation;
+		_photonView.RPC("TeleportWizard", RpcTarget.All, charManager.Role);
+	}
+
+	[PunRPC]
+	public void TeleportWizard(Role role)
+	{
+		_playersInfo[role].collider.transform.position = _captureTransform.position;
+		_playersInfo[role].collider.transform.rotation = _captureTransform.rotation;
 	}
 
 	// Register and Get a Player Info reference searched on by the instance ID of its collider
-	public void RegisterPlayerInfo(int key, PlayerInfo playerInfo)
+	public void RegisterPlayerInfo(Role role, PlayerInfo playerInfo)
 	{
-		if (!_playersInfo.ContainsKey(key))
+		if (!_playersInfo.ContainsKey(role))
 		{
-			_playersInfo[key] = playerInfo;
+			_playersInfo[role] = playerInfo;
 		}
 	}
 
-	public PlayerInfo GetPlayerInfo(int key)
+	public PlayerInfo GetPlayerInfo(Role role)
 	{
 		PlayerInfo playerInfo;
-		if (_playersInfo.TryGetValue(key, out playerInfo))
+		if (_playersInfo.TryGetValue(role, out playerInfo))
 		{
 			return playerInfo;
 		}
@@ -137,4 +202,4 @@ public class PlayerInfo
 	public Role role;
 }
 
-public enum Role { King, Wizard }
+public enum Role { King, Wizard_1, Wizard_2 }

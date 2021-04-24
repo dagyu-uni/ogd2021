@@ -9,6 +9,7 @@ public class InteractiveCollectable : InteractiveItem
 	// Inspector Assigned
 	// NOTE the name text must be ONLY the item name (e.g. lockpick)
 	[SerializeField] private bool _isPickable;
+	[SerializeField] private bool _isTreasure;
 	[SerializeField] private int _inventoryPriority;
 	[SerializeField] private string _name = null;
 	[SerializeField] private Sprite _icon = null;
@@ -50,6 +51,7 @@ public class InteractiveCollectable : InteractiveItem
 		// Set Collectable
 		_thisCollectable.uiPriority = _inventoryPriority;
 		_thisCollectable.name = _name;
+		_thisCollectable.isTreasure = _isTreasure;
 		_thisCollectable.gameObject = this.gameObject;
 		_thisCollectable.powerUp = _powerUp;
 		_thisCollectable.icon = _icon;

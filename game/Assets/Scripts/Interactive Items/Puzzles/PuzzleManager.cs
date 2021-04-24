@@ -120,18 +120,16 @@ public abstract class PuzzleManager : InteractiveItem
 		if (_puzzleInterface.gameObject.activeInHierarchy)
 		{
 			_puzzleInterface.SetActive(false);
-			Cursor.visible = false;
-			Cursor.lockState = CursorLockMode.Locked;
 			characterManager.EnableControllerMovements();
 			characterManager.EnableCameraMovements();
+			characterManager.DisableCursor();
 		}
 		else
 		{
 			_puzzleInterface.SetActive(true);
-			Cursor.visible = true;
-			Cursor.lockState = CursorLockMode.None;
 			characterManager.DisableControllerMovements();
 			characterManager.DisableCameraMovements();
+			characterManager.EnableCursor();
 		}
 	}
 }

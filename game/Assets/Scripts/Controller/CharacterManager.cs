@@ -7,14 +7,15 @@ public class Collectable
 {
 	public int uiPriority;
 	public string name;
+	public bool isTreasure;
 	public GameObject gameObject;
 	public PowerUp powerUp;
 	public Sprite icon;
 	[TextArea(3, 10)]
 	public string tooltipString;
 
-	// the unique ID of who picked this collectable
-	[HideInInspector] public int _collectorID = -1;
+	// the unique Role of who picked this collectable
+	[HideInInspector] public Role role;
 	// Rigidbody used to throw it away
 	[HideInInspector] public Rigidbody rb = null;
 }
@@ -31,6 +32,7 @@ public class CharacterManager : MonoBehaviour
 	[SerializeField] private List<Skill> _skills = new List<Skill>();
 
 	// Private
+	private Role _role;
 	private Collider _collider = null;
 	private PlayerController _playerController = null;
 	private CharacterController _characterController = null;
@@ -42,7 +44,11 @@ public class CharacterManager : MonoBehaviour
 	private AudioCollection _previousCollection = null;
 	private int _previousClipPriority = 0;
 	private int _interactiveMask = 0;
+	// number of interfaces that disabled camera and/or movements
+	private int _cameraDisabled = 0;
+	private int _movementsDisabled = 0;
 	private bool _previousNotLanding = true;
+	private bool _isCaptured = false;
 
 	// used to store which and how many objects the player has picked up
 	private List<Collectable> _inventory = new List<Collectable>();
@@ -60,12 +66,18 @@ public class CharacterManager : MonoBehaviour
 	private int _fellHash = Animator.StringToHash("hasFell");
 
 	// Properties
+	public Role Role { get { return _role; } }
 	public PlayerController Controller { get { return _playerController; } }
 	public PlayerMovement Movement { get { return _playerMovement; } }
 	public PlayerHUD PlayerHUD { get { return _playerHUD; } }
 	public Camera Camera { get { return _camera; } }
 	public List<Collectable> Inventory { get { return _inventory; } }
 	public List<Skill> Skills { get { return _skills; } }
+	public bool IsCaptured
+	{
+		get { return _isCaptured; }
+		set { _isCaptured = value; }
+	}
 
 	private void Awake()
 	{
@@ -80,10 +92,10 @@ public class CharacterManager : MonoBehaviour
 		_interactiveMask = 1 << LayerMask.NameToLayer("Interactive");
 
 		_playerHUD.CharManager = this;
-	}
 
-	private void Start()
-	{
+		// Register this player info in the game manager
+		// NOTE this is executed before the network player manager
+		// disables the character components (this script included).
 		_gameManager = GameManager.Instance;
 
 		if (_gameManager != null)
@@ -92,11 +104,16 @@ public class CharacterManager : MonoBehaviour
 			info.collider = _collider;
 			info.camera = _camera;
 			info.characterManager = this;
-			info.role = gameObject.tag == Role.King.ToString() ? Role.King : Role.Wizard;
+			info.role = gameObject.tag == Role.King.ToString() ? Role.King :
+						gameObject.tag == Role.Wizard_1.ToString() ? Role.Wizard_1 : Role.Wizard_2;
+			_role = info.role;
 
-			_gameManager.RegisterPlayerInfo(_collider.GetInstanceID(), info);
+			_gameManager.RegisterPlayerInfo(info.role, info);
 		}
+	}
 
+	private void Start()
+	{
 		// When players spawn start fading in
 		if (_playerHUD)
 			_playerHUD.Fade(2.0f, ScreenFadeType.FadeIn);
@@ -116,6 +133,8 @@ public class CharacterManager : MonoBehaviour
 			skill.uiPriority = maxP;
 			maxP -= 10;
 		}
+
+		DisableCursor();
 	}
 
 	private void Update()
@@ -226,6 +245,10 @@ public class CharacterManager : MonoBehaviour
 			return false;
 		}
 
+		// treasure
+		GameManager.Instance.AddTreasure();
+
+		// powerup
 		if (collectable.powerUp != null && collectable.powerUp.HasSkill && _skills.Count == _skills.Capacity)
 		{
 			StartCoroutine(_playerHUD.SetEventText("You can't control any more skills for now.", _playerHUD.eventColors[0]));
@@ -238,7 +261,7 @@ public class CharacterManager : MonoBehaviour
 		RefreshCollectablesHUD(collectable, true);
 
 		// Cache the unique ID
-		collectable._collectorID = _collider.GetInstanceID();
+		collectable.role = _role;
 
 		return true;
 	}
@@ -259,9 +282,6 @@ public class CharacterManager : MonoBehaviour
 				break;
 			}
 		}
-
-		// Release the ID
-		res._collectorID = -1;
 
 		return res;
 	}
@@ -316,9 +336,13 @@ public class CharacterManager : MonoBehaviour
 		StartCoroutine(c);
 	}
 
-	// Block all the player's movement, both controller and camera.
+	// Disable/Enable all the player's movement, both controller and camera (and the cursor too).
 	public void DisableControllerMovements()
 	{
+		_movementsDisabled--;
+		if (_movementsDisabled != -1)
+			return;
+
 		// Save current values
 		_currentSpeeds.SetControllerSpeeds(_playerMovement.walkSpeed, _playerMovement.runSpeed,
 											_playerMovement.crouchSpeed, _playerMovement.JumpSpeed);
@@ -333,6 +357,10 @@ public class CharacterManager : MonoBehaviour
 
 	public void EnableControllerMovements()
 	{
+		_movementsDisabled++;
+		if (_movementsDisabled != 0)
+			return;
+
 		// Enable
 		_playerMovement.walkSpeed = _currentSpeeds.walkSpeed;
 		_playerMovement.runSpeed = _currentSpeeds.runSpeed;
@@ -344,6 +372,10 @@ public class CharacterManager : MonoBehaviour
 
 	public void DisableCameraMovements()
 	{
+		_cameraDisabled--;
+		if (_cameraDisabled != -1)
+			return;
+
 		_currentSpeeds.SetCameraSensitivity(_cameraMovement.Sensitivity);
 		_cameraMovement.Sensitivity = Vector2.zero;
 		_bodyCameraMovement.Sensitivity = Vector2.zero;
@@ -351,8 +383,30 @@ public class CharacterManager : MonoBehaviour
 
 	public void EnableCameraMovements()
 	{
+		_cameraDisabled++;
+		if (_cameraDisabled != 0)
+			return;
+
 		_cameraMovement.Sensitivity = _currentSpeeds.sensitivity;
 		_bodyCameraMovement.Sensitivity = _currentSpeeds.sensitivity;
+	}
+
+	public void DisableCursor()
+	{
+		if (_cameraDisabled != 0)
+			return;
+
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
+	}
+
+	public void EnableCursor()
+	{
+		if (_cameraDisabled != -1)
+			return;
+
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
 	}
 
 	private class CurrentSpeeds

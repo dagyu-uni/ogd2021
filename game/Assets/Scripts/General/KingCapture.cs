@@ -42,12 +42,14 @@ public class KingCapture : MonoBehaviour
 		}
 
 		// Manage the actual king input to capture the wizard
-		if (_wizardIsVisible && other.gameObject.CompareTag("Wizard"))
+		if (_wizardIsVisible && (other.gameObject.CompareTag("Wizard_1") || other.gameObject.CompareTag("Wizard_2")))
 		{
 			if (_inputCooldown <= 0.0f && Input.GetButton("Fire1"))
 			{
 				_inputCooldown = 0.2f;
-				GameManager.Instance.CaptureWizard(other.GetComponent<CharacterManager>());
+				CharacterManager manager = other.GetComponent<CharacterManager>();
+				GameManager.Instance.CaptureWizard(manager);
+				manager.IsCaptured = true;
 			}
 		}
 	}
@@ -55,7 +57,7 @@ public class KingCapture : MonoBehaviour
 	private void OnTriggerExit(Collider other)
 	{
 		// if you are not colliding a wizard, do nothing.
-		if (other.gameObject.CompareTag("Wizard"))
+		if (other.gameObject.CompareTag("Wizard_1") || other.gameObject.CompareTag("Wizard_2"))
 		{
 			_wizardIsVisible = false;
 			_playerHUD.CaptureText.gameObject.SetActive(false);
@@ -65,7 +67,7 @@ public class KingCapture : MonoBehaviour
 	private void CheckForWizard(Collider other)
 	{
 		// if you are not colliding a wizard, do nothing.
-		if (other.gameObject.CompareTag("Wizard"))
+		if (other.gameObject.CompareTag("Wizard_1") || other.gameObject.CompareTag("Wizard_2"))
 		{
 			// Check that you actually see the wizard
 			RaycastHit[] hits;
@@ -74,7 +76,8 @@ public class KingCapture : MonoBehaviour
 			hits = Physics.RaycastAll(ray, rayLength, layerMask);
 
 			// if the first hit object is the wizard than you can see him
-			if (hits[0].collider.gameObject.CompareTag("Wizard"))
+			GameObject go = hits[0].collider.gameObject;
+			if (go.CompareTag("Wizard_1") || go.CompareTag("Wizard_2"))
 			{
 				_wizardIsVisible = true;
 				_playerHUD.CaptureText.gameObject.SetActive(true);

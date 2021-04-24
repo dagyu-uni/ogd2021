@@ -136,8 +136,7 @@ public class PlayerHUD : MonoBehaviour
 				_charManager.DisableControllerMovements();
 				_charManager.DisableCameraMovements();
 				_pauseInterface.SetActive(true);
-				Cursor.lockState = CursorLockMode.None;
-				Cursor.visible = true;
+				_charManager.EnableCursor();
 			}
 		}
 	}
@@ -261,20 +260,18 @@ public class PlayerHUD : MonoBehaviour
 		{
 			if (_inventoryUI.activeInHierarchy)
 			{
-				Cursor.visible = false;
-				Cursor.lockState = CursorLockMode.Locked;
 				_inventoryUI.SetActive(false);
 				_inventoryTooltip.gameObject.SetActive(false);
 				_inventoryIcon.color = new Color32(255, 255, 255, 255);
 				_charManager.EnableCameraMovements();
+				_charManager.DisableCursor();
 			}
 			else
 			{
-				Cursor.visible = true;
-				Cursor.lockState = CursorLockMode.None;
 				_inventoryUI.SetActive(true);
 				_inventoryIcon.color = new Color32(170, 170, 170, 255);
 				_charManager.DisableCameraMovements();
+				_charManager.EnableCursor();
 			}
 		}
 	}
@@ -359,7 +356,8 @@ public class PlayerHUD : MonoBehaviour
 			_eventText.text = text;
 			_eventText.color = color;
 			yield return new WaitForSeconds(3.0f);
-			_eventText.text = null;
+			if (_eventText.text == text)
+				_eventText.text = null;
 		}
 	}
 
@@ -422,10 +420,15 @@ public class PlayerHUD : MonoBehaviour
 	{
 		if (collectable == null)
 			return;
+		else if (collectable.isTreasure)
+		{
+			StartCoroutine(SetEventText("You can't throw away this treasure!", new Color32(180, 30, 30, 255)));
+			return;
+		}
 
 		// Set the gameobject transform properly
 		GameObject obj = collectable.gameObject;
-		PlayerInfo info = GameManager.Instance.GetPlayerInfo(collectable._collectorID);
+		PlayerInfo info = GameManager.Instance.GetPlayerInfo(collectable.role);
 		Transform cameraTransform = info.characterManager.Camera.transform;
 		obj.transform.position = cameraTransform.position + cameraTransform.forward * 1.5f;
 		obj.transform.rotation = Quaternion.identity;
@@ -440,8 +443,7 @@ public class PlayerHUD : MonoBehaviour
 		_charManager.EnableControllerMovements();
 		_charManager.EnableCameraMovements();
 		_pauseInterface.SetActive(false);
-		Cursor.lockState = CursorLockMode.Locked;
-		Cursor.visible = false;
+		_charManager.DisableCursor();
 	}
 
 	private void Quit()

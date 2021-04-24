@@ -6217,6 +6217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 1395831900551817903}
+  _playerHUD: {fileID: 2925916781418111481}
 --- !u!114 &6570489824316725546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6239,7 +6240,7 @@ MonoBehaviour:
   - {fileID: 2745955778062751879}
   - {fileID: 4585436322809978893}
   - {fileID: 1613858299972127347}
-  sceneViewId: 0
+  sceneViewId: 4
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &4585436322809978893
