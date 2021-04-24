@@ -55,7 +55,7 @@ namespace Photon.Pun.Demo.PunBasics
 		private void InstanciatePlayerPrefab()
 		{
 			List<int> playerCodeList = new List<int>();
-			int index=0, localPlayerCode = PhotonNetwork.LocalPlayer.ActorNumber;
+			int index = 0, localPlayerCode = PhotonNetwork.LocalPlayer.ActorNumber;
 
 			foreach (Player player in PhotonNetwork.PlayerList)
 			{
