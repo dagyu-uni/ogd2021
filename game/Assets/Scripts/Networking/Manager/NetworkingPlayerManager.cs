@@ -43,10 +43,10 @@ namespace Photon.Pun.Demo.PunBasics
 			if (photonView.IsMine)
 			{
 				LocalPlayerInstance = gameObject;
-				_camera.SetActive(true);
 			}
 			else
 			{
+				_camera.SetActive(false);
 				_playerHUD.SetActive(false);
 				GetComponent<PlayerInput>().enabled = false;
 				GetComponent<PlayerMovement>().enabled = false;
