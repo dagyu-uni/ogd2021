@@ -24,6 +24,8 @@ public class InteractiveCollectable : InteractiveItem
 	[Tooltip("Use the first bank for fail sounds and the second one for success sounds.")]
 	[SerializeField] private AudioCollection _audioCollection = null;
 	[SerializeField] private PowerUp _powerUp = null;
+	// interface that activates when you pick up the collectable.
+	[SerializeField] private GameObject _interface = null;
 
 	// Internals
 	private IEnumerator _coroutine = null;
@@ -99,6 +101,18 @@ public class InteractiveCollectable : InteractiveItem
 
 			// the collectable disappears from the scene
 			gameObject.SetActive(false);
+		}
+
+		if (_interface != null)
+		{
+			if (_interface.activeInHierarchy)
+			{
+				_interface.SetActive(false);
+			}
+			else
+			{
+				_interface.SetActive(true);
+			}
 		}
 	}
 

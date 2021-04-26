@@ -210,7 +210,7 @@ public class CharacterManager : MonoBehaviour
 			for (int i = 0; i < hits.Length; i++)
 			{
 				hit = hits[i];
-				InteractiveItem item = _gameManager.GetInteractiveItem(hit.collider.GetInstanceID());
+				InteractiveItem item = GameManager.Instance.GetInteractiveItem(hit.collider.GetInstanceID());
 
 				if (item != null && item.RayPriority > highestPriority)
 				{
