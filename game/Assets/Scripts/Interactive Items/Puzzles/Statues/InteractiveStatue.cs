@@ -10,7 +10,7 @@ public class InteractiveStatue : InteractiveItem
 	[SerializeField] private string _infoText = null;
 
 	private Quaternion _startinRot;
-	private float _interpolator = 0.0f; 
+	private float _interpolator = 0.0f;
 
 	private void Awake()
 	{

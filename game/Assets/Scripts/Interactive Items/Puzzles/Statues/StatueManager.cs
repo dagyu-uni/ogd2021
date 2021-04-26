@@ -35,8 +35,8 @@ public class StatueManager : PuzzleManager
 			_clues[i].transform.position = _cluesPositions[range[index]].position;
 			range.RemoveAt(index);
 			// Set clue text
-			Text _clueText = _clues[i].GetComponentInChildren(typeof(Text), true) as Text; 
-			_clueText.text = "The statue " + (i+1) + " must point " + _cardinals[(rand + r) % 8];
+			Text _clueText = _clues[i].GetComponentInChildren(typeof(Text), true) as Text;
+			_clueText.text = "The statue " + (i + 1) + " must point " + _cardinals[(rand + r) % 8];
 		}
 	}
 
@@ -48,7 +48,7 @@ public class StatueManager : PuzzleManager
 			if (statueOrientation != _correctOrientations[i])
 			{
 				return false;
-			}		
+			}
 		}
 
 		return true;
