@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public enum ItemNames { Ring, Dice, GlobeMap, SkyrimMap};
+public enum ItemNames { Ring, Dice, GlobeMap, SkyrimMap };
 
 [System.Serializable]
 public class PaintingMaterials
