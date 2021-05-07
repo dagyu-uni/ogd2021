@@ -191,6 +191,22 @@ public class GameManager : MonoBehaviour
 
 		return null;
 	}
+
+	// helper function used to shuffle pseudo-randomly a list of strings(based on Fisher-Yates shuffle)
+	public void Shuffle(List<string> list)
+	{
+		System.Random rng = new System.Random();
+
+		int n = list.Count;
+		while (n > 1)
+		{
+			n--;
+			int k = rng.Next(n + 1);
+			string value = list[k];
+			list[k] = list[n];
+			list[n] = value;
+		}
+	}
 }
 
 // Easily get all the player info you may need.
@@ -202,4 +218,5 @@ public class PlayerInfo
 	public Role role;
 }
 
+[System.Serializable]
 public enum Role { King, Wizard_1, Wizard_2 }

@@ -8,8 +8,9 @@ public class InteractiveCollectable : InteractiveItem
 {
 	// Inspector Assigned
 	// NOTE the name text must be ONLY the item name (e.g. lockpick)
-	[SerializeField] private bool _isPickable;
 	[SerializeField] private bool _isTreasure;
+	[SerializeField] private bool _isPickable;
+	[SerializeField] private List<Role> _pickableBy = new List<Role>();
 	[SerializeField] private int _inventoryPriority;
 	[SerializeField] private string _name = null;
 	[SerializeField] private Sprite _icon = null;
@@ -33,9 +34,17 @@ public class InteractiveCollectable : InteractiveItem
 	private Collectable _thisCollectable = new Collectable();
 	private CharacterManager _charManager = null;
 	private Rigidbody _rb = null;
+	// stores if this object has been collected by someone or not
+	private bool _isPicked = false;
 
 	// Properties
 	public bool isPickable { set { _isPickable = value; } }
+	public bool isPicked
+	{
+		get { return _isPicked; }
+		set { _isPicked = value; }
+	}
+	public string Name { get { return _name; } }
 	public CharacterManager CharManager { get { return _charManager; } }
 
 	private void Awake()
@@ -82,10 +91,10 @@ public class InteractiveCollectable : InteractiveItem
 		if (!_isPickable)
 		{
 			_hideActivatedTextTime = Time.time + _activatedTextDuration;
-			PlayCoroutine(bank);
+			PlayCollectableSound(bank);
 		}
 		// if it is, also store it
-		else
+		else if (_pickableBy.Contains(characterManager.Role))
 		{
 			if (!characterManager.StoreCollectable(_thisCollectable)) // inventory full
 			{
@@ -93,14 +102,20 @@ public class InteractiveCollectable : InteractiveItem
 				return;
 			}
 
-
-			PlayCoroutine(bank);
+			PlayCollectableSound(bank);
 
 			// cache the manager
 			_charManager = characterManager;
 
 			// the collectable disappears from the scene
 			gameObject.SetActive(false);
+
+			_isPicked = true;
+		}
+		else // pickable but not by you
+		{
+			PlayerHUD hud = characterManager.PlayerHUD;
+			StartCoroutine(hud.SetEventText("You cannot handle this item.", hud.eventColors[0]));
 		}
 
 		if (_interface != null)
@@ -116,17 +131,17 @@ public class InteractiveCollectable : InteractiveItem
 		}
 	}
 
-	private void PlayCoroutine(int bank)
+	private void PlayCollectableSound(int bank)
 	{
 		if (bank > -1)
 		{
-			_coroutine = PlayCollectableSound(bank);
+			_coroutine = PlayCollectableSoundCoroutine(bank);
 			StartCoroutine(_coroutine);
 		}
 	}
 
 	// Use the first bank for fail sounds and the second one for success sounds
-	private IEnumerator PlayCollectableSound(int bank)
+	private IEnumerator PlayCollectableSoundCoroutine(int bank)
 	{
 		if (AudioManager.Instance == null)
 			yield break;
