@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -92,10 +93,11 @@ public class CharacterManager : MonoBehaviour
 		_interactiveMask = 1 << LayerMask.NameToLayer("Interactive");
 
 		_playerHUD.CharManager = this;
+	}
 
+	private void Start()
+	{
 		// Register this player info in the game manager
-		// NOTE this is executed before the network player manager
-		// disables the character components (this script included).
 		_gameManager = GameManager.Instance;
 
 		if (_gameManager != null)
@@ -108,12 +110,9 @@ public class CharacterManager : MonoBehaviour
 						gameObject.tag == Role.Wizard_1.ToString() ? Role.Wizard_1 : Role.Wizard_2;
 			_role = info.role;
 
-			_gameManager.RegisterPlayerInfo(info.role, info);
+			_gameManager.RegisterPlayerInfo(_role, info);
 		}
-	}
 
-	private void Start()
-	{
 		// When players spawn start fading in
 		if (_playerHUD)
 			_playerHUD.Fade(2.0f, ScreenFadeType.FadeIn);
@@ -260,7 +259,7 @@ public class CharacterManager : MonoBehaviour
 			collectable.powerUp.ApplyPowerUp(this);
 		RefreshCollectablesHUD(collectable, true);
 
-		// Cache the unique ID
+		// Cache the unique role
 		collectable.role = _role;
 
 		return true;
@@ -276,6 +275,9 @@ public class CharacterManager : MonoBehaviour
 			{
 				res = _inventory[i];
 				_inventory.RemoveAt(i);
+
+				res.gameObject.GetComponent<InteractiveCollectable>().isPicked = false;
+
 				if (res.powerUp != null)
 					res.powerUp.RemovePowerUp(this);
 				RefreshCollectablesHUD(res, false);
@@ -284,6 +286,19 @@ public class CharacterManager : MonoBehaviour
 		}
 
 		return res;
+	}
+
+	public bool HasCollectable(string name)
+	{
+		for (int i = 0; i < _inventory.Count; i++)
+		{
+			if (_inventory[i].name == name)
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	private void RefreshCollectablesHUD(Collectable collectable, bool added)

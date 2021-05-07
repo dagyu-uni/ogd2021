@@ -27,6 +27,8 @@ namespace Photon.Pun.Demo.PunBasics
 		[SerializeField] private GameObject _camera;
 		[SerializeField] private GameObject _playerHUD;
 
+		private CharacterManager _charManager = null;
+
 		private float Health = 1f;
 		private GameObject beams;
 		private bool IsFiring;
@@ -38,6 +40,8 @@ namespace Photon.Pun.Demo.PunBasics
 		/// </summary>
 		public void Awake()
 		{
+			_charManager = GetComponent<CharacterManager>();
+
 			// #Important
 			// used in GameManager.cs: we keep track of the localPlayer instance to prevent instanciation when levels are synchronized
 			if (photonView.IsMine)
@@ -51,7 +55,6 @@ namespace Photon.Pun.Demo.PunBasics
 				GetComponent<PlayerInput>().enabled = false;
 				GetComponent<PlayerMovement>().enabled = false;
 				GetComponent<PlayerController>().enabled = false;
-				GetComponent<CharacterManager>().enabled = false;
 			}
 			// #Critical
 			// we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
@@ -64,8 +67,10 @@ namespace Photon.Pun.Demo.PunBasics
 		public void Start()
 		{
 #if UNITY_5_4_OR_NEWER
-				// Unity 5.4 has a new scene management. register a method to call CalledOnLevelWasLoaded.
-				SceneManager.sceneLoaded += OnSceneLoaded;
+			// Unity 5.4 has a new scene management. register a method to call CalledOnLevelWasLoaded.
+			SceneManager.sceneLoaded += OnSceneLoaded;
+			if (!photonView.IsMine)
+				_charManager.enabled = false;
 #endif
 		}
 

@@ -4958,7 +4958,7 @@ SkinnedMeshRenderer:
   m_RootBone: {fileID: 1110553940063794924}
   m_AABB:
     m_Center: {x: -0.0001180768, y: -0.8491187, z: 0.073719315}
-    m_Extent: {x: 0.21891272, y: 0.45, z: 0.5}
+    m_Extent: {x: 0.64, y: 0.45, z: 0.59}
   m_DirtyAABB: 0
 --- !u!1 &4736544281160308260
 GameObject:
@@ -5960,9 +5960,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8406163233076001493}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.984847, y: 2.82, z: -2.02}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0.039481163, y: 1.094, z: -1.7220745}
+  m_LocalScale: {x: 1, y: 0.9, z: 1}
   m_Children:
   - {fileID: 902626122059735718}
   - {fileID: 3552783740929514548}
@@ -5971,7 +5971,7 @@ Transform:
   - {fileID: 1110553940063794924}
   m_Father: {fileID: 1656544713204674160}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!143 &8406163233076001498
 CharacterController:
   m_ObjectHideFlags: 0
@@ -6674,8 +6674,8 @@ MonoBehaviour:
   lerpSpeed: 10
   _idlePos: {x: 0, y: 0.5, z: 0.15}
   _walkingPos: {x: 0, y: 0.5, z: 0.3}
-  _runningPos: {x: 0, y: 0.6, z: 0.42}
-  _idleCrouchPos: {x: 0, y: 0.93, z: 0.25}
+  _runningPos: {x: 0, y: 0.65, z: 0.42}
+  _idleCrouchPos: {x: 0, y: 1, z: 0.3}
   _movingCrouchPos: {x: 0.3, y: 1.2, z: 0.5}
   _idleJump: {x: 0, y: 0, z: 0.38}
   _movingJump: {x: 0, y: 0.4, z: 0.3}
