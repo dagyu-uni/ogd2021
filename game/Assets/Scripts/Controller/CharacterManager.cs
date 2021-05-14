@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemAction { Added, Throw, Used}
+public enum ItemAction { Added, Throw, Used }
 
 // collectable attributes
 public class Collectable

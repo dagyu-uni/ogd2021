@@ -95,7 +95,7 @@ public class InteractiveDoor : InteractiveItem
 	public void CloseDoor()
 	{
 		if (isLocked)
-			return; 
+			return;
 
 		isLocked = true;
 		StartCoroutine(SlerpCloseDoor());
