@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ItemAction { Added, Throw, Used }
+
 // collectable attributes
 public class Collectable
 {
@@ -257,7 +259,7 @@ public class CharacterManager : MonoBehaviour
 		_inventory.Add(collectable);
 		if (collectable.powerUp != null)
 			collectable.powerUp.ApplyPowerUp(this);
-		RefreshCollectablesHUD(collectable, true);
+		RefreshCollectablesHUD(collectable, ItemAction.Added);
 
 		// Cache the unique role
 		collectable.role = _role;
@@ -265,7 +267,7 @@ public class CharacterManager : MonoBehaviour
 		return true;
 	}
 
-	// used when "using" a collectable
+	// used when throwing a collectable
 	public Collectable SubtractCollectable(string name)
 	{
 		Collectable res = null;
@@ -280,7 +282,29 @@ public class CharacterManager : MonoBehaviour
 
 				if (res.powerUp != null)
 					res.powerUp.RemovePowerUp(this);
-				RefreshCollectablesHUD(res, false);
+				RefreshCollectablesHUD(res, ItemAction.Throw);
+				break;
+			}
+		}
+
+		return res;
+	}
+
+	public Collectable UseCollectable(string name)
+	{
+		Collectable res = null;
+		for (int i = 0; i < _inventory.Count; i++)
+		{
+			if (_inventory[i].name == name)
+			{
+				res = _inventory[i];
+				_inventory.RemoveAt(i);
+
+				res.gameObject.GetComponent<InteractiveCollectable>().isPicked = false;
+
+				if (res.powerUp != null)
+					res.powerUp.RemovePowerUp(this);
+				RefreshCollectablesHUD(res, ItemAction.Used);
 				break;
 			}
 		}
@@ -301,13 +325,13 @@ public class CharacterManager : MonoBehaviour
 		return false;
 	}
 
-	private void RefreshCollectablesHUD(Collectable collectable, bool added)
+	private void RefreshCollectablesHUD(Collectable collectable, ItemAction action)
 	{
 		// Sort the inventory by descending order (=> higher priority will
 		// be on the left in the inventory).
 		_inventory.Sort((a, b) => b.uiPriority.CompareTo(a.uiPriority));
 
-		_playerHUD.RefreshCollectables(_inventory, collectable, added);
+		_playerHUD.RefreshCollectables(_inventory, collectable, action);
 	}
 
 	// API to handle the audiosource (relative to the player's mouth sounds)

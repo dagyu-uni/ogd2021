@@ -286,7 +286,7 @@ public class PlayerHUD : MonoBehaviour
 	}
 
 	// Give textual feedback and manage the inventory UI.
-	public void RefreshCollectables(List<Collectable> inventory, Collectable collectable, bool added)
+	public void RefreshCollectables(List<Collectable> inventory, Collectable collectable, ItemAction itemAction)
 	{
 		// Manage the inventory UI and refresh tooltip text
 		for (int i = 0; i < inventory.Count; i++)
@@ -311,15 +311,20 @@ public class PlayerHUD : MonoBehaviour
 		// Give textual feedback 
 		string collected = "";
 		Color color;
-		if (added)
+		if (itemAction == ItemAction.Added)
 		{
 			collected = "You picked the " + collectable.name + "!";
 			color = eventColors[1];
 		}
-		else
+		else if (itemAction == ItemAction.Throw)
 		{
 			collected = "You dropped the " + collectable.name + ".";
 			color = eventColors[0];
+		}
+		else
+		{
+			collected = "You used the " + collectable.name + ".";
+			color = eventColors[1];
 		}
 
 		StartCoroutine(SetEventText(collected, color));
