@@ -223,14 +223,14 @@ public class GameManager : MonoBehaviour
 		Role role = tag == "Wizard_1" ? Role.Wizard_1 : Role.Wizard_2;
 		Transform tr = _playersInfo[role].collider.transform;
 
-		if (leftOrRight)	// left footprint
+		if (leftOrRight)    // left footprint
 		{
 			ParticleSystem.MainModule main_left = _footprints[0].main;
 			main_left.startRotationY = tr.eulerAngles.y * 0.01744f;
 			_footprints[0].transform.position = new Vector3(tr.position.x, height, tr.position.z);
 			_footprints[0].Play();
 		}
-		else	// right footprint
+		else    // right footprint
 		{
 			ParticleSystem.MainModule main_right = _footprints[1].main;
 			main_right.startRotationY = tr.eulerAngles.y * 0.01744f;

@@ -8,7 +8,7 @@ public class FootprintsRotation : MonoBehaviour
 	public LayerMask layerMask;
 
 	private bool _switchFootprint = true;
-    private float _timer = 0.0f;
+	private float _timer = 0.0f;
 	private PlayerController _controller = null;
 
 	private PhotonView _photonView = null;
@@ -20,14 +20,14 @@ public class FootprintsRotation : MonoBehaviour
 	}
 
 	void Update()
-    {
+	{
 		_timer += Time.deltaTime;
 		float modifier = 1.0f;
 		modifier = _controller.status == Status.crouching ? 1.5f : _controller.status == Status.sprinting ? 0.5f :
 					_controller.status == Status.walking ? 1.0f : 1000f;
 		// if the particle system just played a footprint, switch it (activating the other system)
 		if (_timer > timeBetweenSteps * modifier)
-        {
+		{
 			// Cast a ray to get the correct ground height for the footprint
 			RaycastHit hit;
 			Ray ray = new Ray(transform.position, Vector3.down);
@@ -35,12 +35,12 @@ public class FootprintsRotation : MonoBehaviour
 			{
 				_photonView.RPC("AskForFootprint", RpcTarget.All, hit.point.y + 0.01f);
 			}
-				
+
 
 			_switchFootprint = !_switchFootprint;
-            _timer = 0.0f;
-        }
-    }
+			_timer = 0.0f;
+		}
+	}
 
 	[PunRPC]
 	private void AskForFootprint(float height)
