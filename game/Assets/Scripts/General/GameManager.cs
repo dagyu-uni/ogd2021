@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
 	[Tooltip("Expressed in seconds.")]
 	[SerializeField] private float _remainingMatchTime = 75f;
 	[SerializeField] private Transform _captureTransform = null;
+	[Header("Particles")]
+	[SerializeField] private List<ParticleSystem> _footprints = new List<ParticleSystem>();
 
 	// Internals
 	private bool _isGameOver = false;
@@ -205,6 +207,35 @@ public class GameManager : MonoBehaviour
 			string value = list[k];
 			list[k] = list[n];
 			list[n] = value;
+		}
+	}
+
+	// Particles
+	// footprints[0] = left, [1] = right
+	public void GenerateFootprint(string tag, float height, bool leftOrRight)
+	{
+		// Note: 0.01744 = 1 / 57.3248
+		// 57.3248 = 360 / 6.28
+
+		_footprints[0].Stop();
+		_footprints[1].Stop();
+
+		Role role = tag == "Wizard_1" ? Role.Wizard_1 : Role.Wizard_2;
+		Transform tr = _playersInfo[role].collider.transform;
+
+		if (leftOrRight)	// left footprint
+		{
+			ParticleSystem.MainModule main_left = _footprints[0].main;
+			main_left.startRotationY = tr.eulerAngles.y * 0.01744f;
+			_footprints[0].transform.position = new Vector3(tr.position.x, height, tr.position.z);
+			_footprints[0].Play();
+		}
+		else	// right footprint
+		{
+			ParticleSystem.MainModule main_right = _footprints[1].main;
+			main_right.startRotationY = tr.eulerAngles.y * 0.01744f;
+			_footprints[1].transform.position = new Vector3(tr.position.x, height, tr.position.z);
+			_footprints[1].Play();
 		}
 	}
 }
