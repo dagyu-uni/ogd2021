@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - Wizard_1
   - Wizard_2
+  - Wizard
   layers:
   - Default
   - TransparentFX
@@ -22,8 +23,8 @@ TagManager:
   - King
   - WizardBody
   - KingBody
-  - 
-  - 
+  - Footprint_1
+  - Footprint_2
   - 
   - 
   - 

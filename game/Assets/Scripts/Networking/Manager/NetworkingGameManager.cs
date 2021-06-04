@@ -72,7 +72,7 @@ namespace Photon.Pun.Demo.PunBasics
 				player = PhotonNetwork.Instantiate("Wizard Container_1", Wizard1SpawnPosition.transform.position,
 						Wizard1SpawnPosition.transform.rotation);
 			else
-				player = PhotonNetwork.Instantiate("Wizard Container_1", Wizard2SpawnPosition.transform.position,
+				player = PhotonNetwork.Instantiate("Wizard Container_2", Wizard2SpawnPosition.transform.position,
 						Wizard2SpawnPosition.transform.rotation);
 		}
 	}
