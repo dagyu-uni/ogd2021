@@ -5,9 +5,9 @@ using Photon.Pun;
 public class FootprintsRotation : MonoBehaviour
 {
 	public float timeBetweenSteps = 0.5f;
-	public Transform feetHeight = null;
+	public LayerMask layerMask;
 
-    private bool _switchFootprint = true;
+	private bool _switchFootprint = true;
     private float _timer = 0.0f;
 	private PlayerController _controller = null;
 
@@ -28,8 +28,14 @@ public class FootprintsRotation : MonoBehaviour
 		// if the particle system just played a footprint, switch it (activating the other system)
 		if (_timer > timeBetweenSteps * modifier)
         {
-
-			_photonView.RPC("AskForFootprint", RpcTarget.All);
+			// Cast a ray to get the correct ground height for the footprint
+			RaycastHit hit;
+			Ray ray = new Ray(transform.position, Vector3.down);
+			if (Physics.Raycast(ray, out hit, 2.0f, layerMask))
+			{
+				_photonView.RPC("AskForFootprint", RpcTarget.All, hit.point.y + 0.01f);
+			}
+				
 
 			_switchFootprint = !_switchFootprint;
             _timer = 0.0f;
@@ -37,8 +43,8 @@ public class FootprintsRotation : MonoBehaviour
     }
 
 	[PunRPC]
-	private void AskForFootprint()
+	private void AskForFootprint(float height)
 	{
-		GameManager.Instance.GenerateFootprint(gameObject.tag, feetHeight.position.y, _switchFootprint);
+		GameManager.Instance.GenerateFootprint(gameObject.tag, height, _switchFootprint);
 	}
 }
