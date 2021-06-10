@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CollectableName { Passpartout, LockPick }
+public enum CollectableName { Passpartout, LockPick, SpeedIncrease }
 public enum ItemAction { Added, Throw, Used }
 
 // collectable attributes

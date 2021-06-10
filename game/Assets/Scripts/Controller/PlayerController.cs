@@ -25,7 +25,8 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float _staminaReserve = 4f;
 	[SerializeField] private float _staminaLimit = 0f;
 	[SerializeField] private float _staminaDepletion = 1f;
-	[SerializeField] private float _staminaRecovery = 1f;
+	[SerializeField] public float StaminaRecovery = 1f;
+	private float _currentStaminaRecovery = 1f;
 	[SerializeField] private HeadBob _headBob = new HeadBob();
 	// Handle Sounds
 	[SerializeField] private AudioCollection _footSteps = null;
@@ -63,6 +64,10 @@ public class PlayerController : MonoBehaviour
 	public float Stamina { get { return _stamina; } }
 	public bool IsJumping { get { return _isJumping; } }
 	public bool HasFell { get { return _hasFell; } }
+	public PlayerMovement PlayerMovement
+	{
+		get { return _movement; }
+	}
 
 	public void ChangeStatus(Status s)
 	{
@@ -151,17 +156,17 @@ public class PlayerController : MonoBehaviour
 	{
 		// Change the recovery rate based on how much stamina has been used.
 		if (_stamina < _secondStaminaThreshold)
-			_staminaRecovery = 0.25f;
+			_currentStaminaRecovery = 0.25f * StaminaRecovery;
 		else if (_stamina < _firstStaminaThreshold)
-			_staminaRecovery = 0.75f;
+			_currentStaminaRecovery = 0.75f * StaminaRecovery;
 		else
-			_staminaRecovery = 1.0f;
+			_currentStaminaRecovery = 1.0f * StaminaRecovery;
 
 		// Actual recovery and depletion of _stamina
 		if (status == Status.sprinting && _stamina > 0)
 			_stamina = Mathf.Max(0f, _stamina - Time.deltaTime * _staminaDepletion);
 		else if (_stamina < _maxStamina)
-			_stamina = Mathf.Min(_maxStamina, _stamina + Time.deltaTime * _staminaRecovery);
+			_stamina = Mathf.Min(_maxStamina, _stamina + Time.deltaTime * _currentStaminaRecovery);
 
 		// Change status if needed
 		if ((int)status <= 1 || isSprinting())
@@ -229,7 +234,7 @@ public class PlayerController : MonoBehaviour
 		DefaultMovement();
 
 		// Handle HeadBob     
-		HeadBob();
+		InitHeadBob();
 
 		// Landing
 		if (!_previouslyGrounded && _movement.grounded &&
@@ -282,7 +287,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	private void HeadBob()
+	private void InitHeadBob()
 	{
 		// we are not considering vertical speed for the head bob
 		// (so that we dont have speed while crouching for example)
