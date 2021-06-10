@@ -39,10 +39,10 @@ public class PaintingsManager : PuzzleManager
 		base.Start();
 
 		// Set the pedestals
-		List<string> names = new List<string>();
+		List<CollectableName> names = new List<CollectableName>();
 		for (int i = 0; i < _collectables.Count; i++)
 		{
-			names.Add(_collectables[i].Name);
+			names.Add(_collectables[i].Collectable);
 		}
 
 		// select three correct items and cache them
@@ -55,7 +55,7 @@ public class PaintingsManager : PuzzleManager
 			range.RemoveAt(index);
 			// set the pedestal
 			_pedestals[i].items = names;
-			_pedestals[i].correctItem = _correctItems[i].Name;
+			_pedestals[i].correctItem = _correctItems[i].Collectable;
 			// set the painting
 			int rand = Random.Range(0, 2);
 			int rand2 = rand == 0 ? 1 : 0;
@@ -63,7 +63,7 @@ public class PaintingsManager : PuzzleManager
 			GameObject truePainting = Instantiate(_paintings[i], _paintingsPos[i].positions[rand].position, _paintingsPos[i].positions[rand].rotation);
 			GameObject fakePainting = Instantiate(_paintings[i], _paintingsPos[i].positions[rand2].position, _paintingsPos[i].positions[rand2].rotation);
 			MeshRenderer fakeRenderer = fakePainting.GetComponent<MeshRenderer>();
-			int matIndex = names.IndexOf(_correctItems[i].Name) * 2;
+			int matIndex = names.IndexOf(_correctItems[i].Collectable) * 2;
 			int rendererIndex = fakeRenderer.materials.Length - 1;
 			// note that all the arrays in unity, materials returns a copy of that array
 			Material[] matArr = fakeRenderer.materials;

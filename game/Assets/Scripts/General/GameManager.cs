@@ -195,7 +195,7 @@ public class GameManager : MonoBehaviour
 	}
 
 	// helper function used to shuffle pseudo-randomly a list of strings(based on Fisher-Yates shuffle)
-	public void Shuffle(List<string> list)
+	public void Shuffle<T>(List<T> list)
 	{
 		System.Random rng = new System.Random();
 
@@ -204,7 +204,7 @@ public class GameManager : MonoBehaviour
 		{
 			n--;
 			int k = rng.Next(n + 1);
-			string value = list[k];
+			T value = list[k];
 			list[k] = list[n];
 			list[n] = value;
 		}

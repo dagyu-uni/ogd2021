@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CollectableName { Passpartout, LockPick }
 public enum ItemAction { Added, Throw, Used }
 
 // collectable attributes
 public class Collectable
 {
 	public int uiPriority;
-	public string name;
+	public CollectableName name;
 	public bool isTreasure;
 	public GameObject gameObject;
 	public PowerUp powerUp;
@@ -33,6 +34,7 @@ public class CharacterManager : MonoBehaviour
 	[SerializeField] private AudioCollection _sprintingSounds = null;
 	// list of current skills owned by the player
 	[SerializeField] private List<Skill> _skills = new List<Skill>();
+
 
 	// Private
 	private Role _role;
@@ -268,7 +270,7 @@ public class CharacterManager : MonoBehaviour
 	}
 
 	// used when throwing a collectable
-	public Collectable SubtractCollectable(string name)
+	public Collectable SubtractCollectable(CollectableName name)
 	{
 		Collectable res = null;
 		for (int i = 0; i < _inventory.Count; i++)
@@ -290,7 +292,7 @@ public class CharacterManager : MonoBehaviour
 		return res;
 	}
 
-	public Collectable UseCollectable(string name)
+	public Collectable UseCollectable(CollectableName name)
 	{
 		Collectable res = null;
 		for (int i = 0; i < _inventory.Count; i++)
@@ -312,7 +314,7 @@ public class CharacterManager : MonoBehaviour
 		return res;
 	}
 
-	public bool HasCollectable(string name)
+	public bool HasCollectable(CollectableName name)
 	{
 		for (int i = 0; i < _inventory.Count; i++)
 		{

@@ -35,7 +35,7 @@ public class InteractiveDoor : InteractiveItem
 		{
 			charManager = cm;
 			// if you are the king you can always open a door
-			if (cm.Role == Role.King && _openInterp == 0.0f)
+			if ((cm.Role == Role.King || cm.HasCollectable(CollectableName.Passpartout)) && _openInterp == 0.0f)
 			{
 				// open door
 				isLocked = false;
@@ -46,7 +46,7 @@ public class InteractiveDoor : InteractiveItem
 			else if (cm.Role != Role.King)
 			{
 				// you need at least one lock pick
-				Collectable lockPick = cm.UseCollectable("LockPick");
+				Collectable lockPick = cm.UseCollectable(CollectableName.LockPick);
 				if (lockPick != null)
 				{
 					// solve the door puzzle

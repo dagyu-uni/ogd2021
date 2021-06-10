@@ -7,8 +7,8 @@ public class InteractivePedestal : InteractiveItem
 	[SerializeField] private string _infoText = null;
 
 	// these are set from the PaintingsManager script
-	[HideInInspector] public List<string> items = new List<string>();
-	[HideInInspector] public string correctItem = "";
+	[HideInInspector] public List<CollectableName> items = new List<CollectableName>();
+	[HideInInspector] public CollectableName correctItem;
 
 	private Collectable _coll = null;
 	private InteractiveCollectable _intColl = null;
@@ -52,7 +52,7 @@ public class InteractivePedestal : InteractiveItem
 		else
 		{
 			// shuffle item list so that you search for a random order of items
-			GameManager.Instance.Shuffle(items);
+			GameManager.Instance.Shuffle<CollectableName>(items);
 			// loop through it to check if you have at least one of those items to put on the pedestal
 			for (int i = 0; i < items.Count; i++)
 			{

@@ -12,7 +12,7 @@ public class InteractiveCollectable : InteractiveItem
 	[SerializeField] private bool _isPickable;
 	[SerializeField] private List<Role> _pickableBy = new List<Role>();
 	[SerializeField] private int _inventoryPriority;
-	[SerializeField] private string _name = null;
+	[SerializeField] private CollectableName _name;
 	[SerializeField] private Sprite _icon = null;
 	[TextArea(3, 10)]
 	[Tooltip("What is showed by the inventory tooltip of this collectable")]
@@ -44,7 +44,7 @@ public class InteractiveCollectable : InteractiveItem
 		get { return _isPicked; }
 		set { _isPicked = value; }
 	}
-	public string Name { get { return _name; } }
+	public CollectableName Collectable { get { return _name; } }
 	public CharacterManager CharManager { get { return _charManager; } }
 
 	private void Awake()
