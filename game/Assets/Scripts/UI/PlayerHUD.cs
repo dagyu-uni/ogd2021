@@ -35,7 +35,8 @@ public class SkillSlot
 public class PlayerHUD : MonoBehaviour
 {
 	[SerializeField] private Text _remainingTimeText = null;
-	[SerializeField] private Slider _staminaSlider = null;
+	//[SerializeField] private Slider _staminaSlider = null;
+	[SerializeField] private StaminaMask _staminaMask = null;
 	[SerializeField] private Text _interactionText = null;
 	[SerializeField] private Text _eventText = null;
 	[SerializeField] private Text _captureText = null;
@@ -282,7 +283,8 @@ public class PlayerHUD : MonoBehaviour
 		if (cm == null)
 			return;
 		// refresh stamina slider value
-		_staminaSlider.value = cm.Controller.Stamina / cm.Controller.MaxStamina;
+		//_staminaSlider.value = cm.Controller.Stamina / cm.Controller.MaxStamina;
+		_staminaMask.SetValue(cm.Controller.Stamina / cm.Controller.MaxStamina);
 	}
 
 	// Give textual feedback and manage the inventory UI.
