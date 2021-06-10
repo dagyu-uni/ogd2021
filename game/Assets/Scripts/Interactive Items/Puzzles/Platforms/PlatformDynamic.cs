@@ -8,7 +8,7 @@ public class PlatformDynamic : MonoBehaviour
 
 	[HideInInspector] public IEnumerator _coroutine = null;
 
-    private Transform _startPos = null;
+	private Transform _startPos = null;
 	private float _interpolator = 0.0f;
 	// used to know movement direction
 	private bool toEnd = true;
@@ -38,7 +38,7 @@ public class PlatformDynamic : MonoBehaviour
 			{
 
 			}
-			
+
 			yield return null;
 		}
 	}
