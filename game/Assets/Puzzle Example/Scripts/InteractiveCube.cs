@@ -15,7 +15,7 @@ public class InteractiveCube : InteractiveItem
 		_renderer = GetComponent<MeshRenderer>();
 	}
 
-	public override string GetText()
+	public override string GetText(CharacterManager cm)
 	{
 		return _infoText;
 	}
