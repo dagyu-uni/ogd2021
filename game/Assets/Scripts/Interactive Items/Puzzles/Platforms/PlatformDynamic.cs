@@ -39,7 +39,7 @@ public class PlatformDynamic : MonoBehaviour
 			{
 				transform.position = Vector3.Lerp(endTrans.position, _startPos, _interpolator);
 			}
-			
+
 			yield return null;
 		}
 	}

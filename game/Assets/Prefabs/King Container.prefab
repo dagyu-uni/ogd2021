@@ -6025,7 +6025,7 @@ MonoBehaviour:
   _staminaReserve: 4
   _staminaLimit: 0
   _staminaDepletion: 1
-  _staminaRecovery: 1
+  StaminaRecovery: 1
   _headBob:
     bobcurve:
       serializedVersion: 2
@@ -6309,7 +6309,7 @@ MonoBehaviour:
   - {fileID: 2745955778062751879}
   - {fileID: 4585436322809978893}
   - {fileID: 1613858299972127347}
-  sceneViewId: 4
+  sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &4585436322809978893
@@ -6433,7 +6433,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 30711
+    m_Bits: 129015
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

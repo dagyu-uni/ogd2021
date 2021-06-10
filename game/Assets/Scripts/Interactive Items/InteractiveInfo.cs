@@ -5,8 +5,8 @@ using UnityEngine;
 // Interactive Item that simply shows some text in the HUD
 public class InteractiveInfo : InteractiveItem
 {
-	public List<Role> roles = new List<Role>();
-	
+	public List<Role> roles = new List<Role>(new Role[] { Role.King, Role.Wizard_1, Role.Wizard_2 });
+
 	// Inspector Assigned
 	[TextArea(3, 10)]
 	[SerializeField] private string _infoText = null;

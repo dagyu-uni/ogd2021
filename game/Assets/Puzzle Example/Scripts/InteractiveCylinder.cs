@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InteractiveCylinder : InteractiveItem
 {
-	[SerializeField] private string _treasureName;
+	[SerializeField] private CollectableName _treasureName;
 
 	public Collectable coll = null;
 
