@@ -6,7 +6,7 @@ using UnityEngine;
 public class InteractiveInfo : InteractiveItem
 {
 	public List<Role> roles = new List<Role>();
-	
+
 	// Inspector Assigned
 	[TextArea(3, 10)]
 	[SerializeField] private string _infoText = null;
