@@ -149,9 +149,6 @@ public class PlayerController : MonoBehaviour
 
 	void UpdateMovingStatus()
 	{
-		if (_hasInterfaceOpen)
-			return;
-
 		// Change the recovery rate based on how much stamina has been used.
 		if (_stamina < _secondStaminaThreshold)
 			_staminaRecovery = 0.25f;
