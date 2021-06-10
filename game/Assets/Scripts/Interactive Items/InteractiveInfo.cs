@@ -5,14 +5,21 @@ using UnityEngine;
 // Interactive Item that simply shows some text in the HUD
 public class InteractiveInfo : InteractiveItem
 {
+	public List<Role> roles = new List<Role>();
+	
 	// Inspector Assigned
 	[TextArea(3, 10)]
 	[SerializeField] private string _infoText = null;
 	[SerializeField] private GameObject _interfaceReadOnly = null;
 
-	public override string GetText()
+	public override string GetText(CharacterManager cm)
 	{
-		return _infoText;
+		if (roles.Contains(cm.Role))
+		{
+			return _infoText;
+		}
+
+		return "";
 	}
 
 	public override void Activate(CharacterManager characterManager)

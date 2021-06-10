@@ -18,7 +18,7 @@ public class InteractiveLever : InteractiveItem
 		_restPose = transform;
 	}
 
-	public override string GetText()
+	public override string GetText(CharacterManager cm)
 	{
 		return _infoText;
 	}

@@ -223,7 +223,7 @@ public class CharacterManager : MonoBehaviour
 			if (priorityObject != null)
 			{
 				if (_playerHUD)
-					_playerHUD.SetInteractionText(priorityObject.GetText());
+					_playerHUD.SetInteractionText(priorityObject.GetText(this));
 
 				if (Input.GetButtonDown("Use"))
 					priorityObject.Activate(this);

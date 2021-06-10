@@ -70,7 +70,7 @@ public class InteractiveCollectable : InteractiveItem
 		_thisCollectable.rb = _rb;
 	}
 
-	public override string GetText()
+	public override string GetText(CharacterManager cm)
 	{
 		if (Time.time < _hideActivatedTextTime)
 			return _activatedText;

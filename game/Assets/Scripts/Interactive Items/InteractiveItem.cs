@@ -16,7 +16,7 @@ public class InteractiveItem : MonoBehaviour
 	public int RayPriority { get { return _rayPriority; } }
 
 	// Virtual Methods
-	public virtual string GetText() { return null; }
+	public virtual string GetText(CharacterManager cm) { return null; }
 	public virtual void Activate(CharacterManager characterManager) { }
 	protected virtual void Start()
 	{

@@ -19,7 +19,7 @@ public class InteractiveStatue : InteractiveItem
 		transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + orientation, Vector3.up);
 	}
 
-	public override string GetText()
+	public override string GetText(CharacterManager cm)
 	{
 		return _infoText;
 	}

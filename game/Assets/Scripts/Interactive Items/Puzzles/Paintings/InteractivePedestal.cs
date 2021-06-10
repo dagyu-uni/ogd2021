@@ -31,7 +31,7 @@ public class InteractivePedestal : InteractiveItem
 		}
 	}
 
-	public override string GetText()
+	public override string GetText(CharacterManager cm)
 	{
 		return _infoText;
 	}

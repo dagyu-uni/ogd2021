@@ -21,7 +21,7 @@ public class InteractiveDoor : InteractiveItem
 		_doorPuzzle = _interface.GetComponent<DoorPuzzle>();
 	}
 
-	public override string GetText()
+	public override string GetText(CharacterManager cm)
 	{
 		if (isLocked)
 			return "Open";

@@ -92,7 +92,7 @@ public abstract class PuzzleManager : InteractiveItem
 
 
 	// Overridden Interactive Methods
-	public override string GetText()
+	public override string GetText(CharacterManager cm)
 	{
 		if (!isPuzzleActive)
 			return "";
