@@ -5957,7 +5957,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7741838354352108227}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -10.46, y: 2.798, z: -24.46}
+  m_LocalPosition: {x: -5.41, y: 1.59, z: 2.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1395831900551817904}
@@ -6003,7 +6003,7 @@ MonoBehaviour:
   _interactiveRayLength: 1.2
   _sprintingSounds: {fileID: 11400000, guid: 8f65ae3dd55f53c42b862555fc12a4e1, type: 2}
   _skills:
-  - {fileID: 11400000, guid: d45d40710b944ff4ca856e97b47444f1, type: 2}
+  - {fileID: 11400000, guid: 4ade08cf753f54818b07e57c8e0a32b1, type: 2}
 --- !u!114 &6032082457487356839
 MonoBehaviour:
   m_ObjectHideFlags: 0

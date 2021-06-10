@@ -8,7 +8,7 @@ public class InteractiveCylinder : InteractiveItem
 
 	public Collectable coll = null;
 
-	public override string GetText()
+	public override string GetText(CharacterManager cm)
 	{
 		return "Place " + _treasureName;
 	}
