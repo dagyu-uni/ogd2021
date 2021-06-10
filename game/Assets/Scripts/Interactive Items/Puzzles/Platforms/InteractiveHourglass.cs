@@ -64,7 +64,7 @@ public class InteractiveHourglass : InteractiveItem
 				StartCoroutine(otherHourglasses[i].RotateHourglass());
 				otherHourglasses[i].IsTimeRunning = !otherHourglasses[i].IsTimeRunning;
 			}
-				
+
 		}
 	}
 
