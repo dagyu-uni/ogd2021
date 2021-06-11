@@ -154,6 +154,10 @@ public class PlayerHUD : MonoBehaviour
 				_skillSlots[i].icon.color = Color.white;
 			else
 				_skillSlots[i].icon.color = new Color(0.33f, 0.33f, 0.33f, 1f);
+
+			// finally init the skills initial values
+			_charManager.Skills[i].currentCooldown = 0.0f;
+			_charManager.Skills[i].currentDuration = 0.0f;
 		}
 		// set the empty slots to a default state
 		for (int i = _charManager.Skills.Count; i < _skillSlots.Count; i++)
