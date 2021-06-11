@@ -23,13 +23,19 @@ public class InteractiveLever : InteractiveItem
 		return _infoText;
 	}
 
+
 	public override void Activate(CharacterManager cm)
 	{
-		if (cm.Role == Role.King)
+		bool wizardCanOpen = (cm.IsWizard() && cm.HasCollectable(CollectableName.Passpartout) && !_isBend);
+		if (_interpolator != 0.0f)
+		{
+			StartCoroutine(cm.PlayerHUD.SetEventText("Wait the lever action", cm.PlayerHUD.eventColors[0]));
+		}
+		else if (cm.IsKing() || wizardCanOpen)
 		{
 			// use it
-			_door.CloseDoor();
-			BendLever();
+			_door.ToggleDoor(cm);
+			ToggleLever();
 		}
 		else
 		{
@@ -38,13 +44,18 @@ public class InteractiveLever : InteractiveItem
 		}
 	}
 
-	private void BendLever()
+
+	private void ToggleLever()
 	{
 		if (_isBend)
-			return;
-
-		_isBend = true;
-		StartCoroutine(SlerpBendLever());
+		{
+			StartCoroutine(SlerpRestLever());
+		}
+		else
+		{
+			StartCoroutine(SlerpBendLever());
+		}
+		_isBend = !_isBend;
 	}
 
 	private IEnumerator SlerpBendLever()

@@ -8,6 +8,7 @@ public class InteractiveDoor : InteractiveItem
 
 	[SerializeField] private GameObject _interface = null;
 	[SerializeField] private InteractiveLever _lever = null;
+	[SerializeField] private Door _door = null;
 
 	private Quaternion _closedRot;
 	private Quaternion _openedRot;
@@ -34,34 +35,7 @@ public class InteractiveDoor : InteractiveItem
 		if (isLocked)
 		{
 			charManager = cm;
-			// if you are the king you can always open a door
-			if ((cm.Role == Role.King || cm.HasCollectable(CollectableName.Passpartout)) && _openInterp == 0.0f)
-			{
-				// open door
-				isLocked = false;
-				_lever.RestLever();
-				StartCoroutine(SlerpOpenDoor(GetDirection()));
-			}
-			// wizards
-			else if (cm.Role != Role.King)
-			{
-				// you need at least one lock pick
-				Collectable lockPick = cm.UseCollectable(CollectableName.LockPick);
-				if (lockPick != null)
-				{
-					// solve the door puzzle
-					_doorPuzzle.ResetPuzzle();
-					_interface.SetActive(true);
-					cm.DisableControllerMovements();
-					cm.DisableCameraMovements();
-					cm.EnableCursor();
-				}
-				else
-				{
-					// TODO play closed door sound
-					StartCoroutine(cm.PlayerHUD.SetEventText("You need a lockpick to open the door", cm.PlayerHUD.eventColors[0]));
-				}
-			}
+			_door.Interaction(this, cm);
 		}
 		else
 		{
@@ -69,6 +43,18 @@ public class InteractiveDoor : InteractiveItem
 		}
 
 	}
+
+	public void StartPuzzle(CharacterManager cm)
+	{
+		// you need at least one lock pi
+		// solve the door puzzle
+		_doorPuzzle.ResetPuzzle();
+		_interface.SetActive(true);
+		cm.DisableControllerMovements();
+		cm.DisableCameraMovements();
+		cm.EnableCursor();
+	}
+
 
 	public void TryOpenDoor(bool success)
 	{
@@ -78,8 +64,8 @@ public class InteractiveDoor : InteractiveItem
 		if (success)
 		{
 			isLocked = false;
-			_lever.RestLever();
-			StartCoroutine(SlerpOpenDoor(GetDirection()));
+			if(_lever != null) _lever.RestLever();
+			StartCoroutine(SlerpOpenDoor(GetDirection(charManager)));
 		}
 		else
 		{
@@ -99,6 +85,16 @@ public class InteractiveDoor : InteractiveItem
 
 		isLocked = true;
 		StartCoroutine(SlerpCloseDoor());
+	}
+
+	public void ToggleDoor(CharacterManager cm)
+	{
+		if (isLocked)
+			StartCoroutine(SlerpOpenDoor(GetDirection(cm)));
+		else
+			StartCoroutine(SlerpCloseDoor());
+		isLocked = !isLocked;
+
 	}
 
 	private IEnumerator SlerpOpenDoor(float directionSign)
@@ -136,8 +132,8 @@ public class InteractiveDoor : InteractiveItem
 	}
 
 	// returns 1 or -1 based on the toward direction of the player relative to the door
-	private float GetDirection()
+	private float GetDirection(CharacterManager cm)
 	{
-		return Mathf.Sign(Vector3.Dot(charManager.transform.forward, transform.right));
+		return Mathf.Sign(Vector3.Dot(cm.transform.forward, transform.right));
 	}
 }

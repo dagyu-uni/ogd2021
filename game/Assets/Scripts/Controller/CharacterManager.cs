@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CollectableName { Passpartout, LockPick, SpeedIncrease }
+public enum CollectableName { Passpartout, LockPick, SpeedIncrease, BypassJail }
 public enum ItemAction { Added, Throw, Used }
 
 // collectable attributes
@@ -326,6 +326,17 @@ public class CharacterManager : MonoBehaviour
 
 		return false;
 	}
+
+	public bool IsKing()
+	{
+		return this.Role == Role.King;
+	}
+
+	public bool IsWizard()
+	{
+		return this.Role == Role.Wizard_1 || this.Role == Role.Wizard_2;
+	}
+
 
 	private void RefreshCollectablesHUD(Collectable collectable, ItemAction action)
 	{

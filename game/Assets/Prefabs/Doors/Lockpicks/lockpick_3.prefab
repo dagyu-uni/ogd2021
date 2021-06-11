@@ -162,7 +162,7 @@ MonoBehaviour:
   _isPickable: 1
   _pickableBy: 000000000100000002000000
   _inventoryPriority: 5
-  _name: LockPick
+  _name: 1
   _icon: {fileID: 21300000, guid: 8b823dafb17e7ba47ac96a380e951d05, type: 3}
   _tooltipContent: Use it to unlock closed doors.
   _activatedText: 
