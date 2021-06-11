@@ -55,7 +55,7 @@ public class Transformation : Skill
 		while (currentDuration >= 0.0f)
 		{
 			float mov = Input.GetAxisRaw("Horizontal") + Input.GetAxisRaw("Vertical");
-			
+
 			if (mov != 0.0f) // moving
 			{
 				DeactivateEffects();
