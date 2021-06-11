@@ -377,6 +377,11 @@ public class CharacterManager : MonoBehaviour
 		StartCoroutine(c);
 	}
 
+	public void StopScriptableCoroutine(IEnumerator c)
+	{
+		StopCoroutine(c);
+	}
+
 	// Disable/Enable all the player's movement, both controller and camera (and the cursor too).
 	public void DisableControllerMovements()
 	{

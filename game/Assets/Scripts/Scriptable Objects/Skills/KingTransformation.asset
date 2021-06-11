@@ -19,10 +19,10 @@ MonoBehaviour:
   baseCooldown: 6
   currentCooldown: 0
   isOneShotSkill: 0
-  baseDuration: 0
+  baseDuration: 5
   currentDuration: 0
   uiPriority: 100
   _objects:
-  - {fileID: 100000, guid: 548269d02132bd9459adefc72265bd5f, type: 3}
-  - {fileID: 100000, guid: b9f108c8521451c428e98cd678d364d9, type: 3}
-  - {fileID: 100000, guid: 0777a5fd7df77014dac1e2c31c70cbd7, type: 3}
+  - {fileID: 9032537117546566182, guid: b41567efccef37941a24d01c19253d24, type: 3}
+  heightsFactor:
+  - 0
