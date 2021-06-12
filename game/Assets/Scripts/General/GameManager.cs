@@ -291,7 +291,7 @@ public class GameManager : MonoBehaviour
 
 	[PunRPC]
 	private void DeactivateProp()
-	{		
+	{
 		_currentProp.SetActive(false);
 		_kingRenderer.enabled = true;
 	}
