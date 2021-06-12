@@ -12,7 +12,7 @@ public class SharedPassageDoor : Door
 		}
 		else if (cm.IsWizard() && cm.HasCollectable(CollectableName.Passpartout))
 		{
-			text =  "You can open the door using a lever, find it.";
+			text = "You can open the door using a lever, find it.";
 		}
 		// wizards
 		else if (cm.IsWizard() && cm.HasCollectable(CollectableName.LockPick))
