@@ -21,24 +21,26 @@ public class FootprintsRotation : MonoBehaviour
 
 	void Update()
 	{
-		_timer += Time.deltaTime;
-		float modifier = 1.0f;
-		modifier = _controller.status == Status.crouching ? 1.5f : _controller.status == Status.sprinting ? 0.5f :
-					_controller.status == Status.walking ? 1.0f : 1000f;
-		// if the particle system just played a footprint, switch it (activating the other system)
-		if (_timer > timeBetweenSteps * modifier)
+		if (_controller.AreFootprintActive)
 		{
-			// Cast a ray to get the correct ground height for the footprint
-			RaycastHit hit;
-			Ray ray = new Ray(transform.position, Vector3.down);
-			if (Physics.Raycast(ray, out hit, 2.0f, layerMask))
+			_timer += Time.deltaTime;
+			float modifier = _controller.status == Status.crouching ? 1.5f : _controller.status == Status.sprinting ? 0.5f :
+						_controller.status == Status.walking ? 1.0f : 1000f;
+			// if the particle system just played a footprint, switch it (activating the other system)
+			if (_timer > timeBetweenSteps * modifier)
 			{
-				_photonView.RPC("AskForFootprint", RpcTarget.All, hit.point.y + 0.01f);
+				// Cast a ray to get the correct ground height for the footprint
+				RaycastHit hit;
+				Ray ray = new Ray(transform.position, Vector3.down);
+				if (Physics.Raycast(ray, out hit, 2.0f, layerMask))
+				{
+					_photonView.RPC("AskForFootprint", RpcTarget.All, hit.point.y + 0.01f);
+				}
+
+
+				_switchFootprint = !_switchFootprint;
+				_timer = 0.0f;
 			}
-
-
-			_switchFootprint = !_switchFootprint;
-			_timer = 0.0f;
 		}
 	}
 

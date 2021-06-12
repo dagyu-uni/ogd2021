@@ -69,6 +69,13 @@ public class PlayerController : MonoBehaviour
 		get { return _movement; }
 	}
 
+	private bool _areFootprintActive = true;
+
+	public bool AreFootprintActive {
+		get { return _areFootprintActive; }
+		set { _areFootprintActive = value; }
+	}
+
 	public void ChangeStatus(Status s)
 	{
 		if (status == s)
