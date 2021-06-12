@@ -64,7 +64,8 @@ public class InteractiveDoor : InteractiveItem
 		if (success)
 		{
 			isLocked = false;
-			if(_lever != null) _lever.RestLever();
+			if (_lever != null)
+				_lever.RestLever();
 			StartCoroutine(SlerpOpenDoor(GetDirection(charManager)));
 		}
 		else
