@@ -20,6 +20,7 @@ public abstract class Skill : ScriptableObject
 	[HideInInspector] public int uiPriority;
 
 	protected CharacterManager _charManager = null;
+	protected bool _hasToDeactivate = true;
 
 	public string FireButton
 	{
@@ -31,6 +32,7 @@ public abstract class Skill : ScriptableObject
 	public virtual void Initialize(CharacterManager charManager)
 	{
 		_charManager = charManager;
+		_hasToDeactivate = true;
 	}
 
 	// apply skill's effects
@@ -49,7 +51,8 @@ public abstract class Skill : ScriptableObject
 	{
 		ActivateEffects();
 		yield return new WaitForSeconds(baseDuration);
-		DeactivateEffects();
+		if (_hasToDeactivate)
+			DeactivateEffects();
 	}
 
 	public abstract void ActivateEffects();

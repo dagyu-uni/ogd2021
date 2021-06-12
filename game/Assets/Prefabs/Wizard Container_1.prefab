@@ -6153,7 +6153,7 @@ MonoBehaviour:
   _interactiveRayLength: 1.2
   _sprintingSounds: {fileID: 11400000, guid: 8f65ae3dd55f53c42b862555fc12a4e1, type: 2}
   _skills:
-  - {fileID: 11400000, guid: d45d40710b944ff4ca856e97b47444f1, type: 2}
+  - {fileID: 11400000, guid: 129048936b080bd44bfd3e37fe5cff8d, type: 2}
 --- !u!114 &5507474711739726769
 MonoBehaviour:
   m_ObjectHideFlags: 0
