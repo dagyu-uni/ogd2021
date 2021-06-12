@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc93151aba389460faf0ed88de97f870, type: 3}
-  m_Name: New Silence
+  m_Name: Silence
   m_EditorClassIdentifier: 
   skillName: Silence
   _fireButton: Skill1
@@ -21,4 +21,4 @@ MonoBehaviour:
   isOneShotSkill: 0
   baseDuration: 5
   currentDuration: 0
-  uiPriority: 0
+  uiPriority: 100
