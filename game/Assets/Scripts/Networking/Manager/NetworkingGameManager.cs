@@ -9,21 +9,25 @@ namespace Photon.Pun.Demo.PunBasics
 	{
 		public static NetworkingGameManager Instance;
 
-		public GameObject KingSpawnPosition;
-		public GameObject Wizard1SpawnPosition;
-		public GameObject Wizard2SpawnPosition;
-		public List<GameObject> playerPrefabs;
+		[Space(5)]
 
+		[Header("Player Information")]
+		public List<GameObject> playerPrefabs;
+		public List<GameObject> playerPositions;
+
+		[Space(5)]
+
+		[Header("Lockpick Information")]
+		[Space(10)]
+		public List<GameObject> lockpickPrefabs;
+		public List<GameObject> lockpickPositions;
+
+		[HideInInspector] public DefaultPool prefabPool = PhotonNetwork.PrefabPool as DefaultPool;
 		private GameObject player;
 
 		private void Start()
 		{
 			Instance = this;
-
-			var pool = PhotonNetwork.PrefabPool as DefaultPool;
-			if (pool != null && pool.ResourceCache.Count == 0 && playerPrefabs != null)
-				foreach (var prefab in playerPrefabs)
-					pool.ResourceCache.Add(prefab.name, prefab);
 
 			if (!PhotonNetwork.IsConnected)
 			{
@@ -31,11 +35,18 @@ namespace Photon.Pun.Demo.PunBasics
 				return;
 			}
 
+			PrefabPooling(playerPrefabs);
+
 			if (NetworkingPlayerManager.LocalPlayerInstance == null)
 			{
-				InstanciatePlayerPrefab();
-
+				PlayerInstantiation();
 				AudioManager.Instance.ListenerPos = player.GetComponentInChildren<AudioListener>().transform;
+			}
+
+			if (PhotonNetwork.IsMasterClient)
+			{
+				PrefabPooling(lockpickPrefabs);
+				LockpickInstatiation();
 			}
 		}
 
@@ -52,7 +63,16 @@ namespace Photon.Pun.Demo.PunBasics
 			SceneManager.LoadScene("Launcher");
 		}
 
-		private void InstanciatePlayerPrefab()
+		public void PrefabPooling(List<GameObject> prefabList)
+		{
+			if (prefabPool.ResourceCache.Count > 0)
+				prefabPool.ResourceCache.Clear();
+			if (prefabPool != null && prefabList != null)
+				foreach (GameObject prefab in prefabList)
+					prefabPool.ResourceCache.Add(prefab.name, prefab);
+		}
+
+		private void PlayerInstantiation()
 		{
 			List<int> playerCodeList = new List<int>();
 			int index = 0, localPlayerCode = PhotonNetwork.LocalPlayer.ActorNumber;
@@ -66,14 +86,25 @@ namespace Photon.Pun.Demo.PunBasics
 				index++;
 
 			if (index == 0)
-				player = PhotonNetwork.Instantiate("King Container", KingSpawnPosition.transform.position,
-						KingSpawnPosition.transform.rotation);
+				player = PhotonNetwork.Instantiate(playerPrefabs[0].name, playerPositions[0].transform.position,
+						playerPositions[0].transform.rotation);
 			else if (index == 1)
-				player = PhotonNetwork.Instantiate("Wizard Container_1", Wizard1SpawnPosition.transform.position,
-						Wizard1SpawnPosition.transform.rotation);
+				player = PhotonNetwork.Instantiate(playerPrefabs[1].name, playerPositions[1].transform.position,
+						playerPositions[1].transform.rotation);
 			else
-				player = PhotonNetwork.Instantiate("Wizard Container_2", Wizard2SpawnPosition.transform.position,
-						Wizard2SpawnPosition.transform.rotation);
+				player = PhotonNetwork.Instantiate(playerPrefabs[2].name, playerPositions[2].transform.position,
+						playerPositions[2].transform.rotation);
+		}
+
+		private void LockpickInstatiation()
+		{
+			int randomPrefabIndex, index;
+			for (index = 0; index < lockpickPositions.Count; index++)
+			{
+				randomPrefabIndex = Random.Range(0, lockpickPrefabs.Count);
+				PhotonNetwork.Instantiate(lockpickPrefabs[randomPrefabIndex].name,
+					lockpickPositions[index].transform.position, lockpickPositions[index].transform.rotation);
+			}
 		}
 	}
 }
