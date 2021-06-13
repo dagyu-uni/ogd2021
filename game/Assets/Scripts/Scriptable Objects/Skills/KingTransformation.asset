@@ -16,13 +16,17 @@ MonoBehaviour:
   _fireButton: Skill1
   sprite: {fileID: 21300000, guid: bd293dc32f4aaf94e8274f2fac2cdf89, type: 3}
   audioCollection: {fileID: 0}
-  baseCooldown: 6
+  baseCooldown: 1
   currentCooldown: 0
   isOneShotSkill: 0
-  baseDuration: 5
+  baseDuration: 3
   currentDuration: 0
   uiPriority: 100
   _objects:
   - {fileID: 9032537117546566182, guid: b41567efccef37941a24d01c19253d24, type: 3}
+  - {fileID: 8364582599636397157, guid: b49e0c4a7bc112c4ab4ee060bdb025e5, type: 3}
+  - {fileID: 4154104013147602436, guid: 7607ffe285531cb44bc0a5462a8baf07, type: 3}
   heightsFactor:
+  - 0
+  - 0
   - 0

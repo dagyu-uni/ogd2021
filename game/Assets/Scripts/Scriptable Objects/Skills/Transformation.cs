@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 [CreateAssetMenu(menuName = "Skill/Transformation")]
 public class Transformation : Skill
@@ -18,14 +19,18 @@ public class Transformation : Skill
 	{
 		base.Initialize(charManager);
 		_renderer = charManager.gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
+		_currentProp = null;
 		_coroutine = CheckMovement();
 	}
 
 	public override void ActivateEffects()
 	{
+		_hasToDeactivate = true;
 		int rand = Random.Range(0, _objects.Count);
 
-		// TODO play a particle effect here
+		// particle effect
+		GameManager.Instance.GeneratePropEffect();
+		GameManager.Instance.GeneratePropObject(_objects[rand].name, heightsFactor[rand]);
 
 		// handle meshes and cameras
 		_renderer.enabled = false;
@@ -40,7 +45,9 @@ public class Transformation : Skill
 
 	public override void DeactivateEffects()
 	{
-		// TODO play a particle effect here
+		// particle effect
+		GameManager.Instance.GeneratePropEffect();
+		GameManager.Instance.DeactivatePropObject();
 
 		_renderer.enabled = true;
 		_currentProp.SetActive(false);
@@ -58,6 +65,9 @@ public class Transformation : Skill
 
 			if (mov != 0.0f) // moving
 			{
+				_hasToDeactivate = false;
+				// the interface has to adapt to this sudden change too
+				currentDuration = 0.001f;
 				DeactivateEffects();
 			}
 

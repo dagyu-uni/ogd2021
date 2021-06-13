@@ -21,4 +21,4 @@ MonoBehaviour:
   isOneShotSkill: 0
   baseDuration: 5
   currentDuration: 0
-  uiPriority: 0
+  uiPriority: 100

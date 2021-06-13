@@ -40,6 +40,10 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private Transform _captureTransform = null;
 	[Header("Particles")]
 	[SerializeField] private List<ParticleSystem> _footprints = new List<ParticleSystem>();
+	[SerializeField] private ParticleSystem _propParticle = null;
+	[SerializeField] private List<GameObject> _props = new List<GameObject>();
+	[SerializeField] private Invisibility _invisibility = null;
+
 
 	// Internals
 	private bool _isGameOver = false;
@@ -47,6 +51,10 @@ public class GameManager : MonoBehaviour
 	private int numOfTreasures = 0;
 	private Coroutine _gameCycleRoutine = null;
 	private PhotonView _photonView = null;
+
+	// Other Internals
+	private GameObject _currentProp = null;
+	private SkinnedMeshRenderer _kingRenderer = null;
 
 	// Every component in the scene has a unique id used as key of the dictionary
 	private Dictionary<Role, PlayerInfo> _playersInfo = new Dictionary<Role, PlayerInfo>();
@@ -238,6 +246,81 @@ public class GameManager : MonoBehaviour
 			_footprints[1].Play();
 		}
 	}
+
+	////////////////////////////
+	// Transformation Skill
+	public void GeneratePropEffect()
+	{
+		_photonView.RPC("PropEffect", RpcTarget.All);
+	}
+
+	[PunRPC]
+	private void PropEffect()
+	{
+		_propParticle.Stop();
+		_propParticle.transform.position = _playersInfo[Role.King].characterManager.transform.position;
+		_propParticle.Play();
+	}
+
+	public void GeneratePropObject(string objName, float height)
+	{
+		_photonView.RPC("SpawnObject", RpcTarget.Others, objName, height);
+	}
+
+	[PunRPC]
+	private void SpawnObject(string objName, float height)
+	{
+		Transform king = _playersInfo[Role.King].characterManager.transform;
+		_kingRenderer = _playersInfo[Role.King].renderers[0];
+		_kingRenderer.enabled = false;
+		Vector3 pos = king.position + Vector3.down * height;
+		Quaternion rot = king.rotation * Quaternion.Euler(0f, -90f, 0f);
+		for (int i = 0; i < _props.Count; i++)
+		{
+			if (_props[i].name == objName)
+			{
+				_currentProp = GameObject.Instantiate(_props[i], pos, rot);
+			}
+		}
+	}
+
+	public void DeactivatePropObject()
+	{
+		_photonView.RPC("DeactivateProp", RpcTarget.Others);
+	}
+
+	[PunRPC]
+	private void DeactivateProp()
+	{
+		_currentProp.SetActive(false);
+		_kingRenderer.enabled = true;
+	}
+	////////////////////////////
+
+	////////////////////////////
+	// Invisibility Skill
+	public void Invisibility(Role role, bool activating)
+	{
+		_photonView.RPC("InvisibilityRPC", RpcTarget.Others, role, activating);
+	}
+
+	[PunRPC]
+	private void InvisibilityRPC(Role role, bool activating)
+	{
+		for (int i = 0; i < _playersInfo[role].renderers.Length; i++)
+		{
+			if (activating)
+			{
+				_playersInfo[role].renderers[i].material = _invisibility.invisibleMaterial;
+			}
+			else
+			{
+				_playersInfo[role].renderers[i].material = _playersInfo[role].originalMaterials[i];
+			}
+		}
+	}
+
+	////////////////////////////
 }
 
 // Easily get all the player info you may need.
@@ -245,6 +328,8 @@ public class PlayerInfo
 {
 	public Collider collider;
 	public CharacterManager characterManager;
+	public SkinnedMeshRenderer[] renderers;
+	public List<Material> originalMaterials = new List<Material>();
 	public Camera camera;
 	public Role role;
 }

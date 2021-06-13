@@ -6154,6 +6154,7 @@ MonoBehaviour:
   _sprintingSounds: {fileID: 11400000, guid: 8f65ae3dd55f53c42b862555fc12a4e1, type: 2}
   _skills:
   - {fileID: 11400000, guid: fc70d085c7d1e4bb39eac064202f8a45, type: 2}
+  - {fileID: 11400000, guid: 129048936b080bd44bfd3e37fe5cff8d, type: 2}
 --- !u!114 &5507474711739726769
 MonoBehaviour:
   m_ObjectHideFlags: 0

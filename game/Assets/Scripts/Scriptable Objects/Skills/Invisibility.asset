@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36b56d780b3083d448f20d04e8f483a4, type: 3}
+  m_Name: Invisibility
+  m_EditorClassIdentifier: 
+  skillName: Invisibility
+  _fireButton: Skill2
+  sprite: {fileID: 21300000, guid: b3473e09bc12c1545a701510b4a9419a, type: 3}
+  audioCollection: {fileID: 0}
+  baseCooldown: 2
+  currentCooldown: 0
+  isOneShotSkill: 0
+  baseDuration: 10
+  currentDuration: 6.4015374
+  uiPriority: 100
+  invisibleMaterial: {fileID: 2100000, guid: 84772ec448a83bc45ae4b34199a52c6a, type: 2}
+  _originalMats:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

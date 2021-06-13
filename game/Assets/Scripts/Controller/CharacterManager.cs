@@ -113,6 +113,11 @@ public class CharacterManager : MonoBehaviour
 			info.role = gameObject.tag == Role.King.ToString() ? Role.King :
 						gameObject.tag == Role.Wizard_1.ToString() ? Role.Wizard_1 : Role.Wizard_2;
 			_role = info.role;
+			info.renderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+			for (int i = 0; i < info.renderers.Length; i++)
+			{
+				info.originalMaterials.Add(info.renderers[i].material);
+			}
 
 			_gameManager.RegisterPlayerInfo(_role, info);
 		}
