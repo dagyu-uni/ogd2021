@@ -18,7 +18,7 @@ public class InteractiveMelody : InteractiveItem
 		if (!_isPlaying && !_melodyPuzzleManager.IsPuzzleSolved())
 		{
 			_isPlaying = true;
-			
+
 			characterManager.CallCoroutine(
 				AudioManager.Instance.PlayClipBanks(
 					_melodyPuzzleManager.AudioCollection.MixerGroupName,

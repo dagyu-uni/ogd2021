@@ -349,7 +349,7 @@ public class AudioManager : MonoBehaviour
 			);
 			yield return new WaitForSeconds(clip.length);
 		}
-		if(callback != null)
+		if (callback != null)
 			callback();
 	}
 

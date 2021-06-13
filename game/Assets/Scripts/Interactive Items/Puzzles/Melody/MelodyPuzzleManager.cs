@@ -20,7 +20,7 @@ public class MelodyPuzzleManager : PuzzleManager
 
 	public AudioCollection AudioCollection { get { return audioCollection; } }
 	public List<AudioClip> ShuffledAudioClips { get { return clips; } }
-	public List<AudioClip> NotShuffledAudioClips { get { return audioCollection.ClipBanks[audioClipIndex].clips;  } }
+	public List<AudioClip> NotShuffledAudioClips { get { return audioCollection.ClipBanks[audioClipIndex].clips; } }
 
 	protected override void Start()
 	{
@@ -33,11 +33,12 @@ public class MelodyPuzzleManager : PuzzleManager
 
 	}
 
-	public void Play(CharacterManager characterManager, Vector3 position, int indexAudioClip) {
+	public void Play(CharacterManager characterManager, Vector3 position, int indexAudioClip)
+	{
 		if (!_playing)
 		{
 			DateTime now = DateTime.Now;
-			if(lastTime != null && (now - lastTime) > new TimeSpan(0,0,secondsForPuzzleReset))
+			if (lastTime != null && (now - lastTime) > new TimeSpan(0, 0, secondsForPuzzleReset))
 			{
 				ResetPuzzle();
 			}
@@ -69,7 +70,8 @@ public class MelodyPuzzleManager : PuzzleManager
 		Debug.Log("Melody Puzzle Solved!");
 	}
 
-	private IEnumerator PlaySoundAndCheckPuzzle(AudioClip audioClip, Vector3 position) {
+	private IEnumerator PlaySoundAndCheckPuzzle(AudioClip audioClip, Vector3 position)
+	{
 		_playing = true;
 		AudioManager.Instance.PlayOneShotSound(
 			audioCollection.MixerGroupName,
