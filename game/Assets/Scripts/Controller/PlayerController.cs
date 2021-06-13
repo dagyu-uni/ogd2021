@@ -413,7 +413,7 @@ public class PlayerController : MonoBehaviour
 			else
 				clipToPlay = _footSteps[0];
 
-			AudioManager.Instance.PhotonPlayOneShotSound(_footSteps.MixerGroupName, clipToPlay.name, transform.position,
+			AudioManager.Instance.PlayOneShotSound(_footSteps.MixerGroupName, clipToPlay.name, transform.position,
 													isCrouching ? _footSteps.Volume * _crouchAttenuation : _footSteps.Volume,
 													_footSteps.SpatialBlend, _footSteps.Priority);
 		}
@@ -428,7 +428,7 @@ public class PlayerController : MonoBehaviour
 				clipToPlay = _footSteps[3];
 			else // jumping
 				clipToPlay = _footSteps[2];
-			AudioManager.Instance.PhotonPlayOneShotSound(_footSteps.MixerGroupName, clipToPlay.name, transform.position,
+			AudioManager.Instance.PlayOneShotSound(_footSteps.MixerGroupName, clipToPlay.name, transform.position,
 													_footSteps.Volume, _footSteps.SpatialBlend, _footSteps.Priority);
 		}
 	}

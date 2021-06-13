@@ -9,6 +9,7 @@ namespace Photon.Pun.Demo.PunBasics
 	{
 		[SerializeField] private GameObject menuManager;
 		[SerializeField] private byte maxPlayersPerRoom = 3;
+		[SerializeField] private string levelName;
 
 		public Text connectionStatusLabel;
 		public Text popUpMessageLabel;
@@ -88,7 +89,7 @@ namespace Photon.Pun.Demo.PunBasics
 
 		public void LoadRoom()
 		{
-			PhotonNetwork.LoadLevel("Prototype");
+			PhotonNetwork.LoadLevel(levelName);
 		}
 
 		IEnumerator PopUpMessage(string message)

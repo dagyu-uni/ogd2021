@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2315696fcb5d40629f9bceb87acbd77, type: 3}
+  m_Name: Melody
+  m_EditorClassIdentifier: 
+  _mixerGroupName: Players
+  _volume: 0.9
+  _spatialBlend: 1
+  _priority: 200
+  _clipBanks:
+  - description: 
+    clips:
+    - {fileID: 8300000, guid: 353d315cd5c8d46aeb7370b473fc319a, type: 3}
+    - {fileID: 8300000, guid: 771607eeaf37e48799efff41653124ba, type: 3}
+    - {fileID: 8300000, guid: eddcf79a7dfae4f329f5e7d7c9e60f25, type: 3}
+    - {fileID: 8300000, guid: e9180d9a9786a48e88ce99c3ba29adb1, type: 3}

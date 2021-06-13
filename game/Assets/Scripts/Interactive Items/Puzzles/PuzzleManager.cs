@@ -65,7 +65,7 @@ public abstract class PuzzleManager : InteractiveItem
 	{
 		// Activation Sound
 		if (_solvedSounds != null)
-			AudioManager.Instance.PhotonPlayOneShotSound(
+			AudioManager.Instance.PlayOneShotSound(
 									_solvedSounds.MixerGroupName, _solvedSounds.AudioClip.name,
 									transform.position, _solvedSounds.Volume, _solvedSounds.SpatialBlend,
 									_solvedSounds.Priority);

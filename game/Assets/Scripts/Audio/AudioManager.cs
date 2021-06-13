@@ -270,8 +270,9 @@ public class AudioManager : MonoBehaviour
 	}
 
 
+
 	[PunRPC]
-	private ulong PlayOneShotSound(string mixerGroupName, string clipName, Vector3 position, float volume,
+	private ulong PhotonPlayOneShotSound(string mixerGroupName, string clipName, Vector3 position, float volume,
 										float spatialBlend, int priority = 128)
 	{
 		AudioClip clip = _clipHash[clipName];
@@ -317,9 +318,76 @@ public class AudioManager : MonoBehaviour
 	}
 
 	// scripts can call this to play a clip for every client.
-	public void PhotonPlayOneShotSound(string mixerGroupName, string clipName, Vector3 position, float volume,
+	public void PlayOneShotSound(string mixerGroupName, string clipName, Vector3 position, float volume,
 										float spatialBlend, int priority = 128)
 	{
-		_photonView.RPC("PlayOneShotSound", RpcTarget.All, mixerGroupName, clipName, position, volume, spatialBlend, priority);
+		if (_photonView.isRuntimeInstantiated)
+		{
+			_photonView.RPC("PhotonPlayOneShotSound", RpcTarget.All, mixerGroupName, clipName, position, volume, spatialBlend, priority);
+		}
+		else
+		{
+			PlayWithoutPhotonOneShotSound(mixerGroupName, clipName, position, volume, spatialBlend, priority);
+		}
+
+	}
+
+	public delegate void Callback();
+
+	public IEnumerator PlayClipBanks(string mixerGroupName, List<AudioClip> audioClips, Vector3 position, float volume,
+										float spatialBlend, int priority = 128, Callback callback = null)
+	{
+		foreach (AudioClip clip in audioClips)
+		{
+			PlayOneShotSound(
+				mixerGroupName,
+				clip.name,
+				position,
+				volume,
+				spatialBlend,
+				priority
+			);
+			yield return new WaitForSeconds(clip.length);
+		}
+		if(callback != null)
+			callback();
+	}
+
+
+	private ulong PlayWithoutPhotonOneShotSound(string mixerGroupName, string clipName, Vector3 position, float volume,
+										float spatialBlend, int priority = 128)
+	{
+		AudioClip clip = _clipHash[clipName];
+
+		if (!_mixerGroups.ContainsKey(mixerGroupName) || clip == null || volume == 0.0f)
+			return 0;
+
+		// Calculate the unimportance of the sound
+		float unimportance = 0;
+
+		int leastImportantIndex = -1;
+		float leastImportantValue = float.MinValue;
+
+		// Find an available source to use to play the clip
+		for (int i = 0; i < _pool.Count; i++)
+		{
+			AudioPoolItem poolItem = _pool[i];
+
+			if (!poolItem.isPlaying)
+				return ConfigurePoolObject(i, mixerGroupName, clip, position, volume, spatialBlend, unimportance);
+			// Record the lowest importance source
+			else if (poolItem.unimportance > leastImportantValue)
+			{
+				leastImportantValue = poolItem.unimportance;
+				leastImportantIndex = i;
+			}
+		}
+
+		// No available items, switch with the one with lowest priority
+		if (unimportance < leastImportantValue)
+			return ConfigurePoolObject(leastImportantIndex, mixerGroupName, clip, position, volume, spatialBlend, unimportance);
+
+		// if the importance of the request is negligible
+		return 0;
 	}
 }

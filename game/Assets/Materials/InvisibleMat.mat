@@ -80,7 +80,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _RippleScale: 1.5
-    - _RippleSpeed: 0.045
+    - _RippleSpeed: 0.076
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
