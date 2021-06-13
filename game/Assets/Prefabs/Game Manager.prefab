@@ -50,6 +50,9 @@ MonoBehaviour:
   _footprints:
   - {fileID: 0}
   - {fileID: 0}
+  _propParticle: {fileID: 0}
+  _props: []
+  _invisibility: {fileID: 0}
 --- !u!114 &-6690346839976859009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,13 +65,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2dc1729c5a906d4e863d7386157e8e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KingSpawnPosition: {fileID: 0}
-  Wizard1SpawnPosition: {fileID: 0}
-  Wizard2SpawnPosition: {fileID: 0}
   playerPrefabs:
   - {fileID: 658935914034816615, guid: 41d03154acceba049a904556e16cd95c, type: 3}
   - {fileID: 1656544713204674161, guid: 5cb5c76afdad2344cb640603fca2a280, type: 3}
   - {fileID: 2618257276244725280, guid: 3ba05eefeb188d54c9b0255ab8a2655a, type: 3}
+  playerPositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  lockpickPrefabs:
+  - {fileID: 5312276718362521784, guid: d15b0a23a7921d149a8d7f25dc9a5e43, type: 3}
+  - {fileID: 5203479840377550257, guid: 9c89547a51aaf6544bdc62f25db181d3, type: 3}
+  - {fileID: 3903357503228864787, guid: be92007ba086b144fa0ede807846a49a, type: 3}
+  - {fileID: 4691822501478193958, guid: fe7b0d348e437c84abb6255bbd43cb06, type: 3}
+  - {fileID: 8811587850139973502, guid: 5f169c1f897a6b441ae7818ba781b2f1, type: 3}
+  lockpickPositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &1248187749
 MonoBehaviour:
   m_ObjectHideFlags: 0
