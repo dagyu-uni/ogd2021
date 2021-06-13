@@ -403,7 +403,7 @@ public class PlayerController : MonoBehaviour
 	/******************************** SOUNDS *******************************/
 	private void PlayFootStepSound()
 	{
-		if (AudioManager.Instance != null && _footSteps != null)
+		if (AreFootprintActive && AudioManager.Instance != null && _footSteps != null)
 		{
 			AudioClip clipToPlay;
 			bool isCrouching = status == Status.crouching;
@@ -420,7 +420,7 @@ public class PlayerController : MonoBehaviour
 
 	private void PlayFootStepSound(bool landing)
 	{
-		if (AudioManager.Instance != null && _footSteps != null)
+		if (AreFootprintActive && AudioManager.Instance != null && _footSteps != null)
 		{
 			AudioClip clipToPlay;
 			if (landing)
