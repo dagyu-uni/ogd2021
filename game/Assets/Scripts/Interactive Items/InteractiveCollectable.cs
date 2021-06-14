@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -108,8 +109,9 @@ public class InteractiveCollectable : InteractiveItem
 			_charManager = characterManager;
 
 			// the collectable disappears from the scene
-			gameObject.SetActive(false);
-
+			//gameObject.SetActive(false);
+			PhotonView photonView = GetComponent<PhotonView>();
+			photonView.RPC("CollectItem", RpcTarget.All);
 			_isPicked = true;
 		}
 		else // pickable but not by you
@@ -158,5 +160,17 @@ public class InteractiveCollectable : InteractiveItem
 		yield return new WaitForSeconds(clip.length);
 
 		_coroutine = null;
+	}
+
+	[PunRPC]
+	void CollectItem()
+	{
+		gameObject.SetActive(false);
+	}
+
+	[PunRPC]
+	void LeaveItem()
+	{
+		gameObject.SetActive(true);
 	}
 }

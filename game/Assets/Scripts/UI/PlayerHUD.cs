@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -443,7 +444,9 @@ public class PlayerHUD : MonoBehaviour
 		Transform cameraTransform = info.characterManager.Camera.transform;
 		obj.transform.position = cameraTransform.position + cameraTransform.forward * 1.5f;
 		obj.transform.rotation = Quaternion.identity;
-		obj.SetActive(true);
+		PhotonView photonView = obj.GetComponent<PhotonView>();
+		photonView.RPC("LeaveItem", RpcTarget.All);
+		//obj.SetActive(true);
 		collectable.rb.velocity = cameraTransform.forward * 1.5f;
 
 		info.characterManager.SubtractCollectable(collectable.name);

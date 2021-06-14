@@ -65,8 +65,8 @@ namespace Photon.Pun.Demo.PunBasics
 
 		public void PrefabPooling(List<GameObject> prefabList)
 		{
-			if (prefabPool.ResourceCache.Count > 0)
-				prefabPool.ResourceCache.Clear();
+			/*if (prefabPool.ResourceCache.Count > 0)
+				prefabPool.ResourceCache.Clear();*/
 			if (prefabPool != null && prefabList != null)
 				foreach (GameObject prefab in prefabList)
 					prefabPool.ResourceCache.Add(prefab.name, prefab);
