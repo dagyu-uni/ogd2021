@@ -41,8 +41,11 @@ public class GameManager : MonoBehaviour
 	[Header("Particles")]
 	[SerializeField] private List<ParticleSystem> _footprints = new List<ParticleSystem>();
 	[SerializeField] private ParticleSystem _propParticle = null;
+	[Header("Special Objects and Skills")]
 	[SerializeField] private List<GameObject> _props = new List<GameObject>();
 	[SerializeField] private Invisibility _invisibility = null;
+	[SerializeField] private GameObject _eye = null;
+	[SerializeField] private ParticleSystem _projectile = null;
 
 
 	// Internals
@@ -317,6 +320,81 @@ public class GameManager : MonoBehaviour
 			{
 				_playersInfo[role].renderers[i].material = _playersInfo[role].originalMaterials[i];
 			}
+		}
+	}
+
+	////////////////////////////
+
+
+	////////////////////////////
+	// King Eye Skill
+	public void GenerateEye(Vector3 pos, Quaternion rot)
+	{
+		_photonView.RPC("SpawnEye", RpcTarget.All, pos, rot);
+	}
+
+	[PunRPC]
+	private void SpawnEye(Vector3 pos, Quaternion rot)
+	{
+		_eye.transform.position = pos;
+		_eye.transform.rotation = rot;
+
+		_eye.SetActive(true);
+		_projectile.gameObject.SetActive(false);
+	}
+
+	public void DeactivateEyeRPC()
+	{
+		_photonView.RPC("DeactivateEye", RpcTarget.All);
+	}
+
+	[PunRPC]
+	private void DeactivateEye()
+	{
+		_eye.SetActive(false);
+	}
+
+	public void GenerateProjectile(float timeToCollide, Vector3 hitPoint)
+	{
+		_photonView.RPC("SpawnProjectile", RpcTarget.All, timeToCollide, hitPoint);
+	}
+
+	[PunRPC]
+	private void SpawnProjectile(float timeToCollide, Vector3 hitPoint)
+	{
+		Transform kingTrans = _playersInfo[Role.King].characterManager.transform;
+		_projectile.transform.position = _playersInfo[Role.King].characterManager.Camera.transform.position;
+		_projectile.transform.rotation = _playersInfo[Role.King].characterManager.Camera.transform.rotation;
+		ParticleSystem.MainModule main = _projectile.main;
+		main.startLifetime = timeToCollide;
+
+		_projectile.gameObject.SetActive(true);
+	}
+
+
+	////////////////////////////
+
+
+	////////////////////////////
+	// True Sight Skill
+	public void GenerateSightFeedback(bool male, bool female)
+	{
+		_photonView.RPC("SightFeedback", RpcTarget.Others, male, female);
+	}
+
+	[PunRPC]
+	private void SightFeedback(bool male, bool female)
+	{
+		if (male)
+		{
+			PlayerHUD hud = _playersInfo[Role.Wizard_1].characterManager.PlayerHUD;
+			StartCoroutine(hud.SetEventText("The King can see you!", hud.eventColors[2]));
+		}
+
+		if (female)
+		{
+			PlayerHUD hud = _playersInfo[Role.Wizard_2].characterManager.PlayerHUD;
+			StartCoroutine(hud.SetEventText("The King can see you!", hud.eventColors[2]));
 		}
 	}
 

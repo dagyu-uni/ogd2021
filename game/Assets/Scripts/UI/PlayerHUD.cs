@@ -65,6 +65,7 @@ public class PlayerHUD : MonoBehaviour
 	[SerializeField] private List<SkillSlot> _skillSlots = new List<SkillSlot>();
 	// if you still don't have that skill, show an empty icon
 	[SerializeField] private Sprite _emptyIcon = null;
+	[SerializeField] private GameObject _eyeUI = null;
 
 	// Internals
 	private CharacterManager _charManager = null;
@@ -77,6 +78,7 @@ public class PlayerHUD : MonoBehaviour
 	public int InventoryCapacity { get { return _inventorySlots.Count; } }
 	public string CapacityText { set { _capacityText.text = value; } }
 	public Text CaptureText { get { return _captureText; } }
+	public GameObject EyeUI { get { return _eyeUI; } }
 
 
 	void Start()

@@ -72,6 +72,7 @@ public class CharacterManager : MonoBehaviour
 
 	// Properties
 	public Role Role { get { return _role; } }
+	public Animator Animator { get { return _animator; } }
 	public PlayerController Controller { get { return _playerController; } }
 	public PlayerMovement Movement { get { return _playerMovement; } }
 	public PlayerHUD PlayerHUD { get { return _playerHUD; } }
