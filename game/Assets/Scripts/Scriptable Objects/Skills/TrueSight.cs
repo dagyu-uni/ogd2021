@@ -11,7 +11,7 @@ public class TrueSight : Skill
 	public Material invisibleMat = null;
 
 	private Transform _maleWiz = null;
-	private Transform _femaleWiz= null;
+	private Transform _femaleWiz = null;
 	private List<SkinnedMeshRenderer> _maleRenderers = new List<SkinnedMeshRenderer>();
 	private List<SkinnedMeshRenderer> _femaleRenderers = new List<SkinnedMeshRenderer>();
 	private List<Material> _maleOriginalMats = new List<Material>();
@@ -38,7 +38,7 @@ public class TrueSight : Skill
 			{
 				if (_maleOriginalMats.Count <= i)
 					_maleOriginalMats.Add(_maleRenderers[i].material);
-				
+
 				_maleRenderers[i].material = maleXray;
 			}
 		}
@@ -65,7 +65,7 @@ public class TrueSight : Skill
 			{
 				_maleRenderers[i].material = _maleOriginalMats[i];
 			}
-		}	
+		}
 
 		if (_femaleOriginalMats.Count > 0)
 		{
@@ -73,7 +73,7 @@ public class TrueSight : Skill
 			{
 				_femaleRenderers[i].material = _femaleOriginalMats[i];
 			}
-		}	
+		}
 	}
 
 	// check for both range and screen visibility

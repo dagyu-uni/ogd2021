@@ -30,7 +30,7 @@ public class Eye : Skill
 		RaycastHit hit;
 		Ray ray = _charManager.Camera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
 
-		if(Physics.Raycast(ray, out hit, castRange, layermask))
+		if (Physics.Raycast(ray, out hit, castRange, layermask))
 		{
 			_charManager.CallCoroutine(WaitForCollision(hit));
 		}
@@ -68,7 +68,7 @@ public class Eye : Skill
 
 		yield return new WaitForSeconds(timeToCollide);
 
-		
+
 		Vector3 normalToNormal = Vector3.Cross(hit.normal, _charManager.transform.position - hit.point);
 		Vector3 offset = Vector3.Cross(normalToNormal, hit.normal);
 		Vector3 finalPos = hit.point - hit.normal * 0.7f + offset.normalized * 0.5f;
