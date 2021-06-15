@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ec99ace2395cc42aeb924114c45dbc, type: 3}
+  m_Name: KingEye
+  m_EditorClassIdentifier: 
+  skillName: Eye
+  _fireButton: Skill2
+  sprite: {fileID: 21300000, guid: f7ba9ff6934dc2c40b9819098e87c81e, type: 3}
+  audioCollection: {fileID: 0}
+  baseCooldown: 5
+  currentCooldown: 0
+  isOneShotSkill: 0
+  baseDuration: 10
+  currentDuration: 6.556363
+  uiPriority: 90
+  layermask:
+    serializedVersion: 2
+    m_Bits: 1
+  projectile: {fileID: 498153203166063416, guid: 786b030d50805da4eaee141641fd718f, type: 3}

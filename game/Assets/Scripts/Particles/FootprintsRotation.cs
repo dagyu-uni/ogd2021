@@ -17,6 +17,7 @@ public class FootprintsRotation : MonoBehaviour
 	{
 		_controller = GetComponent<PlayerController>();
 		_photonView = GetComponent<PhotonView>();
+		_timer = 0.0f;
 	}
 
 	void Update()
