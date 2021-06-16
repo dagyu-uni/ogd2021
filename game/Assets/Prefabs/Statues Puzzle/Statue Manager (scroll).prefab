@@ -391,3 +391,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _compassImage: {fileID: 0}
+  _compass: {fileID: 0}
+  _compassPositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,8 +16,11 @@ public class InteractiveStatue : InteractiveItem
 	private void Awake()
 	{
 		// Start with a random orientation
-		float orientation = Random.Range(0, 8) * 45f;
-		transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + orientation, Vector3.up);
+		if (PhotonNetwork.IsMasterClient)
+		{
+			float orientation = Random.Range(0, 8) * 45f;
+			transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + orientation, Vector3.up);
+		}
 	}
 
 	public override string GetText(CharacterManager cm)

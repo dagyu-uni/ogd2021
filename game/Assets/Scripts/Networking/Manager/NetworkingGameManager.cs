@@ -22,8 +22,20 @@ namespace Photon.Pun.Demo.PunBasics
 		public List<GameObject> lockpickPrefabs;
 		public List<GameObject> lockpickPositions;
 
-		[HideInInspector] public DefaultPool prefabPool = PhotonNetwork.PrefabPool as DefaultPool;
+		[Space(5)]
+
+		[Header("Scroll Information")]
+		[Space(10)]
+		public List<GameObject> scrollPrefabs;
+
+		[Space(5)]
+
+		[Header("Compass Information")]
+		[Space(10)]
+		public List<GameObject> compassPrefabs;
+
 		private GameObject player;
+		private DefaultPool prefabPool = PhotonNetwork.PrefabPool as DefaultPool;
 
 		private void Start()
 		{
@@ -47,6 +59,8 @@ namespace Photon.Pun.Demo.PunBasics
 			{
 				PrefabPooling(lockpickPrefabs);
 				LockpickInstatiation();
+				PrefabPooling(scrollPrefabs);
+				PrefabPooling(compassPrefabs);
 			}
 		}
 
@@ -63,10 +77,8 @@ namespace Photon.Pun.Demo.PunBasics
 			SceneManager.LoadScene("Launcher");
 		}
 
-		public void PrefabPooling(List<GameObject> prefabList)
+		private void PrefabPooling(List<GameObject> prefabList)
 		{
-			/*if (prefabPool.ResourceCache.Count > 0)
-				prefabPool.ResourceCache.Clear();*/
 			if (prefabPool != null && prefabList != null)
 				foreach (GameObject prefab in prefabList)
 					prefabPool.ResourceCache.Add(prefab.name, prefab);
@@ -86,14 +98,14 @@ namespace Photon.Pun.Demo.PunBasics
 				index++;
 
 			if (index == 0)
-				player = PhotonNetwork.Instantiate(playerPrefabs[0].name, playerPositions[0].transform.position,
-						playerPositions[0].transform.rotation);
+				player = PhotonNetwork.Instantiate(playerPrefabs[0].name,
+					playerPositions[0].transform.position, playerPositions[0].transform.rotation);
 			else if (index == 1)
-				player = PhotonNetwork.Instantiate(playerPrefabs[1].name, playerPositions[1].transform.position,
-						playerPositions[1].transform.rotation);
+				player = PhotonNetwork.Instantiate(playerPrefabs[1].name,
+					playerPositions[1].transform.position, playerPositions[1].transform.rotation);
 			else
-				player = PhotonNetwork.Instantiate(playerPrefabs[2].name, playerPositions[2].transform.position,
-						playerPositions[2].transform.rotation);
+				player = PhotonNetwork.Instantiate(playerPrefabs[2].name,
+					playerPositions[2].transform.position, playerPositions[2].transform.rotation);
 		}
 
 		private void LockpickInstatiation()

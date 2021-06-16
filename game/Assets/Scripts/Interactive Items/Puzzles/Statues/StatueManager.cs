@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ public class StatueManager : PuzzleManager
 	[SerializeField] private List<GameObject> _clues = new List<GameObject>();
 	[SerializeField] private List<Transform> _cluesPositions = new List<Transform>();
 	[SerializeField] private CompassImage _compassImage = null;
+	[SerializeField] private GameObject _compass = null;
+	[SerializeField] private List<Transform> _compassPositions = new List<Transform>();
 
 	private string[] _cardinals = { "North", "North-East", "East", "South-East", "South", "South-West", "West", "North-West" };
 	private List<int> _correctOrientations = new List<int>();
@@ -22,6 +25,13 @@ public class StatueManager : PuzzleManager
 		int r = Random.Range(0, 8);
 		_offset = r * 45f;
 		_compassImage.Offset = _offset;
+
+		if (PhotonNetwork.IsMasterClient)
+		{
+			int ci = Random.Range(0, 3);
+			PhotonNetwork.Instantiate(_compass.name,
+					_compassPositions[ci].transform.position, _compassPositions[ci].transform.rotation);
+		}
 
 		// Set correct clues text and statue correct orientations
 		List<int> range = Enumerable.Range(0, _cluesPositions.Count).ToList<int>();
@@ -37,6 +47,12 @@ public class StatueManager : PuzzleManager
 			// Set clue text
 			Text _clueText = _clues[i].GetComponentInChildren(typeof(Text), true) as Text;
 			_clueText.text = "The statue " + (i + 1) + " must point " + _cardinals[(rand + r) % 8];
+
+			if (PhotonNetwork.IsMasterClient)
+			{
+				PhotonNetwork.Instantiate(_clues[i].name,
+				_clues[i].transform.position, _clues[i].transform.rotation);
+			}
 		}
 	}
 

@@ -53,6 +53,8 @@ MonoBehaviour:
   _propParticle: {fileID: 0}
   _props: []
   _invisibility: {fileID: 0}
+  _eye: {fileID: 0}
+  _projectile: {fileID: 0}
 --- !u!114 &-6690346839976859009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,6 +87,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  scrollPrefabs:
+  - {fileID: 1751973688736163937, guid: 8ee9d57485e2ba94ca39ba2280d06265, type: 3}
+  compassPrefabs:
+  - {fileID: 2699816794105704913, guid: 9d6b3405019b112448c65059f888ca6d, type: 3}
 --- !u!114 &1248187749
 MonoBehaviour:
   m_ObjectHideFlags: 0
