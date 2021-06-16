@@ -91,7 +91,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &537508835511767084
 Transform:
   m_ObjectHideFlags: 0
@@ -173,8 +173,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3415185277209470746, guid: bdf9d4c7f7199cc4185e3c58a987d268, type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415185277209470746, guid: bdf9d4c7f7199cc4185e3c58a987d268, type: 3}
       propertyPath: startDelay.scalar
-      value: 10
+      value: 9.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415185277209470746, guid: bdf9d4c7f7199cc4185e3c58a987d268, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4483150592227815900, guid: bdf9d4c7f7199cc4185e3c58a987d268, type: 3}
       propertyPath: m_RootOrder
@@ -850,6 +858,10 @@ PrefabInstance:
     - target: {fileID: 3051004518581502623, guid: bdf9d4c7f7199cc4185e3c58a987d268, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415185277209470746, guid: bdf9d4c7f7199cc4185e3c58a987d268, type: 3}
+      propertyPath: moveWithTransform
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4483150592227815900, guid: bdf9d4c7f7199cc4185e3c58a987d268, type: 3}
       propertyPath: m_RootOrder
