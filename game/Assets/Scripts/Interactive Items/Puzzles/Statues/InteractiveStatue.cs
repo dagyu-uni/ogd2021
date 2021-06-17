@@ -30,6 +30,7 @@ public class InteractiveStatue : InteractiveItem
 
 	public override void Activate(CharacterManager characterManager)
 	{
+		gameObject.GetComponent<PhotonView>().RequestOwnership();
 		if (_interpolator != 0.0f)
 			return;
 

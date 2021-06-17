@@ -332,6 +332,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scroll
       objectReference: {fileID: 0}
+    - target: {fileID: 1751973688736163937, guid: 8ee9d57485e2ba94ca39ba2280d06265, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5047090358495092923, guid: 8ee9d57485e2ba94ca39ba2280d06265, type: 3}
       propertyPath: sceneViewId
       value: 11
@@ -392,6 +396,10 @@ PrefabInstance:
     - target: {fileID: 1751973688736163937, guid: 8ee9d57485e2ba94ca39ba2280d06265, type: 3}
       propertyPath: m_Name
       value: Scroll
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751973688736163937, guid: 8ee9d57485e2ba94ca39ba2280d06265, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5047090358495092923, guid: 8ee9d57485e2ba94ca39ba2280d06265, type: 3}
       propertyPath: sceneViewId
@@ -457,6 +465,10 @@ PrefabInstance:
     - target: {fileID: 1751973688736163937, guid: 8ee9d57485e2ba94ca39ba2280d06265, type: 3}
       propertyPath: m_Name
       value: Scroll
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751973688736163937, guid: 8ee9d57485e2ba94ca39ba2280d06265, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5047090358495092923, guid: 8ee9d57485e2ba94ca39ba2280d06265, type: 3}
       propertyPath: sceneViewId
@@ -1540,6 +1552,10 @@ PrefabInstance:
     - target: {fileID: 1751973688736163937, guid: 8ee9d57485e2ba94ca39ba2280d06265, type: 3}
       propertyPath: m_Name
       value: Scroll
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751973688736163937, guid: 8ee9d57485e2ba94ca39ba2280d06265, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5047090358495092923, guid: 8ee9d57485e2ba94ca39ba2280d06265, type: 3}
       propertyPath: sceneViewId
@@ -8783,6 +8799,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: bussola
       objectReference: {fileID: 0}
+    - target: {fileID: 2699816794105704913, guid: 9d6b3405019b112448c65059f888ca6d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3005806130454067938, guid: 9d6b3405019b112448c65059f888ca6d, type: 3}
       propertyPath: followTarget
       value: 
@@ -8948,6 +8968,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1212710997}
     m_Modifications:
+    - target: {fileID: -7881742309723714810, guid: efe2ac599cc7ab340b7f8658c86abd41, type: 3}
+      propertyPath: sceneViewId
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 5732415748635911038, guid: efe2ac599cc7ab340b7f8658c86abd41, type: 3}
       propertyPath: m_Name
       value: Apollo_Statue
@@ -9020,6 +9044,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1212710997}
     m_Modifications:
+    - target: {fileID: -7016398718545438971, guid: 4d0f178da1beac845a4e8c45e78710b6, type: 3}
+      propertyPath: sceneViewId
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 6021717854781252132, guid: 4d0f178da1beac845a4e8c45e78710b6, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -9478,6 +9506,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1212710997}
     m_Modifications:
+    - target: {fileID: -1211295732310325838, guid: 0c0ceccb7f55cbf47ab8c03e76cabb64, type: 3}
+      propertyPath: sceneViewId
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 7652185581874557856, guid: 0c0ceccb7f55cbf47ab8c03e76cabb64, type: 3}
       propertyPath: offset
       value: -90
@@ -9671,6 +9703,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1212710997}
     m_Modifications:
+    - target: {fileID: -8491844437318124734, guid: 5a93a0159ebf1694ab9dd786403c2759, type: 3}
+      propertyPath: sceneViewId
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 8558958760972255888, guid: 5a93a0159ebf1694ab9dd786403c2759, type: 3}
       propertyPath: m_Name
       value: Milo_Statue

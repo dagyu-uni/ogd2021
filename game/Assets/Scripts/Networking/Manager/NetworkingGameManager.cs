@@ -24,12 +24,6 @@ namespace Photon.Pun.Demo.PunBasics
 
 		[Space(5)]
 
-		[Header("Scroll Information")]
-		[Space(10)]
-		public List<GameObject> scrollPrefabs;
-
-		[Space(5)]
-
 		[Header("Compass Information")]
 		[Space(10)]
 		public List<GameObject> compassPrefabs;
@@ -59,7 +53,6 @@ namespace Photon.Pun.Demo.PunBasics
 			{
 				PrefabPooling(lockpickPrefabs);
 				LockpickInstatiation();
-				PrefabPooling(scrollPrefabs);
 				PrefabPooling(compassPrefabs);
 			}
 		}

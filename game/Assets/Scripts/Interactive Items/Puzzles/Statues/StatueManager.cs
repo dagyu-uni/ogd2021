@@ -48,11 +48,7 @@ public class StatueManager : PuzzleManager
 			Text _clueText = _clues[i].GetComponentInChildren(typeof(Text), true) as Text;
 			_clueText.text = "The statue " + (i + 1) + " must point " + _cardinals[(rand + r) % 8];
 
-			if (PhotonNetwork.IsMasterClient)
-			{
-				PhotonNetwork.Instantiate(_clues[i].name,
-				_clues[i].transform.position, _clues[i].transform.rotation);
-			}
+			Instantiate(_clues[i], _clues[i].transform.position, _clues[i].transform.rotation);
 		}
 	}
 
