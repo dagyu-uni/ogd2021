@@ -24,9 +24,15 @@ namespace Photon.Pun.Demo.PunBasics
 
 		[Space(5)]
 
-		[Header("Compass Information")]
+		[Header("Statue Puzzle Information")]
 		[Space(10)]
 		public List<GameObject> compassPrefabs;
+
+		[Space(5)]
+
+		[Header("Painting Puzzle Information")]
+		[Space(10)]
+		public List<GameObject> PaintingItemPrefabs;
 
 		private GameObject player;
 		private DefaultPool prefabPool = PhotonNetwork.PrefabPool as DefaultPool;
@@ -54,6 +60,7 @@ namespace Photon.Pun.Demo.PunBasics
 				PrefabPooling(lockpickPrefabs);
 				LockpickInstatiation();
 				PrefabPooling(compassPrefabs);
+				PrefabPooling(PaintingItemPrefabs);
 			}
 		}
 

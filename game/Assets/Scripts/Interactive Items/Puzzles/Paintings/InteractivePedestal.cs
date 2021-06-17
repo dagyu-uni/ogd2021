@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,6 +39,7 @@ public class InteractivePedestal : InteractiveItem
 
 	public override void Activate(CharacterManager characterManager)
 	{
+		gameObject.GetComponent<PhotonView>().RequestOwnership();
 		if (_isSolved || _isOccupied)
 			return;
 
@@ -73,6 +75,8 @@ public class InteractivePedestal : InteractiveItem
 	{
 		_intColl = coll.gameObject.GetComponent<InteractiveCollectable>();
 		coll.gameObject.transform.position = transform.position + Vector3.up * 1.1f;
-		coll.gameObject.SetActive(true);
+		PhotonView photonView = coll.gameObject.GetComponent<PhotonView>();
+		photonView.RPC("LeaveItem", RpcTarget.All);
+		//coll.gameObject.SetActive(true);
 	}
 }

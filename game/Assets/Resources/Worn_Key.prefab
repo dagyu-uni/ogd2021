@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 3297755952366988248}
   - component: {fileID: 3297755952366988249}
   - component: {fileID: 3297755952366988250}
+  - component: {fileID: -944096834305836877}
+  - component: {fileID: -6667546260690899465}
   m_Layer: 6
   m_Name: Worn_Key
   m_TagString: Untagged
@@ -130,7 +132,7 @@ MonoBehaviour:
   _isPickable: 1
   _pickableBy: 0100000002000000
   _inventoryPriority: 15
-  _name: Black Key
+  _name: 0
   _icon: {fileID: 21300000, guid: 27fad07f8c3845443be8992d4800acee, type: 3}
   _tooltipContent: 
   _activatedText: 
@@ -138,3 +140,42 @@ MonoBehaviour:
   _audioCollection: {fileID: 0}
   _powerUp: {fileID: 0}
   _interface: {fileID: 0}
+--- !u!114 &-944096834305836877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2378624360619349644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 1
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: -6667546260690899465}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &-6667546260690899465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2378624360619349644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1

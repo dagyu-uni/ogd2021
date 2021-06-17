@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1089324159268015785}
   - component: {fileID: 8664376852375026198}
   - component: {fileID: 4009641318662909535}
+  - component: {fileID: -4891353681218513359}
   m_Layer: 6
   m_Name: pedestal
   m_TagString: Untagged
@@ -47,8 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rayPriority: 0
   _infoText: Use
-  items: []
-  correctItem: 
+  items: 
+  correctItem: 0
 --- !u!65 &4009641318662909535
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -62,6 +63,28 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7, y: 1.19, z: 0.72}
   m_Center: {x: 0, y: 0.6, z: 0}
+--- !u!114 &-4891353681218513359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312399985655911443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 1
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &8779791396345801930
 GameObject:
   m_ObjectHideFlags: 0

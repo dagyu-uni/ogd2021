@@ -111,6 +111,7 @@ public class InteractiveCollectable : InteractiveItem
 			// the collectable disappears from the scene
 			//gameObject.SetActive(false);
 			PhotonView photonView = GetComponent<PhotonView>();
+			photonView.RequestOwnership();
 			photonView.RPC("CollectItem", RpcTarget.All);
 			_isPicked = true;
 		}

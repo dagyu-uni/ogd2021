@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,6 +81,12 @@ public class PaintingsManager : PuzzleManager
 			_collectables[i].transform.position = pos.position;
 			_collectables[i].transform.rotation = pos.rotation;
 			itemRange.RemoveAt(index);
+
+			if (PhotonNetwork.IsMasterClient)
+			{
+				PhotonNetwork.Instantiate(_collectables[i].name,
+					_collectables[i].transform.position, _collectables[i].transform.rotation);
+			}
 		}
 	}
 

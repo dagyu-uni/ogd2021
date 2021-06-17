@@ -660,6 +660,8 @@ GameObject:
   - component: {fileID: 4508479629104389939}
   - component: {fileID: 7742150793270286438}
   - component: {fileID: 1009176416762020869}
+  - component: {fileID: 9149782288072742333}
+  - component: {fileID: -1287359994876900217}
   m_Layer: 6
   m_Name: Ring with sapphires
   m_TagString: Untagged
@@ -747,7 +749,7 @@ MonoBehaviour:
   _isPickable: 1
   _pickableBy: 0100000002000000
   _inventoryPriority: 11
-  _name: Ring
+  _name: 0
   _icon: {fileID: 21300000, guid: 8f069965e9a184f4a8accccb0b35c849, type: 3}
   _tooltipContent: This beautiful sapphire ring could be useful.
   _activatedText: 
@@ -755,6 +757,45 @@ MonoBehaviour:
   _audioCollection: {fileID: 0}
   _powerUp: {fileID: 0}
   _interface: {fileID: 0}
+--- !u!114 &9149782288072742333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3471655969665725075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 1
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: -1287359994876900217}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &-1287359994876900217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3471655969665725075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &3622727887484822721
 GameObject:
   m_ObjectHideFlags: 0

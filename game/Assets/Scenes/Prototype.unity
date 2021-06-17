@@ -556,6 +556,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1902947119}
     m_Modifications:
+    - target: {fileID: -4384891112710072373, guid: d40a885b323d4e641aff60e6ad95c485, type: 3}
+      propertyPath: sceneViewId
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 4153860245569430980, guid: d40a885b323d4e641aff60e6ad95c485, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -603,6 +607,10 @@ PrefabInstance:
     - target: {fileID: 4153860245569927652, guid: d40a885b323d4e641aff60e6ad95c485, type: 3}
       propertyPath: m_Name
       value: skyrim_map
+      objectReference: {fileID: 0}
+    - target: {fileID: 4153860245569927652, guid: d40a885b323d4e641aff60e6ad95c485, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d40a885b323d4e641aff60e6ad95c485, type: 3}
@@ -962,6 +970,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1902947119}
     m_Modifications:
+    - target: {fileID: -4891353681218513359, guid: aa2b67500bb56f645a344e1f0f940e80, type: 3}
+      propertyPath: sceneViewId
+      value: 21
+      objectReference: {fileID: 0}
     - target: {fileID: 312399985655911443, guid: aa2b67500bb56f645a344e1f0f940e80, type: 3}
       propertyPath: m_Name
       value: pedestal (1)
@@ -2442,6 +2454,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1902947119}
     m_Modifications:
+    - target: {fileID: -4891353681218513359, guid: aa2b67500bb56f645a344e1f0f940e80, type: 3}
+      propertyPath: sceneViewId
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 312399985655911443, guid: aa2b67500bb56f645a344e1f0f940e80, type: 3}
       propertyPath: m_Name
       value: pedestal (2)
@@ -4288,6 +4304,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ring with sapphires
       objectReference: {fileID: 0}
+    - target: {fileID: 3471655969665725075, guid: 2def41887150e914db7ff73c278d21e9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4280139391390345257, guid: 2def41887150e914db7ff73c278d21e9, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -4331,6 +4351,10 @@ PrefabInstance:
     - target: {fileID: 4280139391390345257, guid: 2def41887150e914db7ff73c278d21e9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149782288072742333, guid: 2def41887150e914db7ff73c278d21e9, type: 3}
+      propertyPath: sceneViewId
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2def41887150e914db7ff73c278d21e9, type: 3}
@@ -6507,6 +6531,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1902947119}
     m_Modifications:
+    - target: {fileID: 632183255002887013, guid: 6dfbf3bd0dcccae40ab78bd3bb0da8eb, type: 3}
+      propertyPath: sceneViewId
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 632183255002887013, guid: 6dfbf3bd0dcccae40ab78bd3bb0da8eb, type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3774460074628601078, guid: 6dfbf3bd0dcccae40ab78bd3bb0da8eb, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -6554,6 +6586,10 @@ PrefabInstance:
     - target: {fileID: 4551524985676598860, guid: 6dfbf3bd0dcccae40ab78bd3bb0da8eb, type: 3}
       propertyPath: m_Name
       value: Wood Dice
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551524985676598860, guid: 6dfbf3bd0dcccae40ab78bd3bb0da8eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6dfbf3bd0dcccae40ab78bd3bb0da8eb, type: 3}
@@ -8114,9 +8150,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1902947119}
     m_Modifications:
+    - target: {fileID: -4185765250822697042, guid: 15c94d2163c4e854f942f3a9c8b2fddb, type: 3}
+      propertyPath: sceneViewId
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2128571430295803232, guid: 15c94d2163c4e854f942f3a9c8b2fddb, type: 3}
       propertyPath: m_Name
       value: globeMap
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128571430295803232, guid: 15c94d2163c4e854f942f3a9c8b2fddb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2128571430295832896, guid: 15c94d2163c4e854f942f3a9c8b2fddb, type: 3}
       propertyPath: m_RootOrder
@@ -8461,6 +8505,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1902947119}
     m_Modifications:
+    - target: {fileID: -4891353681218513359, guid: aa2b67500bb56f645a344e1f0f940e80, type: 3}
+      propertyPath: sceneViewId
+      value: 22
+      objectReference: {fileID: 0}
     - target: {fileID: 312399985655911443, guid: aa2b67500bb56f645a344e1f0f940e80, type: 3}
       propertyPath: m_Name
       value: pedestal
@@ -8534,6 +8582,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1902947119}
     m_Modifications:
+    - target: {fileID: -1873275563942501101, guid: 580c6a38fdfc9b5479e224d567e2096c, type: 3}
+      propertyPath: sceneViewId
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 570109629593464925, guid: 580c6a38fdfc9b5479e224d567e2096c, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -8581,6 +8633,10 @@ PrefabInstance:
     - target: {fileID: 9106084894878468876, guid: 580c6a38fdfc9b5479e224d567e2096c, type: 3}
       propertyPath: m_Name
       value: Quill
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106084894878468876, guid: 580c6a38fdfc9b5479e224d567e2096c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 580c6a38fdfc9b5479e224d567e2096c, type: 3}
@@ -8865,9 +8921,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1902947119}
     m_Modifications:
+    - target: {fileID: -944096834305836877, guid: 500c06fa82552974980e3399ad85fd3b, type: 3}
+      propertyPath: sceneViewId
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 2378624360619349644, guid: 500c06fa82552974980e3399ad85fd3b, type: 3}
       propertyPath: m_Name
       value: Worn_Key
+      objectReference: {fileID: 0}
+    - target: {fileID: 2378624360619349644, guid: 500c06fa82552974980e3399ad85fd3b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3047040206394805302, guid: 500c06fa82552974980e3399ad85fd3b, type: 3}
       propertyPath: m_RootOrder
