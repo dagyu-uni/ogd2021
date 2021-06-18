@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,7 @@ public class InteractiveDoor : InteractiveItem
 
 	public override void Activate(CharacterManager cm)
 	{
+		gameObject.GetComponent<PhotonView>().RequestOwnership();
 		if (isLocked)
 		{
 			charManager = cm;

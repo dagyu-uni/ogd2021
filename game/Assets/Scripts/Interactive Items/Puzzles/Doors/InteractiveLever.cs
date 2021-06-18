@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +27,7 @@ public class InteractiveLever : InteractiveItem
 
 	public override void Activate(CharacterManager cm)
 	{
+		gameObject.GetComponent<PhotonView>().RequestOwnership();
 		bool wizardCanOpen = (cm.IsWizard() && cm.HasCollectable(CollectableName.Passpartout) && !_isBend);
 		if (_interpolator != 0.0f)
 		{
