@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,6 +39,7 @@ public class InteractiveHourglass : InteractiveItem
 
 	public override void Activate(CharacterManager characterManager)
 	{
+		gameObject.GetComponent<PhotonView>().RequestOwnership();
 		if (_isRotating)
 			return;
 

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,6 +49,7 @@ public class PlatformDynamic : MonoBehaviour
 	// API to activate and deactivate platform movement
 	public void ActivateMovement()
 	{
+		gameObject.GetComponent<PhotonView>().RequestOwnership();
 		StartCoroutine(_coroutine);
 	}
 
