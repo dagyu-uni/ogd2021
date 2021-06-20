@@ -321,15 +321,7 @@ public class AudioManager : MonoBehaviour
 	public void PlayOneShotSound(string mixerGroupName, string clipName, Vector3 position, float volume,
 										float spatialBlend, int priority = 128)
 	{
-		if (_photonView.isRuntimeInstantiated)
-		{
-			_photonView.RPC("PhotonPlayOneShotSound", RpcTarget.All, mixerGroupName, clipName, position, volume, spatialBlend, priority);
-		}
-		else
-		{
-			PlayWithoutPhotonOneShotSound(mixerGroupName, clipName, position, volume, spatialBlend, priority);
-		}
-
+		_photonView.RPC("PhotonPlayOneShotSound", RpcTarget.All, mixerGroupName, clipName, position, volume, spatialBlend, priority);
 	}
 
 	public delegate void Callback();
