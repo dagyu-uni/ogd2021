@@ -36,6 +36,7 @@ public class InteractiveDoor : InteractiveItem
 
 	public override void Activate(CharacterManager cm)
 	{
+		charManager = cm;
 		gameObject.GetComponent<PhotonView>().RequestOwnership();
 		if (_door != null)
 		{

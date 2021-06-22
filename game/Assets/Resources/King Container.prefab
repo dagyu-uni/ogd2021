@@ -6281,7 +6281,7 @@ MonoBehaviour:
   _skills:
   - {fileID: 11400000, guid: 4ade08cf753f54818b07e57c8e0a32b1, type: 2}
   - {fileID: 11400000, guid: d6ae754d8d844d743bff99cc59781c97, type: 2}
-  - {fileID: 11400000, guid: 106c8af3368f4d8469f3996bdebf4686, type: 2}
+  - {fileID: 11400000, guid: 94164e8c5f262462daf57b1ff7532384, type: 2}
 --- !u!114 &6032082457487356839
 MonoBehaviour:
   m_ObjectHideFlags: 0
