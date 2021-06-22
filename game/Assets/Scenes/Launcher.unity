@@ -5290,7 +5290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuManager: {fileID: 56483045}
   maxPlayersPerRoom: 3
-  levelName: Prototype
+  levelName: Game
   connectionStatusLabel: {fileID: 71295571}
   popUpMessageLabel: {fileID: 1674893864}
   leaveRoomButton: {fileID: 1070959349}
