@@ -149,6 +149,7 @@ public class GameManager : MonoBehaviour
 	// Process what should happen when the king captures a wizard.
 	public void CaptureWizard(CharacterManager charManager)
 	{
+		Debug.Log("Capture");
 		if (charManager == null)
 			return;
 
