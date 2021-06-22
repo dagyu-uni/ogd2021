@@ -20,7 +20,10 @@ public class InteractiveDoor : InteractiveItem
 
 	private void Awake()
 	{
-		_doorPuzzle = _interface.GetComponent<DoorPuzzle>();
+		if(_interface != null)
+		{
+			_doorPuzzle = _interface.GetComponent<DoorPuzzle>();
+		}
 	}
 
 	public override string GetText(CharacterManager cm)
@@ -34,41 +37,40 @@ public class InteractiveDoor : InteractiveItem
 	public override void Activate(CharacterManager cm)
 	{
 		gameObject.GetComponent<PhotonView>().RequestOwnership();
-		if (isLocked)
+		if (_door != null)
 		{
-			charManager = cm;
 			_door.Interaction(this, cm);
 		}
 		else
 		{
-			StartCoroutine(cm.PlayerHUD.SetEventText("The door is blocked", cm.PlayerHUD.eventColors[0]));
+			ToggleDoor(cm);
+			//StartCoroutine(cm.PlayerHUD.SetEventText("The door is blocked", cm.PlayerHUD.eventColors[0]));
 		}
 
 	}
 
 	public void StartPuzzle(CharacterManager cm)
 	{
-		// you need at least one lock pi
-		// solve the door puzzle
-		_doorPuzzle.ResetPuzzle();
-		_interface.SetActive(true);
-		cm.DisableControllerMovements();
-		cm.DisableCameraMovements();
-		cm.EnableCursor();
+		if(_doorPuzzle != null)
+		{
+			// you need at least one lock pi
+			// solve the door puzzle
+			_doorPuzzle.ResetPuzzle();
+			_interface.SetActive(true);
+			cm.DisableControllerMovements();
+			cm.DisableCameraMovements();
+			cm.EnableCursor();
+		}
 	}
 
 
 	public void TryOpenDoor(bool success)
 	{
-		if (!isLocked)
-			return;
-
 		if (success)
 		{
-			isLocked = false;
+			ToggleDoor(charManager);
 			if (_lever != null)
 				_lever.RestLever();
-			StartCoroutine(SlerpOpenDoor(GetDirection(charManager)));
 		}
 		else
 		{
