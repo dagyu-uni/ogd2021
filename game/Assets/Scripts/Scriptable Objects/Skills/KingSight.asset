@@ -21,7 +21,7 @@ MonoBehaviour:
   isOneShotSkill: 0
   baseDuration: 5
   currentDuration: 0
-  uiPriority: 80
+  uiPriority: 0
   sightDistance: 30
   maleXray: {fileID: 2100000, guid: b0d60cecf900c04418a277756503dc7f, type: 2}
   femaleXray: {fileID: 2100000, guid: 758e7ce02c285dd418839c88e6fbda15, type: 2}
