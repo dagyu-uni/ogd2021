@@ -20,7 +20,7 @@ public class InteractiveDoor : InteractiveItem
 
 	private void Awake()
 	{
-		if(_interface != null)
+		if (_interface != null)
 		{
 			_doorPuzzle = _interface.GetComponent<DoorPuzzle>();
 		}
@@ -51,7 +51,7 @@ public class InteractiveDoor : InteractiveItem
 
 	public void StartPuzzle(CharacterManager cm)
 	{
-		if(_doorPuzzle != null)
+		if (_doorPuzzle != null)
 		{
 			// you need at least one lock pi
 			// solve the door puzzle
