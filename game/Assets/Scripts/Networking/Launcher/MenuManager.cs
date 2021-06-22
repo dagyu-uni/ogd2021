@@ -59,7 +59,7 @@ public class MenuManager : MonoBehaviour
 
 	public void SetVolumeLevel(float volumeSlider)
 	{
-		
+
 	}
 
 	public void ReturnLauncher()
