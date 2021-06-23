@@ -66,7 +66,7 @@ public class PaintingsManager : PuzzleManager
 			MeshRenderer fakeRenderer = fakePainting.GetComponent<MeshRenderer>();
 			int matIndex = names.IndexOf(_correctItems[i].Collectable) * 2;
 			int rendererIndex = fakeRenderer.materials.Length - 1;
-			// note that all the arrays in unity, materials returns a copy of that array
+			// note that as all the arrays in unity, materials returns a copy of that array
 			Material[] matArr = fakeRenderer.materials;
 			matArr[rendererIndex] = _paintingMaterials[i].itemMats[Random.Range(matIndex, matIndex + 1)];
 			fakeRenderer.materials = matArr;
