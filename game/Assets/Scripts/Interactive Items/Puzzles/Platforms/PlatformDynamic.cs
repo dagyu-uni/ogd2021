@@ -49,7 +49,7 @@ public class PlatformDynamic : MonoBehaviour
 	// API to activate and deactivate platform movement
 	public void ActivateMovement()
 	{
-		gameObject.GetComponent<PhotonView>().RequestOwnership();
+		//gameObject.GetComponent<PhotonView>().RequestOwnership();
 		StartCoroutine(_coroutine);
 	}
 

@@ -40,6 +40,7 @@ public class InteractiveHourglass : InteractiveItem
 	public override void Activate(CharacterManager characterManager)
 	{
 		gameObject.GetComponent<PhotonView>().RequestOwnership();
+		platform.GetComponent<PhotonView>().RequestOwnership();
 		if (_isRotating)
 			return;
 
