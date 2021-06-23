@@ -130,7 +130,7 @@ MonoBehaviour:
   _isPickable: 1
   _pickableBy: 0100000002000000
   _inventoryPriority: 13
-  _name: GlobeMap
+  _name: 7
   _icon: {fileID: 21300000, guid: e0cb7c241c030c4418a4c71ac2f90c2c, type: 3}
   _tooltipContent: 
   _activatedText: 

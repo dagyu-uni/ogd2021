@@ -747,7 +747,7 @@ MonoBehaviour:
   _isPickable: 1
   _pickableBy: 0100000002000000
   _inventoryPriority: 11
-  _name: Ring
+  _name: 4
   _icon: {fileID: 21300000, guid: 8f069965e9a184f4a8accccb0b35c849, type: 3}
   _tooltipContent: This beautiful sapphire ring could be useful.
   _activatedText: 
