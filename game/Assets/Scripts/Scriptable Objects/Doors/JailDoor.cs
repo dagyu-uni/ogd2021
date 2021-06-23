@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Photon.Pun;
 
 [CreateAssetMenu(menuName = "Door/Jail Door")]
 
@@ -10,10 +11,12 @@ public class JailDoor : Door
 		if (cm.IsWizard() && cm.HasCollectable(CollectableName.BypassJail))
 		{
 			//open door
-			interactiveDoor.ToggleDoor(cm);
+			interactiveDoor.TryOpenDoor(true);
 			//loose artifact
 			Collectable collectable = cm.SubtractCollectable(CollectableName.BypassJail);
-			collectable.gameObject.SetActive(true);
+			InteractiveCollectable ic = collectable.gameObject.GetComponent<InteractiveCollectable>();
+			PhotonView photonView = ic.GetComponent<PhotonView>();
+			photonView.RPC("LeaveItem", RpcTarget.All);
 		}
 		else if (cm.IsWizard() && cm.HasCollectable(CollectableName.LockPick))
 		{
@@ -27,4 +30,5 @@ public class JailDoor : Door
 		if (text != null)
 			cm.CallCoroutine(cm.PlayerHUD.SetEventText(text, cm.PlayerHUD.eventColors[0]));
 	}
+
 }

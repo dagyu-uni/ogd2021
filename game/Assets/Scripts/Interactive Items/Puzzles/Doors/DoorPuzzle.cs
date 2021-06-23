@@ -20,7 +20,6 @@ public class DoorPuzzle : MonoBehaviour
 	[SerializeField] private Image _safeLock = null;
 	[SerializeField] private Button _unlockButton = null;
 	[SerializeField] private List<SliderSprite> _sliderSprites = new List<SliderSprite>();
-	[SerializeField] private float _closeAfterSeconds = 0;
 
 	private bool _handleFlag = true;
 	// if the player has tried to solve it
@@ -103,7 +102,7 @@ public class DoorPuzzle : MonoBehaviour
 	private IEnumerator TryOpenDoor(bool success)
 	{
 		yield return new WaitForSeconds(1.0f);
-		_door.TryOpenDoor(success, _closeAfterSeconds);
+		_door.TryOpenDoor(success);
 		gameObject.SetActive(false);
 	}
 
