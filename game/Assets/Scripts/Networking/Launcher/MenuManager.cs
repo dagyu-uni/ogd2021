@@ -44,6 +44,7 @@ public class MenuManager : MonoBehaviour
 		resolutionDropdown.AddOptions(options);
 		resolutionDropdown.value = currentResolutionIndex;
 		resolutionDropdown.RefreshShownValue();
+
 	}
 
 	public void SetResolution(int resolutionIndex)
@@ -59,7 +60,7 @@ public class MenuManager : MonoBehaviour
 
 	public void SetVolumeLevel(float volumeSlider)
 	{
-
+		//AudioManager.Instance.Volume = volumeSlider;
 	}
 
 	public void ReturnLauncher()

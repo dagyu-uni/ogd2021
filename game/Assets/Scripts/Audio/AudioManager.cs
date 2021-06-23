@@ -38,6 +38,9 @@ public class AudioManager : MonoBehaviour
 
 	public static AudioManager Instance { get { return _instance; } }
 
+	private float _internalVolume = 1;
+	public float Volume {set { _internalVolume = value; } }
+
 	private void Awake()
 	{
 		// START SINGLETON
@@ -276,6 +279,7 @@ public class AudioManager : MonoBehaviour
 										float spatialBlend, int priority = 128)
 	{
 		AudioClip clip = _clipHash[clipName];
+		volume *= _internalVolume;
 
 		if (!_mixerGroups.ContainsKey(mixerGroupName) || clip == null || volume == 0.0f)
 			return 0;
