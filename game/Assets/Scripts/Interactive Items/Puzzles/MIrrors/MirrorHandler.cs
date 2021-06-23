@@ -47,7 +47,7 @@ public class MirrorHandler : MonoBehaviour
 	// used by the mirrors manager to set mirrors and relative heads rotations
 	public void SetRotation(int i)
 	{
-		Quaternion rot = Quaternion.Euler(0.0f, 0.0f, i * 90.0f);
-		transform.rotation *= rot;
+		Quaternion rot = Quaternion.Euler(i * -90.0f, 0.0f, 0.0f);
+		_mirrorHead.transform.rotation *= rot;
 	}
 }
