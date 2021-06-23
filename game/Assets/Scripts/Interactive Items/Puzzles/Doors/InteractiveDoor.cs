@@ -10,6 +10,7 @@ public class InteractiveDoor : InteractiveItem
 	[SerializeField] private GameObject _interface = null;
 	[SerializeField] private InteractiveLever _lever = null;
 	[SerializeField] private Door _door = null;
+	[SerializeField] private float _closeAfterSeconds = 0;
 
 	private Quaternion _closedRot;
 	private Quaternion _openedRot;
@@ -71,16 +72,16 @@ public class InteractiveDoor : InteractiveItem
 		CloseDoor();
 	}
 
-	public void TryOpenDoor(bool success, float closeAfterSeconds)
+	public void TryOpenDoor(bool success)
 	{
 		if (success)
 		{
 			ToggleDoor(charManager);
 			if (_lever != null)
 				_lever.RestLever();
-			if (closeAfterSeconds > 0)
+			if (_closeAfterSeconds > 0)
 			{
-				StartCoroutine(CloseAfterSeconds(closeAfterSeconds));
+				StartCoroutine(CloseAfterSeconds(_closeAfterSeconds));
 			}
 		}
 		else
