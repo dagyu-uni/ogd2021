@@ -24,12 +24,6 @@ namespace Photon.Pun.Demo.PunBasics
 
 		[Space(5)]
 
-		[Header("Statue Puzzle Information")]
-		[Space(10)]
-		public List<GameObject> compassPrefabs;
-
-		[Space(5)]
-
 		[Header("Painting Puzzle Information")]
 		[Space(10)]
 		public List<GameObject> PaintingItemPrefabs;
@@ -60,7 +54,6 @@ namespace Photon.Pun.Demo.PunBasics
 			{
 				PrefabPooling(lockpickPrefabs);
 				LockpickInstatiation();
-				PrefabPooling(compassPrefabs);
 				PrefabPooling(PaintingItemPrefabs);
 			}
 		}

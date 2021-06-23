@@ -26,12 +26,8 @@ public class StatueManager : PuzzleManager
 		_offset = r * 45f;
 		_compassImage.Offset = _offset;
 
-		if (PhotonNetwork.IsMasterClient)
-		{
-			int ci = Random.Range(0, 3);
-			PhotonNetwork.Instantiate(_compass.name,
-					_compassPositions[ci].transform.position, _compassPositions[ci].transform.rotation);
-		}
+		int ci = Random.Range(0, 3);
+		Instantiate(_compass, _compassPositions[ci].transform.position, _compassPositions[ci].transform.rotation);
 
 		// Set correct clues text and statue correct orientations
 		List<int> range = Enumerable.Range(0, _cluesPositions.Count).ToList<int>();
