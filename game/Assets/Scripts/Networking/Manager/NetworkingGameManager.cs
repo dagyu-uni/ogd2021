@@ -48,11 +48,6 @@ namespace Photon.Pun.Demo.PunBasics
 				return;
 			}
 
-			//INIT STATE RANDOM
-			object o = PhotonNetwork.CurrentRoom.CustomProperties["createdAt"];
-			Debug.Log(o);
-			//Random.InitState();
-
 			PrefabPooling(playerPrefabs);
 
 			if (NetworkingPlayerManager.LocalPlayerInstance == null)

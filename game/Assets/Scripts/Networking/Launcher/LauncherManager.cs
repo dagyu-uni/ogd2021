@@ -89,6 +89,9 @@ namespace Photon.Pun.Demo.PunBasics
 
 		public void LoadRoom()
 		{
+			//INIT STATE RANDOM
+			int seed = (int)PhotonNetwork.CurrentRoom.CustomProperties["createdAt"];
+			Random.InitState(seed);
 			PhotonNetwork.LoadLevel(levelName);
 		}
 
