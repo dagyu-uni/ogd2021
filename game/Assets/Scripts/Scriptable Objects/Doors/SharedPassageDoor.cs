@@ -8,7 +8,7 @@ public class SharedPassageDoor : Door
 		string text = "";
 		if (cm.IsKing())
 		{
-			text = "Find a lever to "+ (interactiveDoor.isLocked ? "open" : "close") + " the door";
+			text = "Find a lever to " + (interactiveDoor.isLocked ? "open" : "close") + " the door";
 		}
 		else if (cm.IsWizard())
 		{
@@ -20,7 +20,7 @@ public class SharedPassageDoor : Door
 			{
 				interactiveDoor.StartPuzzle(cm);
 			}
-			else if(interactiveDoor.isLocked)
+			else if (interactiveDoor.isLocked)
 			{
 				text = "You need a lockpick to open the door";
 			}
