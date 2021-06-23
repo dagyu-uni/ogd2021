@@ -254,7 +254,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The statue 4 must point South-West
+  m_Text: The statue 4 must point West
 --- !u!1 &1751973688736163937
 GameObject:
   m_ObjectHideFlags: 0

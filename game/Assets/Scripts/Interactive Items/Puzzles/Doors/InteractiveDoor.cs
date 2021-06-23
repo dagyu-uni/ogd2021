@@ -54,7 +54,7 @@ public class InteractiveDoor : InteractiveItem
 	{
 		if (_doorPuzzle != null)
 		{
-			// you need at least one lock pi
+			// you need at least one lock pick
 			// solve the door puzzle
 			_doorPuzzle.ResetPuzzle();
 			_interface.SetActive(true);
@@ -65,17 +65,28 @@ public class InteractiveDoor : InteractiveItem
 	}
 
 
-	public void TryOpenDoor(bool success)
+	private IEnumerator CloseAfterSeconds(float seconds)
+	{
+		yield return new WaitForSeconds(seconds);
+		CloseDoor();
+	}
+
+	public void TryOpenDoor(bool success, float closeAfterSeconds)
 	{
 		if (success)
 		{
 			ToggleDoor(charManager);
 			if (_lever != null)
 				_lever.RestLever();
+			if(closeAfterSeconds > 0)
+			{
+				StartCoroutine(CloseAfterSeconds(closeAfterSeconds));
+			}
 		}
 		else
 		{
 			StartCoroutine(charManager.PlayerHUD.SetEventText("The lockpick broke!", charManager.PlayerHUD.eventColors[0]));
+			charManager.SubtractCollectable(CollectableName.LockPick);
 		}
 
 		charManager.EnableControllerMovements();
