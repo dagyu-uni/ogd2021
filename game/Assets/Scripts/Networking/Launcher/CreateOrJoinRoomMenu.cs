@@ -1,6 +1,7 @@
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 namespace Photon.Pun.Demo.PunBasics
 {
@@ -57,6 +58,8 @@ namespace Photon.Pun.Demo.PunBasics
 			{
 				PhotonNetwork.LocalPlayer.NickName = playerName;
 				RoomOptions option = new RoomOptions();
+				option.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable();
+				option.CustomRoomProperties.Add("createdAt", (int) DateTime.Now.Ticks);
 				option.MaxPlayers = maxPlayersPerRoom;
 				PhotonNetwork.JoinOrCreateRoom(roomName, option, TypedLobby.Default);
 				playerStatusLabel.text = "";
