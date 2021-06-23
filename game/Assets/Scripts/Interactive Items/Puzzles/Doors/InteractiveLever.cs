@@ -27,7 +27,6 @@ public class InteractiveLever : InteractiveItem
 
 	public override void Activate(CharacterManager cm)
 	{
-		gameObject.GetComponent<PhotonView>().RequestOwnership();
 		bool wizardCanOpen = (cm.IsWizard() && cm.HasCollectable(CollectableName.Passpartout) && !_isBend);
 		if (_interpolator != 0.0f)
 		{
@@ -36,6 +35,8 @@ public class InteractiveLever : InteractiveItem
 		else if (cm.IsKing() || wizardCanOpen)
 		{
 			// use it
+			gameObject.GetComponent<PhotonView>().RequestOwnership();
+			_door.GetComponent<PhotonView>().RequestOwnership();
 			_door.ToggleDoor(cm);
 			ToggleLever();
 		}

@@ -110,8 +110,11 @@ public class InteractiveDoor : InteractiveItem
 			StartCoroutine(SlerpOpenDoor(GetDirection(cm)));
 		else
 			StartCoroutine(SlerpCloseDoor());
-		isLocked = !isLocked;
-
+		{
+			//isLocked = !isLocked;
+			PhotonView photonView = GetComponent<PhotonView>();
+			photonView.RPC("DoorToggled", RpcTarget.All);
+		}
 	}
 
 	private IEnumerator SlerpOpenDoor(float directionSign)
@@ -152,5 +155,11 @@ public class InteractiveDoor : InteractiveItem
 	private float GetDirection(CharacterManager cm)
 	{
 		return Mathf.Sign(Vector3.Dot(cm.transform.forward, transform.right));
+	}
+
+	[PunRPC]
+	void DoorToggled()
+	{
+		isLocked = !isLocked;
 	}
 }
