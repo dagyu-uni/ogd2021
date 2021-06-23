@@ -39,7 +39,8 @@ namespace Photon.Pun.Demo.PunBasics
 
 		private void Start()
 		{
-			Instance = this;
+			if (Instance == null)
+				Instance = this;
 
 			if (!PhotonNetwork.IsConnected)
 			{
