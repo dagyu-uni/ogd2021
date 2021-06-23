@@ -39,7 +39,7 @@ public class AudioManager : MonoBehaviour
 	public static AudioManager Instance { get { return _instance; } }
 
 	private float _internalVolume = 1;
-	public float Volume {set { _internalVolume = value; } }
+	public float Volume { set { _internalVolume = value; } }
 
 	private void Awake()
 	{
