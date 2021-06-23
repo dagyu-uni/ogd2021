@@ -26,7 +26,13 @@ namespace Photon.Pun.Demo.PunBasics
 
 		[Header("Painting Puzzle Information")]
 		[Space(10)]
-		public List<GameObject> PaintingItemPrefabs;
+		public List<GameObject> paintingItemPrefabs;
+
+		[Space(5)]
+
+		[Header("Artifacts Information")]
+		[Space(10)]
+		public List<GameObject> artifactPrefabs;
 
 		private GameObject player;
 		private DefaultPool prefabPool = PhotonNetwork.PrefabPool as DefaultPool;
@@ -54,7 +60,8 @@ namespace Photon.Pun.Demo.PunBasics
 			{
 				PrefabPooling(lockpickPrefabs);
 				LockpickInstatiation();
-				PrefabPooling(PaintingItemPrefabs);
+				PrefabPooling(paintingItemPrefabs);
+				PrefabPooling(artifactPrefabs);
 			}
 		}
 
