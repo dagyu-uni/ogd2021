@@ -78,7 +78,7 @@ public class InteractiveDoor : InteractiveItem
 			ToggleDoor(charManager);
 			if (_lever != null)
 				_lever.RestLever();
-			if(closeAfterSeconds > 0)
+			if (closeAfterSeconds > 0)
 			{
 				StartCoroutine(CloseAfterSeconds(closeAfterSeconds));
 			}
