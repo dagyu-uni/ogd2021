@@ -100,7 +100,7 @@ public class InteractiveDoor : InteractiveItem
 		if (isLocked)
 			return;
 
-		isLocked = true;
+		GetComponent<PhotonView>().RPC("DoorToggled", RpcTarget.All);
 		StartCoroutine(SlerpCloseDoor());
 	}
 
@@ -162,4 +162,5 @@ public class InteractiveDoor : InteractiveItem
 	{
 		isLocked = !isLocked;
 	}
+
 }
