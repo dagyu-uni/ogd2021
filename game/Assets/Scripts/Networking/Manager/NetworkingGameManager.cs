@@ -30,9 +30,9 @@ namespace Photon.Pun.Demo.PunBasics
 
 		[Space(5)]
 
-		[Header("Artifacts Information")]
+		[Header("Compass Information")]
 		[Space(10)]
-		public List<GameObject> artifactPrefabs;
+		public List<GameObject> compassPrefabs;
 
 		private GameObject player;
 		private DefaultPool prefabPool = PhotonNetwork.PrefabPool as DefaultPool;
@@ -61,7 +61,7 @@ namespace Photon.Pun.Demo.PunBasics
 				PrefabPooling(lockpickPrefabs);
 				LockpickInstatiation();
 				PrefabPooling(paintingItemPrefabs);
-				PrefabPooling(artifactPrefabs);
+				PrefabPooling(compassPrefabs);
 			}
 		}
 
