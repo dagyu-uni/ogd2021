@@ -155,11 +155,11 @@ RectTransform:
   m_Father: {fileID: 3005806130951742784}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.01, y: 0.8148884}
-  m_AnchorMax: {x: 0.09, y: 0.98}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 150, y: 150}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &3005806130660140428
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -345,11 +345,11 @@ RectTransform:
   m_Father: {fileID: 3005806130951742784}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.009, y: 0.81}
-  m_AnchorMax: {x: 0.091, y: 0.982}
-  m_AnchoredPosition: {x: 0, y: 1}
-  m_SizeDelta: {x: 0, y: -2}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 150, y: 150}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &3005806131627460548
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -504,7 +504,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &3005806131424112204
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -535,7 +535,7 @@ MonoBehaviour:
   _isPickable: 1
   _pickableBy: 0100000002000000
   _inventoryPriority: 0
-  _name: 0
+  _name: 10
   _icon: {fileID: 21300000, guid: c3b1ce3dcdba9cc40920898f29c1d8d3, type: 3}
   _tooltipContent: 'This compass can show you the way!
 

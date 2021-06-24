@@ -270,7 +270,7 @@ MonoBehaviour:
   _isPickable: 1
   _pickableBy: 0100000002000000
   _inventoryPriority: 16
-  _name: 0
+  _name: 9
   _icon: {fileID: 21300000, guid: c576657aebbed34499ae89b8954986b1, type: 3}
   _tooltipContent: 
   _activatedText: 

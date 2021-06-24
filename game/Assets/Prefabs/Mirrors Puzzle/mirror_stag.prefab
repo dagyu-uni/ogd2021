@@ -113,8 +113,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 11.68, y: 100, z: 80}
-  m_Center: {x: 0, y: 3.3, z: 0}
+  m_Size: {x: 11.68, y: 100, z: 25}
+  m_Center: {x: 0, y: 3.3, z: 11.67}
 --- !u!114 &3550467175553979856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ ReflectionProbe:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 511991
   m_IntensityMultiplier: 1
   m_BlendDistance: 1
   m_HDR: 1
@@ -202,7 +202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6698306579176528519}
-  m_Layer: 6
+  m_Layer: 18
   m_Name: StagHead_Mirror
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 6698306579521250382}
   - component: {fileID: 6698306579521250380}
   - component: {fileID: 6698306579521250381}
-  m_Layer: 6
+  m_Layer: 18
   m_Name: fi_vil_furniture_trophy01_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

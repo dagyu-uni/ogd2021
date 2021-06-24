@@ -113,8 +113,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 11.68, y: 100, z: 80}
-  m_Center: {x: 0, y: 3.3, z: 0}
+  m_Size: {x: 11.68, y: 40, z: 40}
+  m_Center: {x: 0, y: 0.87, z: 18.87}
 --- !u!114 &1530512355104290824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ ReflectionProbe:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 511991
   m_IntensityMultiplier: 1
   m_BlendDistance: 1
   m_HDR: 1
@@ -202,7 +202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8686768225577908063}
-  m_Layer: 6
+  m_Layer: 18
   m_Name: GoatHead_Mirror
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 8686768225897449878}
   - component: {fileID: 8686768225897449876}
   - component: {fileID: 8686768225897449877}
-  m_Layer: 6
+  m_Layer: 18
   m_Name: fi_vil_furniture_trophy01_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
