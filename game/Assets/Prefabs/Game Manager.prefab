@@ -87,11 +87,15 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  paintingItemPrefabs: []
-  artifactPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  paintingItemPrefabs:
+  - {fileID: 2128571430295803232, guid: 15c94d2163c4e854f942f3a9c8b2fddb, type: 3}
+  - {fileID: 9106084894878468876, guid: 580c6a38fdfc9b5479e224d567e2096c, type: 3}
+  - {fileID: 3471655969665725075, guid: 2def41887150e914db7ff73c278d21e9, type: 3}
+  - {fileID: 4153860245569927652, guid: d40a885b323d4e641aff60e6ad95c485, type: 3}
+  - {fileID: 4551524985676598860, guid: 6dfbf3bd0dcccae40ab78bd3bb0da8eb, type: 3}
+  - {fileID: 2378624360619349644, guid: 500c06fa82552974980e3399ad85fd3b, type: 3}
+  compassPrefabs:
+  - {fileID: 2699816794105704913, guid: 9d6b3405019b112448c65059f888ca6d, type: 3}
 --- !u!114 &1248187749
 MonoBehaviour:
   m_ObjectHideFlags: 0
