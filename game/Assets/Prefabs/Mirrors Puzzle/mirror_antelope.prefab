@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2886598417554331023}
-  m_Layer: 6
+  m_Layer: 18
   m_Name: AntelopeHead_Mirror
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 2886598419357100870}
   - component: {fileID: 2886598419357100868}
   - component: {fileID: 2886598419357100869}
-  m_Layer: 6
+  m_Layer: 18
   m_Name: fi_vil_furniture_trophy01_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,8 +225,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 11.68, y: 100, z: 80}
-  m_Center: {x: 0, y: 3.3, z: 0}
+  m_Size: {x: 11.68, y: 55, z: 50}
+  m_Center: {x: 0, y: -4.35, z: 25.1}
 --- !u!114 &5025912432013941464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,7 +296,7 @@ ReflectionProbe:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 511991
   m_IntensityMultiplier: 1
   m_BlendDistance: 1
   m_HDR: 1

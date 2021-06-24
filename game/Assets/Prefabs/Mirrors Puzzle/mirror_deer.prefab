@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 699606780610433807}
-  m_Layer: 6
+  m_Layer: 18
   m_Name: DeerHead_Mirror
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 699606782573637062}
   - component: {fileID: 699606782573637060}
   - component: {fileID: 699606782573637061}
-  m_Layer: 6
+  m_Layer: 18
   m_Name: fi_vil_furniture_trophy01_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,8 +225,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 11.68, y: 100, z: 80}
-  m_Center: {x: 0, y: 3.3, z: 0}
+  m_Size: {x: 11.68, y: 25, z: 40}
+  m_Center: {x: 0, y: 1.3, z: 18.52}
 --- !u!114 &7207274414605573208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,7 +296,7 @@ ReflectionProbe:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 511991
   m_IntensityMultiplier: 1
   m_BlendDistance: 1
   m_HDR: 1

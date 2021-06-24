@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class MenuManager : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class MenuManager : MonoBehaviour
 
 	Resolution[] resolutions;
 	public Dropdown resolutionDropdown;
-	[SerializeField] private GameObject _audioManager;
+	[SerializeField] private AudioMixer _masterMixer;
 	[SerializeField] private Slider _volumeSlider;
 
 	private void Awake()
@@ -19,7 +20,6 @@ public class MenuManager : MonoBehaviour
 		if (Instance == null)
 		{
 			Instance = this;
-			SetVolumeLevel(_volumeSlider.value);
 		}
 
 		DontDestroyOnLoad(gameObject);
@@ -45,6 +45,8 @@ public class MenuManager : MonoBehaviour
 		resolutionDropdown.value = currentResolutionIndex;
 		resolutionDropdown.RefreshShownValue();
 
+		// Volume Slider
+		_volumeSlider.onValueChanged.AddListener(delegate { SetVolumeLevel(); });
 	}
 
 	public void SetResolution(int resolutionIndex)
@@ -58,9 +60,12 @@ public class MenuManager : MonoBehaviour
 		QualitySettings.SetQualityLevel(qualityIndex);
 	}
 
-	public void SetVolumeLevel(float volumeSlider)
+	public void SetVolumeLevel()
 	{
-		//AudioManager.Instance.Volume = volumeSlider;
+		// remap the slider value in the mixer range (-80 - 0)
+		float mixerVolume = -80 + _volumeSlider.value * 100 * 0.8f;
+
+		_masterMixer.SetFloat("MasterVolume", mixerVolume);
 	}
 
 	public void ReturnLauncher()

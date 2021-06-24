@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class StatueManager : PuzzleManager
 {
 	[SerializeField] private List<InteractiveStatue> _statues = new List<InteractiveStatue>();
@@ -15,6 +16,10 @@ public class StatueManager : PuzzleManager
 	[SerializeField] private List<Transform> _compassPositions = new List<Transform>();
 
 	private string[] _cardinals = { "North", "North-East", "East", "South-East", "South", "South-West", "West", "North-West" };
+	// in order, venere, Hermes, discobolo, Apollo
+	private string[] _sentences = { "Even if they broke my body, they can't ruin my beauty! Let me look ",  "Between all the athletes, I'm by far the fastest. Let me fly towards " ,
+									"If I want to win I have to throw my disc ", "Leader of muses and poetry, you should know my name. I may reveal your future if you turn me towards "};
+
 	private List<int> _correctOrientations = new List<int>();
 	// represents the cardinal orientation of the world.
 	private float _offset;
@@ -42,7 +47,7 @@ public class StatueManager : PuzzleManager
 			range.RemoveAt(index);
 			// Set clue text
 			Text _clueText = _clues[i].GetComponentInChildren(typeof(Text), true) as Text;
-			_clueText.text = "The statue " + (i + 1) + " must point " + _cardinals[(rand + r) % 8];
+			_clueText.text = _sentences[i] + _cardinals[(rand + r) % 8];
 
 			Instantiate(_clues[i], _clues[i].transform.position, _clues[i].transform.rotation);
 		}
