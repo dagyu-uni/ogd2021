@@ -8,7 +8,7 @@ namespace Photon.Pun.Demo.PunBasics
 		[SerializeField] private byte maxPlayersPerRoom = 3;
 
 		public Text roomCapacity;
-		public Text playerStatusLabel;
+		public GameObject playerStatusPanel;
 
 		private NetworkingCanvasManager _networkingCanvasManager;
 
@@ -26,7 +26,7 @@ namespace Photon.Pun.Demo.PunBasics
 		public void LeaveRoom()
 		{
 			PhotonNetwork.LeaveRoom(true);
-			playerStatusLabel.enabled = false;
+			playerStatusPanel.SetActive(false);
 			_networkingCanvasManager.CurrentRoomCanvas.Hide();
 			_networkingCanvasManager.CreateOrJoinRoomCanvas.Show();
 		}
@@ -36,16 +36,20 @@ namespace Photon.Pun.Demo.PunBasics
 			if (PhotonNetwork.IsMasterClient)
 			{
 				if (PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersPerRoom)
-					playerStatusLabel.text = "Your are the lobby leader.\nPress Load Room to start the game.";
+					playerStatusPanel.GetComponentInChildren<Text>().text =
+						"Your are the lobby leader.\nPress Load Room to start the game.";
 				else
-					playerStatusLabel.text = "Your are the lobby leader.\nWait for other players to join.";
+					playerStatusPanel.GetComponentInChildren<Text>().text =
+						"Your are the lobby leader.\nWait for other players to join.";
 			}
 			else
 			{
 				if (PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersPerRoom)
-					playerStatusLabel.text = "Connected to lobby.\nWait for the leader to start the game.";
+					playerStatusPanel.GetComponentInChildren<Text>().text =
+						"Connected to lobby.\nWait for the leader to start the game.";
 				else
-					playerStatusLabel.text = "Connected to lobby.\nWait for other players to join.";
+					playerStatusPanel.GetComponentInChildren<Text>().text =
+						"Connected to lobby.\nWait for other players to join.";
 			}
 		}
 	}

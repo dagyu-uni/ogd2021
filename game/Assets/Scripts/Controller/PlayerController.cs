@@ -64,9 +64,11 @@ public class PlayerController : MonoBehaviour
 	public float Stamina { get { return _stamina; } }
 	public bool IsJumping { get { return _isJumping; } }
 	public bool HasFell { get { return _hasFell; } }
-	public PlayerMovement PlayerMovement
+	public PlayerMovement PlayerMovement { get { return _movement; } }
+	public AudioCollection Footsteps
 	{
-		get { return _movement; }
+		get { return _footSteps; }
+		set { _footSteps = value; }
 	}
 
 	private bool _areFootprintActive = true;
