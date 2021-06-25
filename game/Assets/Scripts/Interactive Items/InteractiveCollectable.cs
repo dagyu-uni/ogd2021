@@ -114,23 +114,23 @@ public class InteractiveCollectable : InteractiveItem
 			photonView.RequestOwnership();
 			photonView.RPC("CollectItem", RpcTarget.All);
 			_isPicked = true;
+
+			if (_interface != null)
+			{
+				if (_interface.activeInHierarchy)
+				{
+					_interface.SetActive(false);
+				}
+				else
+				{
+					_interface.SetActive(true);
+				}
+			}
 		}
 		else // pickable but not by you
 		{
 			PlayerHUD hud = characterManager.PlayerHUD;
 			StartCoroutine(hud.SetEventText("You cannot handle this item.", hud.eventColors[0]));
-		}
-
-		if (_interface != null)
-		{
-			if (_interface.activeInHierarchy)
-			{
-				_interface.SetActive(false);
-			}
-			else
-			{
-				_interface.SetActive(true);
-			}
 		}
 	}
 
