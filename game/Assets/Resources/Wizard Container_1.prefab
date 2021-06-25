@@ -6245,7 +6245,7 @@ MonoBehaviour:
     - 0.04
     - 0.08
   _footSteps: {fileID: 11400000, guid: c25ec51bffcce4679bd5d74b269a05d2, type: 2}
-  _crouchAttenuation: 0.5
+  _crouchAttenuation: 0.3
 --- !u!114 &1656544712866589895
 MonoBehaviour:
   m_ObjectHideFlags: 0
