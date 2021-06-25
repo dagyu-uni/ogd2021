@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CollectableName { Passpartout, LockPick, SpeedIncrease, BypassJail, Ring, Dice, WornKey, GlobeMap, SkyrimMap, Quill, Compass }
+public enum CollectableName { Passpartout, LockPick, SpeedIncrease, BypassJail, Ring, Dice, WornKey, GlobeMap, SkyrimMap, Quill, Compass, XRaySight, ThirdEye }
 public enum ItemAction { Added, Throw, Used }
 
 // collectable attributes

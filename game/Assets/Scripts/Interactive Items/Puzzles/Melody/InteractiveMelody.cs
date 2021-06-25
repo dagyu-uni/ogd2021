@@ -15,6 +15,11 @@ public class InteractiveMelody : InteractiveItem
 
 	public override void Activate(CharacterManager characterManager)
 	{
+		if (characterManager.Role != Role.King)
+		{
+			StartCoroutine(characterManager.PlayerHUD.SetEventText("You can't play this instrument!", characterManager.PlayerHUD.eventColors[0]));
+			return;
+		}
 		if (!_isPlaying && !_melodyPuzzleManager.IsPuzzleSolved())
 		{
 			_isPlaying = true;
