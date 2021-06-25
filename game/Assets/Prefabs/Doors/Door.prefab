@@ -120,7 +120,7 @@ MonoBehaviour:
   circleMinCd: 2
   circleMaxCd: 6
   lockSpeed: 100
-  _door: {fileID: 1132768609840197728}
+  _door: {fileID: 0}
   _slider: {fileID: 1132768610746923682}
   _sliderBackground: {fileID: 1132768609691997996}
   _safeCircle: {fileID: 1132768610730631134}
@@ -221,8 +221,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1132768609840197734}
-  - component: {fileID: 1132768609840197735}
-  - component: {fileID: 1132768609840197728}
   - component: {fileID: 6064787811349875953}
   - component: {fileID: 2245332795349188156}
   m_Layer: 6
@@ -240,7 +238,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132768609840197729}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -2.4, y: 1.6, z: -25.92}
+  m_LocalPosition: {x: -2.435, y: 1.6, z: -25.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6108925207720165211}
@@ -248,36 +246,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!65 &1132768609840197735
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1132768609840197729}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.112700626, y: 2.48, z: 1.4700012}
-  m_Center: {x: 0, y: 1.24, z: 0.7350006}
---- !u!114 &1132768609840197728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1132768609840197729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cad9e6fa77cb3f1499b7276ac9f751f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rayPriority: 0
-  isLocked: 0
-  _interface: {fileID: 1132768609689390701}
-  _lever: {fileID: 0}
-  _door: {fileID: 0}
 --- !u!114 &6064787811349875953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,7 +266,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 2245332795349188156}
-  sceneViewId: 0
+  sceneViewId: 7
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &2245332795349188156
@@ -898,16 +866,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132768610730631128}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000030517585}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1132768611577770594}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 280, y: 288}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1132768610730631133
 CanvasRenderer:
@@ -1070,7 +1038,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1145,7 +1113,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1289,16 +1257,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132768611060443078}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000030517585}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1132768611577770594}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.11000001, y: 0.120000005}
-  m_AnchorMax: {x: 0.89000005, y: 0.874}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0002746582, y: 0}
+  m_SizeDelta: {x: 220, y: 220}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1132768611060443099
 CanvasRenderer:
@@ -1498,6 +1466,8 @@ GameObject:
   - component: {fileID: 6108925207720165211}
   - component: {fileID: 6108925207720935291}
   - component: {fileID: 6108925207722065339}
+  - component: {fileID: 4666434453164540162}
+  - component: {fileID: 2056236304248199265}
   m_Layer: 6
   m_Name: fi_vil_door02
   m_TagString: Untagged
@@ -1513,7 +1483,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6108925207719797627}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1.715}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1132768609840197734}
@@ -1568,3 +1538,34 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4666434453164540162
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6108925207719797627}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.112700656, y: 2.48, z: 1.4700016}
+  m_Center: {x: 0, y: 1.24, z: 0.735001}
+--- !u!114 &2056236304248199265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6108925207719797627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad9e6fa77cb3f1499b7276ac9f751f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rayPriority: 0
+  isLocked: 1
+  _interface: {fileID: 1132768609689390701}
+  _lever: {fileID: 0}
+  _door: {fileID: 11400000, guid: 5583f739007fd4d32a25d39f4fa73a73, type: 2}
+  _closeAfterSeconds: 0

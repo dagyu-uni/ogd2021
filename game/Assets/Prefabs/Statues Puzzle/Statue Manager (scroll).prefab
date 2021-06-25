@@ -370,7 +370,7 @@ MonoBehaviour:
   _isPuzzleActive: 1
   _deactivateAfterComplete: 1
   _puzzleCollectable: {fileID: 0}
-  _solvedSounds: {fileID: 0}
+  _solvedSounds: {fileID: 11400000, guid: 020a5ac6bbcad452fba1fa50ed913ab2, type: 2}
   _nextPuzzle: {fileID: 0}
   _puzzleInterface: {fileID: 2520200793625524763}
   _infoText: Read Scroll
@@ -381,17 +381,21 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _clues:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1751973688736163937, guid: 8ee9d57485e2ba94ca39ba2280d06265, type: 3}
+  - {fileID: 1751973688736163937, guid: 8ee9d57485e2ba94ca39ba2280d06265, type: 3}
+  - {fileID: 1751973688736163937, guid: 8ee9d57485e2ba94ca39ba2280d06265, type: 3}
+  - {fileID: 1751973688736163937, guid: 8ee9d57485e2ba94ca39ba2280d06265, type: 3}
   _cluesPositions:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _compassImage: {fileID: 0}
-  _compass: {fileID: 0}
+  _compass: {fileID: 2699816794105704913, guid: 9d6b3405019b112448c65059f888ca6d, type: 3}
   _compassPositions:
   - {fileID: 0}
   - {fileID: 0}
