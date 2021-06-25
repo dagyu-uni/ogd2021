@@ -46,7 +46,8 @@ public class MenuManager : MonoBehaviour
 		resolutionDropdown.RefreshShownValue();
 
 		// Volume Slider
-		_volumeSlider.onValueChanged.AddListener(delegate { SetVolumeLevel(); });
+		_volumeSlider.onValueChanged.AddListener(delegate
+		{ SetVolumeLevel(); });
 	}
 
 	public void SetResolution(int resolutionIndex)
