@@ -12,7 +12,7 @@ namespace Photon.Pun.Demo.PunBasics
 
 		public InputField playerNameField;
 		public InputField roomNameField;
-		public Text playerStatusLabel;
+		public GameObject playerStatusPanel;
 
 		private string playerName = "";
 		private string roomName = "";
@@ -50,7 +50,9 @@ namespace Photon.Pun.Demo.PunBasics
 		{
 			if (playerName == null || playerName.Equals("") || roomName == null || roomName.Equals(""))
 			{
-				playerStatusLabel.text = "Username and room name cannot be empty";
+				playerStatusPanel.SetActive(true);
+				playerStatusPanel.GetComponentInChildren<Text>().text =
+					"Username and room name cannot be empty";
 				return;
 			}
 
@@ -62,8 +64,6 @@ namespace Photon.Pun.Demo.PunBasics
 				option.CustomRoomProperties.Add("createdAt", (int)DateTime.Now.Ticks);
 				option.MaxPlayers = maxPlayersPerRoom;
 				PhotonNetwork.JoinOrCreateRoom(roomName, option, TypedLobby.Default);
-				playerStatusLabel.text = "";
-				playerStatusLabel.enabled = true;
 			}
 		}
 
@@ -72,18 +72,21 @@ namespace Photon.Pun.Demo.PunBasics
 			base.OnCreatedRoom();
 			_networkingCanvasManager.CurrentRoomCanvas.Show();
 			_networkingCanvasManager.CreateOrJoinRoomCanvas.Hide();
+			playerStatusPanel.SetActive(true);
 		}
 
 		public override void OnJoinedRoom()
 		{
 			_networkingCanvasManager.CurrentRoomCanvas.Show();
 			_networkingCanvasManager.CreateOrJoinRoomCanvas.Hide();
+			playerStatusPanel.SetActive(true);
 		}
 
 		public override void OnJoinRoomFailed(short returnCode, string message)
 		{
 			base.OnJoinRoomFailed(returnCode, message);
-			playerStatusLabel.text = "Photon: " + message;
+			playerStatusPanel.SetActive(true);
+			playerStatusPanel.GetComponentInChildren<Text>().text = "Photon: " + message;
 		}
 	}
 }
