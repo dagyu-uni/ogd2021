@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class FootstepsTrigger : MonoBehaviour
 {
-	
+
 	[SerializeField] private AudioCollection _woodFootsteps = null;
 	[SerializeField] private AudioCollection _rockFootsteps = null;
 
