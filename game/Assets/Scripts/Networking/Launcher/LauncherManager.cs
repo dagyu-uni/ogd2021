@@ -11,8 +11,8 @@ namespace Photon.Pun.Demo.PunBasics
 		[SerializeField] private byte maxPlayersPerRoom = 3;
 		[SerializeField] private string levelName;
 
-		public Text connectionStatusLabel;
-		public Text popUpMessageLabel;
+		public GameObject connectionStatusPanel;
+		public GameObject popUpMessagePanel;
 		public GameObject leaveRoomButton;
 		public GameObject loadRoomButton;
 
@@ -27,14 +27,16 @@ namespace Photon.Pun.Demo.PunBasics
 		private void Start()
 		{
 			PlayerPrefs.DeleteAll();
-			connectionStatusLabel.text = "Connecting to Photon...";
+			connectionStatusPanel.SetActive(true);
+			connectionStatusPanel.GetComponentInChildren<Text>().text = "Connecting to Photon...";
 
 			if (!PhotonNetwork.IsConnected)
 				ConnectToPhoton();
 			else
 			{
-				connectionStatusLabel.text = "Connected to Photon!";
-				connectionStatusLabel.color = Color.Lerp(Color.green, Color.white, 0.5f);
+				connectionStatusPanel.GetComponentInChildren<Text>().text = "Connected to Photon!";
+				connectionStatusPanel.GetComponentInChildren<Text>().color =
+					Color.Lerp(Color.green, Color.white, 0.5f);
 			}
 		}
 
@@ -47,16 +49,18 @@ namespace Photon.Pun.Demo.PunBasics
 		public override void OnConnected()
 		{
 			base.OnConnected();
-			connectionStatusLabel.text = "Connected to Photon!";
-			connectionStatusLabel.color = Color.Lerp(Color.green, Color.white, 0.5f);
+			connectionStatusPanel.GetComponentInChildren<Text>().text = "Connected to Photon!";
+			connectionStatusPanel.GetComponentInChildren<Text>().color =
+				Color.Lerp(Color.green, Color.white, 0.5f);
 		}
 
 		public override void OnDisconnected(DisconnectCause cause)
 		{
 			Debug.LogError("Disconnected from Photon Network.\n" + cause.ToString());
 			menuManager.SetActive(true);
-			connectionStatusLabel.text = "Disconnected. Please check your Internet connection.";
-			connectionStatusLabel.color = Color.Lerp(Color.red, Color.white, 0.5f);
+			connectionStatusPanel.GetComponentInChildren<Text>().text = "Disconnected from Photon.";
+			connectionStatusPanel.GetComponentInChildren<Text>().color =
+				Color.Lerp(Color.red, Color.white, 0.5f);
 		}
 
 		public override void OnConnectedToMaster()
@@ -97,10 +101,10 @@ namespace Photon.Pun.Demo.PunBasics
 
 		IEnumerator PopUpMessage(string message)
 		{
-			popUpMessageLabel.text = message;
-			popUpMessageLabel.enabled = true;
+			popUpMessagePanel.GetComponentInChildren<Text>().text = message;
+			popUpMessagePanel.SetActive(true);
 			yield return new WaitForSeconds(3f);
-			popUpMessageLabel.enabled = false;
+			popUpMessagePanel.SetActive(false);
 		}
 	}
 }
