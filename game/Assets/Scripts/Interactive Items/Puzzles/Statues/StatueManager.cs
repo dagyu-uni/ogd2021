@@ -62,6 +62,7 @@ public class StatueManager : PuzzleManager
 		for (int i = 0; i < _statues.Count; i++)
 		{
 			int statueOrientation = (int)_statues[i].transform.rotation.eulerAngles.y + _statues[i].offset;
+			Debug.Log("CURRENT ORIENTATION: " + statueOrientation + " CORRECT ORIENTATION: " + _correctOrientations[i]);
 			if (statueOrientation != _correctOrientations[i])
 			{
 				return false;

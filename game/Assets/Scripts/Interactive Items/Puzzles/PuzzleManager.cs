@@ -73,15 +73,16 @@ public abstract class PuzzleManager : InteractiveItem
 		ActivateNextPuzzle();
 
 		// (de)activate the puzzle
-		if (_puzzleCollectable == null && _deactivateAfterComplete)
-		{
-			_isPuzzleActive = false;
-		}
-		// if there is a collectable and has been collected by a player
-		else if (_puzzleCollectable != null && _puzzleCollectable.CharManager != null)
-		{
-			_isPuzzleActive = !_deactivateAfterComplete;
-		}
+		//if (_puzzleCollectable == null && _deactivateAfterComplete)
+		//{
+		//	_isPuzzleActive = false;
+		//}
+		//// if there is a collectable and has been collected by a player
+		//else if (_puzzleCollectable != null && _puzzleCollectable.CharManager != null)
+		//{
+		//	_isPuzzleActive = !_deactivateAfterComplete;
+		//}
+		_isPuzzleActive = false;
 
 		//ACTIVATE COLLECTABLE
 		if(_puzzleCollectable != null)
