@@ -57,6 +57,7 @@ public class PaintingsManager : PuzzleManager
 			// set the pedestal
 			_pedestals[i].items = names;
 			_pedestals[i].correctItem = _correctItems[i].Collectable;
+			Debug.Log(i + " --- " + _pedestals[i].correctItem);
 			// set the painting
 			int rand = Random.Range(0, 2);
 			int rand2 = rand == 0 ? 1 : 0;

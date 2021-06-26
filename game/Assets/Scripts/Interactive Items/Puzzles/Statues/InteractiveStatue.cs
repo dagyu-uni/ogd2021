@@ -13,6 +13,13 @@ public class InteractiveStatue : InteractiveItem
 	private Quaternion _startinRot;
 	private float _interpolator = 0.0f;
 
+	private void Awake()
+	{
+		// Start with a random orientation
+		float orientation = Random.Range(0, 8) * 45f;
+		transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + orientation, Vector3.up);
+	}
+
 	public override string GetText(CharacterManager cm)
 	{
 		return _infoText;

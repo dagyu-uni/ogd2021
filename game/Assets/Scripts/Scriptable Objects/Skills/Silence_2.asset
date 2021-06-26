@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Silence
   _fireButton: Skill1
-  sprite: {fileID: 21300000, guid: cdaf1a354ac07044f88da35c9d68a9d2, type: 3}
+  sprite: {fileID: 21300000, guid: 88487f4aa00d3a54ea8997821d682340, type: 3}
   audioCollection: {fileID: 0}
   baseCooldown: 6
   currentCooldown: 0

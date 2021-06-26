@@ -536,7 +536,7 @@ MonoBehaviour:
   _pickableBy: 0100000002000000
   _inventoryPriority: 0
   _name: 10
-  _icon: {fileID: 21300000, guid: c3b1ce3dcdba9cc40920898f29c1d8d3, type: 3}
+  _icon: {fileID: 21300000, guid: 6781917b7185af04394af267824409fb, type: 3}
   _tooltipContent: 'This compass can show you the way!
 
     Click to throw.'

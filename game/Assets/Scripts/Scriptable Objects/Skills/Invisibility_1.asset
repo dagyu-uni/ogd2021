@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Invisibility
   _fireButton: Skill2
-  sprite: {fileID: 21300000, guid: b3473e09bc12c1545a701510b4a9419a, type: 3}
+  sprite: {fileID: 21300000, guid: 30965614084820b42ab5f81c4065f0ca, type: 3}
   audioCollection: {fileID: 0}
   baseCooldown: 2
   currentCooldown: 0
