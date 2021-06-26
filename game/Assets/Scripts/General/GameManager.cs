@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
 
 	// Internals
 	private bool _isGameOver = false;
-	private Role winner;
+	private Role _winner;
 	private int numOfTreasures = 0;
 	private Coroutine _gameCycleRoutine = null;
 	private PhotonView _photonView = null;
@@ -91,12 +91,20 @@ public class GameManager : MonoBehaviour
 			}
 		}
 
-		// check remeining time
+		Debug.Log(numOfCaptures);
+
+		// check remaining time
 		if (_remainingMatchTime <= 0.0f || numOfCaptures == 2)
 		{
-			_isGameOver = true;
-			winner = Role.King;
+			_photonView.RPC("GameOver", RpcTarget.All, Role.King);
 		}
+	}
+
+	[PunRPC]
+	private void GameOver(Role winner)
+	{
+		_isGameOver = true;
+		_winner = winner;
 	}
 
 	// Manage the whole match cycle
@@ -110,7 +118,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		// Handle the game over and the winner
-		if (winner == Role.King)
+		if (_winner == Role.King)
 		{
 			// do stuff
 		}
@@ -123,11 +131,18 @@ public class GameManager : MonoBehaviour
 	// called by players when they gather a treasure.
 	public void AddTreasure()
 	{
+		_photonView.RPC("RegisterTreasure", RpcTarget.All);
+	}
+
+	[PunRPC]
+	private void RegisterTreasure()
+	{
 		numOfTreasures++;
 
 		if (numOfTreasures >= 2)
 		{
 			// unlock doors or something
+			// _photonview
 		}
 	}
 
@@ -157,6 +172,8 @@ public class GameManager : MonoBehaviour
 
 		// teleport the wizard in a prison or something
 		_photonView.RPC("TeleportWizard", RpcTarget.All, charManager.Role);
+
+		charManager.IsCaptured = true;
 	}
 
 	[PunRPC]
@@ -164,6 +181,11 @@ public class GameManager : MonoBehaviour
 	{
 		_playersInfo[role].collider.transform.position = _captureTransform.position;
 		_playersInfo[role].collider.transform.rotation = _captureTransform.rotation;
+	}
+
+	public void SetFree(Role role)
+	{
+		_playersInfo[role].characterManager.IsCaptured = false;
 	}
 
 	// Register and Get a Player Info reference searched on by the instance ID of its collider

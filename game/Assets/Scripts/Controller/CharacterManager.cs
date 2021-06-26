@@ -22,6 +22,7 @@ public class Collectable
 	[HideInInspector] public Role role;
 	// Rigidbody used to throw it away
 	[HideInInspector] public Rigidbody rb = null;
+	[HideInInspector] public GameObject collInterface = null;
 }
 
 public class CharacterManager : MonoBehaviour
@@ -125,7 +126,7 @@ public class CharacterManager : MonoBehaviour
 
 		// When players spawn start fading in
 		if (_playerHUD)
-			_playerHUD.Fade(2.0f, ScreenFadeType.FadeIn);
+			_playerHUD.Fade(_playerHUD._fadeTime, ScreenFadeType.FadeIn);
 
 		// Inventory Capacity
 		_inventory.Capacity = _playerHUD.InventoryCapacity;
@@ -255,7 +256,11 @@ public class CharacterManager : MonoBehaviour
 		}
 
 		// treasure
-		GameManager.Instance.AddTreasure();
+		if (collectable.isTreasure)
+		{
+			GameManager.Instance.AddTreasure();
+		}
+
 
 		// powerup
 		if (collectable.powerUp != null && collectable.powerUp.HasSkill && _skills.Count == _skills.Capacity)
