@@ -47,7 +47,7 @@ MonoBehaviour:
   _isPuzzleActive: 1
   _deactivateAfterComplete: 1
   _puzzleCollectable: {fileID: 0}
-  _solvedSounds: {fileID: 0}
+  _solvedSounds: {fileID: 11400000, guid: 020a5ac6bbcad452fba1fa50ed913ab2, type: 2}
   _nextPuzzle: {fileID: 0}
   _puzzleInterface: {fileID: 0}
   _infoText: 
