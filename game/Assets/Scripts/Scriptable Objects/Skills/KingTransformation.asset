@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Transformation
   _fireButton: Skill1
-  sprite: {fileID: 21300000, guid: bd293dc32f4aaf94e8274f2fac2cdf89, type: 3}
+  sprite: {fileID: 21300000, guid: 87248dc8278382c47afaed31498da755, type: 3}
   audioCollection: {fileID: 0}
   baseCooldown: 1
   currentCooldown: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: KingSight
   _fireButton: Skill3
-  sprite: {fileID: 21300000, guid: c576657aebbed34499ae89b8954986b1, type: 3}
+  sprite: {fileID: 21300000, guid: 1f6aa40df95a20641bf73480c802c076, type: 3}
   audioCollection: {fileID: 0}
   baseCooldown: 2
   currentCooldown: 0

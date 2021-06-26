@@ -16,11 +16,8 @@ public class InteractiveStatue : InteractiveItem
 	private void Awake()
 	{
 		// Start with a random orientation
-		if (PhotonNetwork.IsMasterClient)
-		{
-			float orientation = Random.Range(0, 8) * 45f;
-			transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + orientation, Vector3.up);
-		}
+		float orientation = Random.Range(0, 8) * 45f;
+		transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + orientation, Vector3.up);
 	}
 
 	public override string GetText(CharacterManager cm)

@@ -114,7 +114,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &3297755952366988250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   _pickableBy: 0100000002000000
   _inventoryPriority: 15
   _name: 6
-  _icon: {fileID: 21300000, guid: 27fad07f8c3845443be8992d4800acee, type: 3}
+  _icon: {fileID: 21300000, guid: 08e8c14dfc15668438ae01c73a63e77d, type: 3}
   _tooltipContent: 
   _activatedText: 
   _activatedTextDuration: 3
