@@ -84,7 +84,7 @@ public abstract class PuzzleManager : InteractiveItem
 		}
 
 		//ACTIVATE COLLECTABLE
-		if(_puzzleCollectable != null)
+		if (_puzzleCollectable != null)
 		{
 			_puzzleCollectable.isPickable = true;
 		}
