@@ -246,8 +246,8 @@ MonoBehaviour:
     m_FontSize: 30
     m_FontStyle: 2
     m_BestFit: 1
-    m_MinSize: 8
-    m_MaxSize: 30
+    m_MinSize: 12
+    m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1

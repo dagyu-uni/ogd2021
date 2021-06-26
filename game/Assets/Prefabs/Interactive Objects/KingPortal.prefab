@@ -155,5 +155,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rayPriority: 0
   roles: 0100000002000000
-  _infoText: Non puoi passare! Portale del re
+  _infoText: Your power is not enough!
   _interfaceReadOnly: {fileID: 0}

@@ -69,6 +69,7 @@ public class InteractiveCollectable : InteractiveItem
 		_thisCollectable.icon = _icon;
 		_thisCollectable.tooltipString = _tooltipContent;
 		_thisCollectable.rb = _rb;
+		_thisCollectable.collInterface = _interface;
 	}
 
 	public override string GetText(CharacterManager cm)

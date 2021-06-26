@@ -44,6 +44,7 @@ public class PlayerHUD : MonoBehaviour
 	public List<Color> eventColors = null;
 	[SerializeField] private Image _screenFade = null;
 	[SerializeField] private Text _missionText = null;
+	public float _fadeTime = 3.0f;
 	[SerializeField] private float _missionTextDisplayTime = 3.0f;
 
 	// Pause Menu
@@ -452,6 +453,9 @@ public class PlayerHUD : MonoBehaviour
 		collectable.rb.velocity = cameraTransform.forward * 1.5f;
 
 		info.characterManager.SubtractCollectable(collectable.name);
+
+		if (collectable.collInterface != null)
+			collectable.collInterface.SetActive(false);
 	}
 
 	private void Resume()

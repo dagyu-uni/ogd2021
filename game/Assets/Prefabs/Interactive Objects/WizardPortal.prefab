@@ -155,5 +155,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rayPriority: 0
   roles: 00000000
-  _infoText: Non puoi passare! Portale dei maghi
+  _infoText: You shall not pass!
   _interfaceReadOnly: {fileID: 0}
