@@ -83,6 +83,12 @@ public abstract class PuzzleManager : InteractiveItem
 			_isPuzzleActive = !_deactivateAfterComplete;
 		}
 
+		//ACTIVATE COLLECTABLE
+		if(_puzzleCollectable != null)
+		{
+			_puzzleCollectable.isPickable = true;
+		}
+
 	}
 
 	// optional method to handle situations where you want the puzzle
