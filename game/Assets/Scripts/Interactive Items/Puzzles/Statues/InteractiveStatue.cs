@@ -9,6 +9,7 @@ public class InteractiveStatue : InteractiveItem
 	public int offset = 0;
 
 	[SerializeField] private string _infoText = null;
+	[SerializeField] private AudioCollection _rotationAudio = null;
 
 	private Quaternion _startinRot;
 	private float _interpolator = 0.0f;
@@ -36,7 +37,18 @@ public class InteractiveStatue : InteractiveItem
 		// Rotate statue
 		StartCoroutine(SlerpStatue());
 
-		// TODO Play sound
+		// Rotation
+		if (_rotationAudio != null)
+		{
+			AudioManager.Instance.PlayOneShotSound(
+				_rotationAudio.MixerGroupName,
+				_rotationAudio.AudioClip.name,
+				transform.position,
+				_rotationAudio.Volume,
+				_rotationAudio.SpatialBlend,
+				_rotationAudio.Priority
+			);
+		}
 	}
 
 	private IEnumerator SlerpStatue()

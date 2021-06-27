@@ -7,6 +7,7 @@ public class InteractiveLever : InteractiveItem
 {
 	[SerializeField] private string _infoText = null;
 	[SerializeField] private InteractiveDoor _door = null;
+	[SerializeField] private AudioCollection _moveLever = null;
 
 	// when the lever is bend the relative door is locked
 	private bool _isBend = false;
@@ -65,7 +66,18 @@ public class InteractiveLever : InteractiveItem
 	{
 		Vector3 euler = new Vector3(45.0f, 0.0f, 0.0f);
 
-		// TODO play lever use sound
+		// play lever use sound
+		if (_moveLever != null)
+		{
+			AudioManager.Instance.PlayOneShotSound(
+				_moveLever.MixerGroupName,
+				_moveLever.AudioClip.name,
+				transform.position,
+				_moveLever.Volume,
+				_moveLever.SpatialBlend,
+				_moveLever.Priority
+			);
+		}
 
 		while (_interpolator < 1.0f)
 		{
@@ -91,7 +103,18 @@ public class InteractiveLever : InteractiveItem
 	{
 		Vector3 euler = new Vector3(-45.0f, 0.0f, 0.0f);
 
-		// TODO play lever use sound
+		// play lever use sound
+		if (_moveLever != null)
+		{
+			AudioManager.Instance.PlayOneShotSound(
+				_moveLever.MixerGroupName,
+				_moveLever.AudioClip.name,
+				transform.position,
+				_moveLever.Volume,
+				_moveLever.SpatialBlend,
+				_moveLever.Priority
+			);
+		}
 
 		while (_interpolator < 1.0f)
 		{

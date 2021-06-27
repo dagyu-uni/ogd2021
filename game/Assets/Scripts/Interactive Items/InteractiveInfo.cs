@@ -11,11 +11,23 @@ public class InteractiveInfo : InteractiveItem
 	[TextArea(3, 10)]
 	[SerializeField] private string _infoText = null;
 	[SerializeField] private GameObject _interfaceReadOnly = null;
+	[SerializeField] private AudioCollection _audioCollection = null;
 
 	public override string GetText(CharacterManager cm)
 	{
 		if (roles.Contains(cm.Role))
 		{
+			if(_audioCollection != null)
+			{
+				AudioManager.Instance.PlayOneShotSound(
+					_audioCollection.MixerGroupName,
+					_audioCollection[1].name,
+					transform.position,
+					_audioCollection.Volume,
+					_audioCollection.SpatialBlend,
+					_audioCollection.Priority
+				);
+			}
 			return _infoText;
 		}
 

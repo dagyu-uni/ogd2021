@@ -20,6 +20,7 @@ public class DoorPuzzle : MonoBehaviour
 	[SerializeField] private Image _safeLock = null;
 	[SerializeField] private Button _unlockButton = null;
 	[SerializeField] private List<SliderSprite> _sliderSprites = new List<SliderSprite>();
+	[SerializeField] private AudioCollection _lockpickBroken = null;
 
 	private bool _handleFlag = true;
 	// if the player has tried to solve it
@@ -89,12 +90,22 @@ public class DoorPuzzle : MonoBehaviour
 		if (_slider.value < center + sliderThreshold && _slider.value > center - sliderThreshold &&
 			lockZ < circleZ + circleThreshold && lockZ > circleZ - circleThreshold)
 		{
-			// TODO opened door sound
 			StartCoroutine(TryOpenDoor(true));
 		}
 		else
 		{
-			// TODO broken lock pick sound
+			//broken lock pick sound
+			if (_lockpickBroken)
+			{
+				AudioManager.Instance.PlayOneShotSound(
+					_lockpickBroken.MixerGroupName,
+					_lockpickBroken.AudioClip.name,
+					transform.position,
+					_lockpickBroken.Volume,
+					_lockpickBroken.SpatialBlend,
+					_lockpickBroken.Priority
+				);
+			}
 			StartCoroutine(TryOpenDoor(false));
 		}
 	}

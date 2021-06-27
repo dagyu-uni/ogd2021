@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private Invisibility _invisibility = null;
 	[SerializeField] private GameObject _eye = null;
 	[SerializeField] private ParticleSystem _projectile = null;
+	[SerializeField] private AudioCollection _captureAudio = null;
 
 
 	// Internals
@@ -174,7 +175,18 @@ public class GameManager : MonoBehaviour
 		if (charManager == null)
 			return;
 
-		// TODO play some particle effects (smoke or something)
+		// play some particle effects (smoke or something)
+		if (_captureAudio != null)
+		{
+			AudioManager.Instance.PlayOneShotSound(
+				_captureAudio.MixerGroupName,
+				_captureAudio.AudioClip.name,
+				transform.position,
+				_captureAudio.Volume,
+				_captureAudio.SpatialBlend,
+				_captureAudio.Priority
+			);
+		}
 
 		// teleport the wizard in a prison or something
 		_photonView.RPC("TeleportWizard", RpcTarget.All, charManager.Role);

@@ -11,6 +11,8 @@ public class InteractiveDoor : InteractiveItem
 	[SerializeField] private InteractiveLever _lever = null;
 	[SerializeField] private Door _door = null;
 	[SerializeField] private float _closeAfterSeconds = 0;
+	[Tooltip("Use the first bank for open door sounds and the second one for close door sounds.")]
+	[SerializeField] private AudioCollection _audioCollection = null;
 
 	private Quaternion _closedRot;
 	private Quaternion _openedRot;
@@ -107,23 +109,26 @@ public class InteractiveDoor : InteractiveItem
 
 	public void ToggleDoor(CharacterManager cm)
 	{
+		Debug.Log("LOCKED: " + isLocked);
 		if (isLocked)
-			StartCoroutine(SlerpOpenDoor(GetDirection(cm)));
-		else
-			StartCoroutine(SlerpCloseDoor());
 		{
-			//isLocked = !isLocked;
-			PhotonView photonView = GetComponent<PhotonView>();
-			photonView.RPC("DoorToggled", RpcTarget.All);
+			StartCoroutine(SlerpOpenDoor(GetDirection(cm)));
 		}
+		else
+		{
+			StartCoroutine(SlerpCloseDoor());
+		}
+		GetComponent<PhotonView>().RPC("DoorToggled", RpcTarget.All);
 	}
 
 	private IEnumerator SlerpOpenDoor(float directionSign)
 	{
+		Debug.Log("OPEN");
 		Vector3 euler = new Vector3(0.0f, 90.0f * directionSign, 0.0f);
 		_closedRot = transform.rotation;
 
-		// TODO play door opening sound
+		//  play door opening sound
+		StartCoroutine(PlaySound(0));
 
 		while (_openInterp < 1.0f)
 		{
@@ -140,7 +145,9 @@ public class InteractiveDoor : InteractiveItem
 		Vector3 euler = new Vector3(0.0f, 0.0f, 0.0f);
 		_openedRot = transform.rotation;
 
-		// TODO play door close sound
+		//play door close sound
+
+		StartCoroutine(PlaySound(1));
 
 		while (_closeInterp < 1.0f)
 		{
@@ -150,6 +157,22 @@ public class InteractiveDoor : InteractiveItem
 		}
 
 		_closeInterp = 0.0f;
+	}
+
+	private IEnumerator PlaySound(int bank)
+	{
+		if(_audioCollection != null)
+		{
+			AudioManager.Instance.PlayOneShotSound(
+				_audioCollection.MixerGroupName,
+				_audioCollection[bank].name,
+				transform.position,
+				_audioCollection.Volume,
+				_audioCollection.SpatialBlend,
+				_audioCollection.Priority
+			);
+		}
+		yield break;
 	}
 
 	// returns 1 or -1 based on the toward direction of the player relative to the door

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2315696fcb5d40629f9bceb87acbd77, type: 3}
+  m_Name: TreasureCollectable
+  m_EditorClassIdentifier: 
+  _mixerGroupName: Scene
+  _volume: 1
+  _spatialBlend: 1
+  _priority: 128
+  _clipBanks:
+  - description: 
+    clips:
+    - {fileID: 8300000, guid: fe297857b23124771b5cb9e671b16fe8, type: 3}
+  - description: 
+    clips:
+    - {fileID: 8300000, guid: 08897da6e4b3245aaa65214dc4e7eef4, type: 3}

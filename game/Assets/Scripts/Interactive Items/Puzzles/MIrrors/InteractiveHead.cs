@@ -5,6 +5,7 @@ using UnityEngine;
 public class InteractiveHead : InteractiveItem
 {
 	[SerializeField] private string _infoText = null;
+	[SerializeField] private AudioCollection _rotateHead = null;
 
 	private Quaternion _startinRot;
 	private float _interpolator = 0.0f;
@@ -34,7 +35,19 @@ public class InteractiveHead : InteractiveItem
 		// Rotate head
 		StartCoroutine(SlerpHead());
 		correctRot = (correctRot + 90) % 360;
-		// TODO Play sound
+		// Play sound
+		if (_rotateHead != null)
+		{
+			Debug.Log("SOUND");
+			AudioManager.Instance.PlayOneShotSound(
+				_rotateHead.MixerGroupName,
+				_rotateHead.AudioClip.name,
+				transform.position,
+				_rotateHead.Volume,
+				_rotateHead.SpatialBlend,
+				_rotateHead.Priority
+			);
+		}
 	}
 
 	private IEnumerator SlerpHead()
