@@ -43,6 +43,7 @@ public class MirrorsManager : PuzzleManager, Randomizer
 		{
 			Debug.Log(i + " & " + range[i]);
 			// Spawn mirrors at random on fixed positions
+			Debug.Log(_mirrorTrans[range[i]].position);
 			_mirrors[i].transform.position = _mirrorTrans[range[i]].position;
 			_mirrors[i].transform.rotation = _mirrorTrans[range[i]].rotation;
 
