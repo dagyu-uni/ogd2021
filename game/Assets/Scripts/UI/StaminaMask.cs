@@ -11,7 +11,8 @@ public class StaminaMask : MonoBehaviour
 
 	void Start()
 	{
-		_originalSize = mask.rectTransform.rect.width;
+		//_originalSize = mask.rectTransform.rect.width;
+		_originalSize = 270.72f;
 	}
 
 	public void SetValue(float value)
