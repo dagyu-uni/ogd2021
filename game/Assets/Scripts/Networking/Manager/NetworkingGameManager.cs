@@ -111,6 +111,8 @@ namespace Photon.Pun.Demo.PunBasics
 
 		private void LockpickInstatiation()
 		{
+			int seed = (int)PhotonNetwork.CurrentRoom.CustomProperties["createdAt"];
+			Random.InitState(seed);
 			int randomPrefabIndex, index;
 			for (index = 0; index < lockpickPositions.Count; index++)
 			{
