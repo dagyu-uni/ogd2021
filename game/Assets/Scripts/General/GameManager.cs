@@ -77,6 +77,10 @@ public class GameManager : MonoBehaviour
 
 		if (_randomizers != null)
 		{
+			//INIT STATE RANDOM
+			int seed = (int)PhotonNetwork.CurrentRoom.CustomProperties["createdAt"];
+			Debug.Log("CURRENT SEED " + seed);
+			Random.InitState(seed);
 			_randomizers.ForEach(c => c.GetComponent<Randomizer>().InitRandom());
 		}
 		// game cycle
