@@ -158,6 +158,7 @@ MonoBehaviour:
   roles: 0100000002000000
   _infoText: Your power is not enough!
   _interfaceReadOnly: {fileID: 0}
+  _audioCollection: {fileID: 11400000, guid: 7cefd8b16b58c4e56b17649609dda90a, type: 2}
 --- !u!1 &8080010186215602473
 GameObject:
   m_ObjectHideFlags: 0

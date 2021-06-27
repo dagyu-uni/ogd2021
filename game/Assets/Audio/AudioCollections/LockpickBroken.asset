@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2315696fcb5d40629f9bceb87acbd77, type: 3}
   m_Name: LockpickBroken
   m_EditorClassIdentifier: 
-  _mixerGroupName: 
+  _mixerGroupName: Scene
   _volume: 1
   _spatialBlend: 1
   _priority: 128
