@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class StatueManager : PuzzleManager
+public class StatueManager : PuzzleManager, Randomizer
 {
 	[SerializeField] private List<InteractiveStatue> _statues = new List<InteractiveStatue>();
 	[SerializeField] private List<GameObject> _clues = new List<GameObject>();
@@ -26,6 +26,33 @@ public class StatueManager : PuzzleManager
 	protected override void Start()
 	{
 		base.Start();
+	}
+
+	public override bool IsPuzzleSolved()
+	{
+		for (int i = 0; i < _statues.Count; i++)
+		{
+
+			int statueOrientation = (int)_statues[i].transform.rotation.eulerAngles.y + _statues[i].offset;
+			Debug.Log("index " + i + " --- orientazione" + statueOrientation + _correctOrientations[i]);
+			if (statueOrientation != _correctOrientations[i])
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public override void ActivateReward()
+	{
+		base.ActivateReward();
+		// TODO do something
+		Debug.Log("Statue Puzzle Solved!");
+	}
+
+	public void InitRandom()
+	{
 		// Get world cardinal orientation and set compass UI image offset
 		int r = Random.Range(0, 8);
 		_offset = r * 45f;
@@ -55,28 +82,5 @@ public class StatueManager : PuzzleManager
 
 			Instantiate(_clues[i], _clues[i].transform.position, _clues[i].transform.rotation);
 		}
-	}
-
-	public override bool IsPuzzleSolved()
-	{
-		for (int i = 0; i < _statues.Count; i++)
-		{
-
-			int statueOrientation = (int)_statues[i].transform.rotation.eulerAngles.y + _statues[i].offset;
-			Debug.Log("index " + i + " --- orientazione" + statueOrientation + _correctOrientations[i]);
-			if (statueOrientation != _correctOrientations[i])
-			{
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	public override void ActivateReward()
-	{
-		base.ActivateReward();
-		// TODO do something
-		Debug.Log("Statue Puzzle Solved!");
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public class MelodyPuzzleManager : PuzzleManager
+public class MelodyPuzzleManager : PuzzleManager, Randomizer
 {
 	[SerializeField] private AudioCollection audioCollection = null;
 	[SerializeField] private int audioClipIndex = 0;
@@ -21,17 +21,6 @@ public class MelodyPuzzleManager : PuzzleManager
 	public AudioCollection AudioCollection { get { return audioCollection; } }
 	public List<AudioClip> ShuffledAudioClips { get { return clips; } }
 	public List<AudioClip> NotShuffledAudioClips { get { return audioCollection.ClipBanks[audioClipIndex].clips; } }
-
-	protected override void Start()
-	{
-		base.Start();
-		if (!_shuffled)
-		{
-			clips = new List<AudioClip>(NotShuffledAudioClips);
-			GameManager.Instance.Shuffle(clips);
-		}
-
-	}
 
 	public void Play(CharacterManager characterManager, Vector3 position, int indexAudioClip)
 	{
@@ -95,4 +84,12 @@ public class MelodyPuzzleManager : PuzzleManager
 		currentIndex += 1;
 	}
 
+	public void InitRandom()
+	{
+		if (!_shuffled)
+		{
+			clips = new List<AudioClip>(NotShuffledAudioClips);
+			GameManager.Instance.Shuffle(clips);
+		}
+	}
 }

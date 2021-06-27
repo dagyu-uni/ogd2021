@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
 	}
 
 	// Public
+	[SerializeField] private List<Component> _randomizers = new List<Component>();
 	[Tooltip("Expressed in seconds.")]
 	[SerializeField] private float _remainingMatchTime = 75f;
 	[SerializeField] private Transform _captureTransform = null;
@@ -68,6 +69,11 @@ public class GameManager : MonoBehaviour
 
 	private void Start()
 	{
+
+		if (_randomizers != null)
+		{
+			_randomizers.ForEach(c => c.GetComponent<Randomizer>().InitRandom());
+		}
 		// game cycle
 		if (_gameCycleRoutine == null)
 		{

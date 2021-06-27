@@ -20,7 +20,7 @@ public class PaintingPositions
 	public List<Transform> positions = new List<Transform>();
 }
 
-public class PaintingsManager : PuzzleManager
+public class PaintingsManager : PuzzleManager, Randomizer
 {
 	// all the possible collectable items for this puzzle
 	[SerializeField] private List<InteractiveCollectable> _collectables = new List<InteractiveCollectable>();
@@ -38,7 +38,29 @@ public class PaintingsManager : PuzzleManager
 	protected override void Start()
 	{
 		base.Start();
+	}
 
+	public override bool IsPuzzleSolved()
+	{
+		for (int i = 0; i < _pedestals.Count; i++)
+		{
+			if (!_pedestals[i].IsSolved)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public override void ActivateReward()
+	{
+		base.ActivateReward();
+		Debug.Log("Paintings Solved!");
+	}
+
+	public void InitRandom()
+	{
 		// Set the pedestals
 		List<CollectableName> names = new List<CollectableName>();
 		for (int i = 0; i < _collectables.Count; i++)
@@ -89,24 +111,5 @@ public class PaintingsManager : PuzzleManager
 					_collectables[i].transform.position, _collectables[i].transform.rotation);
 			}
 		}
-	}
-
-	public override bool IsPuzzleSolved()
-	{
-		for (int i = 0; i < _pedestals.Count; i++)
-		{
-			if (!_pedestals[i].IsSolved)
-			{
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	public override void ActivateReward()
-	{
-		base.ActivateReward();
-		Debug.Log("Paintings Solved!");
 	}
 }
