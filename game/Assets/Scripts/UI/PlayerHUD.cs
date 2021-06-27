@@ -79,6 +79,12 @@ public class PlayerHUD : MonoBehaviour
 	public int InventoryCapacity { get { return _inventorySlots.Count; } }
 	public string CapacityText { set { _capacityText.text = value; } }
 	public Text CaptureText { get { return _captureText; } }
+	public Text Mission { get { return _missionText; } }
+	public string MissionText
+	{
+		get { return _missionText.text; }
+		set { _missionText.text = value; }
+	}
 	public GameObject EyeUI { get { return _eyeUI; } }
 
 

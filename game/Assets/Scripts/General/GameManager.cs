@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 
 // NOTE: the game manager is supposed to handle everything that requires
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
 	[Tooltip("Expressed in seconds.")]
 	[SerializeField] private float _remainingMatchTime = 75f;
 	[SerializeField] private Transform _captureTransform = null;
+	[SerializeField] private List<InteractiveDoor> _finalDoors = new List<InteractiveDoor>();
 	[Header("Particles")]
 	[SerializeField] private List<ParticleSystem> _footprints = new List<ParticleSystem>();
 	[SerializeField] private ParticleSystem _propParticle = null;
@@ -53,6 +55,8 @@ public class GameManager : MonoBehaviour
 	// Internals
 	private bool _isGameOver = false;
 	private Role _winner;
+	private string _winText;
+	private string _loseText;
 	private int numOfTreasures = 0;
 	private Coroutine _gameCycleRoutine = null;
 	private PhotonView _photonView = null;
@@ -80,6 +84,9 @@ public class GameManager : MonoBehaviour
 		{
 			_gameCycleRoutine = StartCoroutine(GameCycle());
 		}
+
+		_winText = "Victory!";
+		_loseText = "Defeat!";
 	}
 
 	private void Update()
@@ -107,6 +114,11 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	public void WizardEscaped()
+	{
+		_photonView.RPC("GameOver", RpcTarget.All, Role.Wizard_1);
+	}
+
 	[PunRPC]
 	private void GameOver(Role winner)
 	{
@@ -120,19 +132,52 @@ public class GameManager : MonoBehaviour
 		// Play
 		while (!_isGameOver)
 		{
-			// do stuff
 			yield return null;
 		}
 
 		// Handle the game over and the winner
+		PlayerHUD kinghud = _playersInfo[Role.King].characterManager.PlayerHUD;
+		PlayerHUD w1hud = _playersInfo[Role.Wizard_1].characterManager.PlayerHUD;
+		PlayerHUD w2hud = _playersInfo[Role.Wizard_2].characterManager.PlayerHUD;
+
 		if (_winner == Role.King)
 		{
-			// do stuff
+			// set correct text
+			kinghud.Mission.color = kinghud.eventColors[1];
+			kinghud.MissionText = _winText;
+
+			w1hud.Mission.color = w1hud.eventColors[0];
+			w1hud.MissionText = _loseText;
+
+			w2hud.Mission.color = w2hud.eventColors[0];
+			w2hud.MissionText = _loseText;
 		}
 		else
 		{
-			// do other stuff
+			// set correct text
+			kinghud.Mission.color = kinghud.eventColors[0];
+			kinghud.MissionText = _loseText;
+
+			w1hud.Mission.color = w1hud.eventColors[1];
+			w1hud.MissionText = _winText;
+
+			w2hud.Mission.color = w2hud.eventColors[1];
+			w2hud.MissionText = _winText;
 		}
+
+		// Fade out
+		foreach (var role in _playersInfo.Keys)
+		{
+			PlayerHUD hud = _playersInfo[role].characterManager.PlayerHUD;
+			hud.Fade(hud._fadeTime, ScreenFadeType.FadeOut);
+		}
+
+		Invoke("ExitMatch", 5.0f);
+	}
+
+	private void ExitMatch()
+	{
+		SceneManager.LoadScene(0);
 	}
 
 	// called by players when they gather a treasure.
@@ -148,8 +193,11 @@ public class GameManager : MonoBehaviour
 
 		if (numOfTreasures >= 2)
 		{
-			// unlock doors or something
-			// _photonview
+			// unlock final doors
+			for (int i = 0; i < _finalDoors.Count; i++)
+			{
+				_finalDoors[i].isFinalDoor = false;
+			}
 		}
 	}
 
