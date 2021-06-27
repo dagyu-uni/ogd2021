@@ -37,14 +37,13 @@ public class MirrorsManager : PuzzleManager, Randomizer
 	public void InitRandom()
 	{
 		List<int> range = Enumerable.Range(0, _mirrors.Count).ToList<int>();
+		GameManager.Instance.Shuffle(range);
 
 		for (int i = 0; i < _mirrors.Count; i++)
 		{
 			// Spawn mirrors at random on fixed positions
-			int j = Random.Range(0, _mirrors.Count - i);
-			_mirrors[i].transform.position = _mirrorTrans[range[j]].position;
-			_mirrors[i].transform.rotation = _mirrorTrans[range[j]].rotation;
-			range.RemoveAt(j);
+			_mirrors[i].transform.position = _mirrorTrans[range[i]].position;
+			_mirrors[i].transform.rotation = _mirrorTrans[range[i]].rotation;
 
 			// set correct rotation
 			int index = Random.Range(0, 4);
