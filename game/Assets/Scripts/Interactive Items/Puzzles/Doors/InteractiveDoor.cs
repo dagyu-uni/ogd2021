@@ -161,7 +161,7 @@ public class InteractiveDoor : InteractiveItem
 
 	private IEnumerator PlaySound(int bank)
 	{
-		if(_audioCollection != null)
+		if (_audioCollection != null)
 		{
 			AudioManager.Instance.PlayOneShotSound(
 				_audioCollection.MixerGroupName,

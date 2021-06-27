@@ -17,7 +17,7 @@ public class InteractiveInfo : InteractiveItem
 	{
 		if (roles.Contains(cm.Role))
 		{
-			if(_audioCollection != null)
+			if (_audioCollection != null)
 			{
 				AudioManager.Instance.PlayOneShotSound(
 					_audioCollection.MixerGroupName,

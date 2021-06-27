@@ -15,7 +15,7 @@ public class PortalTrigger : MonoBehaviour
 		if (_audioCollection == null)
 			return;
 
-		if(_expectedTags.Exists(e => other.gameObject.CompareTag(e)))
+		if (_expectedTags.Exists(e => other.gameObject.CompareTag(e)))
 			AudioManager.Instance.PlayOneShotSound(
 				_audioCollection.MixerGroupName,
 				_audioCollection[0].name,
