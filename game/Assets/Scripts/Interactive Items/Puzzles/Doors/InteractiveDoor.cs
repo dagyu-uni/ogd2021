@@ -6,6 +6,7 @@ using UnityEngine;
 public class InteractiveDoor : InteractiveItem
 {
 	public bool isLocked = false;
+	public bool isFinalDoor = false;
 
 	[SerializeField] private GameObject _interface = null;
 	[SerializeField] private InteractiveLever _lever = null;
@@ -39,6 +40,12 @@ public class InteractiveDoor : InteractiveItem
 
 	public override void Activate(CharacterManager cm)
 	{
+		if (isFinalDoor)
+		{
+			StartCoroutine(cm.PlayerHUD.SetEventText("Some sort of dark magic is protecting this door.", charManager.PlayerHUD.eventColors[0]));
+			return;
+		}
+
 		charManager = cm;
 		gameObject.GetComponent<PhotonView>().RequestOwnership();
 		if (_door != null)

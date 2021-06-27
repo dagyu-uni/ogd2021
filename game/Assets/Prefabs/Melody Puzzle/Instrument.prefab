@@ -386,7 +386,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rayPriority: 0
-  _puzzleNotSolvedText: Play the note
+  _puzzleNotSolvedText: This instrument play only one note, find an isntrument that
+    play and reproduce it exactly using this instrument
   _puzzleSolvedText: Puzzle already solved
   _melodyPuzzleManager: {fileID: 0}
   indexAudioClip: 0
