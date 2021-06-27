@@ -1827,8 +1827,6 @@ MonoBehaviour:
     mask: {fileID: 4081278671108613942}
   - icon: {fileID: 4081278671233384107}
     mask: {fileID: 4081278671359792620}
-  - icon: {fileID: 0}
-    mask: {fileID: 0}
   _emptyIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   _eyeUI: {fileID: 5003887044070244356}
 --- !u!1 &2976115305667868467
