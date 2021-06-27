@@ -77,7 +77,7 @@ public class InteractiveCollectable : InteractiveItem
 		if (Time.time < _hideActivatedTextTime)
 			return _activatedText;
 		else
-			return _tooltipContent;
+			return "Pick " + _name;
 	}
 
 	public override void Activate(CharacterManager characterManager)
