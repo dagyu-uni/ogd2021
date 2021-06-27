@@ -45,16 +45,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f46df0f58f90411cbf1d149982c80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _randomizers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _remainingMatchTime: 1200
   _captureTransform: {fileID: 0}
+  _finalDoors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _footprints:
   - {fileID: 0}
   - {fileID: 0}
   _propParticle: {fileID: 0}
-  _props: []
-  _invisibility: {fileID: 0}
+  _props:
+  - {fileID: 735441506698614806, guid: 54305af53e224974bb20b38104d0d338, type: 3}
+  - {fileID: 6689666080328640376, guid: 2eed96c208c75034f87af73cd366b783, type: 3}
+  - {fileID: 1951674574345316693, guid: dbe3233ac5017a34e9a2e4b9f0690036, type: 3}
+  _invisibility: {fileID: 11400000, guid: 129048936b080bd44bfd3e37fe5cff8d, type: 2}
   _eye: {fileID: 0}
   _projectile: {fileID: 0}
+  _captureAudio: {fileID: 0}
 --- !u!114 &-6690346839976859009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,6 +95,10 @@ MonoBehaviour:
   - {fileID: 4691822501478193958, guid: fe7b0d348e437c84abb6255bbd43cb06, type: 3}
   - {fileID: 8811587850139973502, guid: 5f169c1f897a6b441ae7818ba781b2f1, type: 3}
   lockpickPositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
