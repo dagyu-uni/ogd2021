@@ -6,20 +6,13 @@ using UnityEngine;
 public class InteractiveStatue : InteractiveItem
 {
 	// consider where the statue is actually looking with the head
-	public int offset = 0;
+	public float currentOrientation = 0;
 
 	[SerializeField] private string _infoText = null;
 	[SerializeField] private AudioCollection _rotationAudio = null;
 
 	private Quaternion _startinRot;
 	private float _interpolator = 0.0f;
-
-	private void Awake()
-	{
-		// Start with a random orientation
-		float orientation = Random.Range(0, 8) * 45f;
-		transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + orientation, Vector3.up);
-	}
 
 	public override string GetText(CharacterManager cm)
 	{
@@ -29,12 +22,15 @@ public class InteractiveStatue : InteractiveItem
 	public override void Activate(CharacterManager characterManager)
 	{
 		gameObject.GetComponent<PhotonView>().RequestOwnership();
+		Debug.Log(_interpolator);
 		if (_interpolator != 0.0f)
 			return;
 
+	
 		_startinRot = transform.rotation;
 
 		// Rotate statue
+		currentOrientation = (currentOrientation + 45f) % 360f;
 		StartCoroutine(SlerpStatue());
 
 		// Rotation

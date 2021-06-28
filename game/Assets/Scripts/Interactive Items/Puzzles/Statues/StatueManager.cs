@@ -33,8 +33,8 @@ public class StatueManager : PuzzleManager, Randomizer
 		for (int i = 0; i < _statues.Count; i++)
 		{
 
-			int statueOrientation = (int)_statues[i].transform.rotation.eulerAngles.y + _statues[i].offset;
-			Debug.Log("index " + i + " --- orientazione" + statueOrientation + _correctOrientations[i]);
+			int statueOrientation = (int)_statues[i].currentOrientation;
+			Debug.Log("index " + i + " --- orientazione" + statueOrientation + " " + _correctOrientations[i]);
 			if (statueOrientation != _correctOrientations[i])
 			{
 				return false;
@@ -71,6 +71,11 @@ public class StatueManager : PuzzleManager, Randomizer
 		{
 			int rand = Random.Range(0, 8);
 			_correctOrientations.Add(rand * 45);
+
+			// Start with a random orientation
+			float orientation = Random.Range(0, 8) * 45f;
+			_statues[i].transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + orientation, Vector3.up);
+			_statues[i].currentOrientation = orientation;
 
 			// Set clue position (randomly)
 			int index = Random.Range(0, _cluesPositions.Count - i);
