@@ -6,7 +6,6 @@ using UnityEngine;
 public class InteractiveDoor : InteractiveItem
 {
 	public bool isLocked = false;
-	public bool isFinalDoor = false
 
 	[SerializeField] private GameObject _interface = null;
 	[SerializeField] private InteractiveLever _lever = null;
