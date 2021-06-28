@@ -29,7 +29,7 @@ public class InteractiveStatue : InteractiveItem
 		_startinRot = transform.rotation;
 
 		// Rotate statue
-		currentOrientation = (currentOrientation + 45f) % 360f;
+		currentOrientation = (currentOrientation + 1) % 8;
 		StartCoroutine(SlerpStatue());
 
 		// Rotation
