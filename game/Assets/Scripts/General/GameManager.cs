@@ -202,7 +202,7 @@ public class GameManager : MonoBehaviour
 			// unlock final doors
 			for (int i = 0; i < _finalDoors.Count; i++)
 			{
-				if(_finalDoors[i]._door is FinalDoor)
+				if (_finalDoors[i]._door is FinalDoor)
 				{
 					((FinalDoor)_finalDoors[i]._door).openable = true;
 				}
