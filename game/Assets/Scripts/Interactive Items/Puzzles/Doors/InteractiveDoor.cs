@@ -54,7 +54,7 @@ public class InteractiveDoor : InteractiveItem
 		}
 		else
 		{
-			ToggleDoor(cm);
+			//ToggleDoor(cm);
 			//StartCoroutine(cm.PlayerHUD.SetEventText("The door is blocked", cm.PlayerHUD.eventColors[0]));
 		}
 

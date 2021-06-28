@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private float _remainingMatchTime = 75f;
 	[SerializeField] private Transform _captureTransform = null;
 	[SerializeField] private List<InteractiveDoor> _finalDoors = new List<InteractiveDoor>();
+	[SerializeField] private PrisonTrigger _prisonTrigger = null;
 	[Header("Particles")]
 	[SerializeField] private List<ParticleSystem> _footprints = new List<ParticleSystem>();
 	[SerializeField] private ParticleSystem _propParticle = null;
@@ -100,21 +101,19 @@ public class GameManager : MonoBehaviour
 		_remainingMatchTime -= Time.deltaTime;
 
 		// check wizard captures
-		int numOfCaptures = 0;
+		//int numOfCaptures = 0;
 
-		foreach (PlayerInfo info in _playersInfo.Values)
-		{
-			// info.role > 0 means if it's a wizard, one or the other
-			if (info.role > 0 && info.characterManager.IsCaptured)
-			{
-				numOfCaptures++;
-			}
-		}
-
-		Debug.Log(numOfCaptures);
+		//foreach (PlayerInfo info in _playersInfo.Values)
+		//{
+		//	// info.role > 0 means if it's a wizard, one or the other
+		//	if (info.role > 0 && info.characterManager.IsCaptured)
+		//	{
+		//		numOfCaptures++;
+		//	}
+		//}
 
 		// check remaining time
-		if (_remainingMatchTime <= 0.0f || numOfCaptures == 2)
+		if (_remainingMatchTime <= 0.0f || _prisonTrigger.numOfWizard >= 2)
 		{
 			_photonView.RPC("GameOver", RpcTarget.All, Role.King);
 		}
@@ -253,6 +252,8 @@ public class GameManager : MonoBehaviour
 	{
 		_playersInfo[role].collider.transform.position = _captureTransform.position;
 		_playersInfo[role].collider.transform.rotation = _captureTransform.rotation;
+
+		_playersInfo[role].characterManager.IsCaptured = true;
 	}
 
 	public void SetFree(Role role)
