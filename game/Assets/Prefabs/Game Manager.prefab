@@ -56,6 +56,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  _prisonTrigger: {fileID: 0}
   _footprints:
   - {fileID: 0}
   - {fileID: 0}
