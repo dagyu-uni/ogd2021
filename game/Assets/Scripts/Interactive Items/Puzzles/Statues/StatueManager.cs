@@ -71,7 +71,7 @@ public class StatueManager : PuzzleManager, Randomizer
 		{
 			int rand = Random.Range(0, 8);
 			_correctOrientations.Add(rand * 45);
-			
+
 
 			// Start with a random orientation
 			float orientation = Random.Range(0, 8) * 45f;
