@@ -70,8 +70,8 @@ public class StatueManager : PuzzleManager, Randomizer
 		for (int i = 0; i < _statues.Count; i++)
 		{
 			int statueCorrectOrientation = Random.Range(0, 8);
-			int statueCorrectOrientationWithOffset = (statueCorrectOrientation + r) % 8;
-			_correctOrientations.Add(statueCorrectOrientationWithOffset);
+			//int statueCorrectOrientationWithOffset = (statueCorrectOrientation + r) % 8;
+			_correctOrientations.Add(statueCorrectOrientation);
 
 			// Start with a random orientation
 			int statueOrientation = Random.Range(0, 8);
@@ -80,7 +80,7 @@ public class StatueManager : PuzzleManager, Randomizer
 
 			//float orientation = 0;
 			//float normalizeOrientation = ((orientation + 8) - r) % 8;
-			//Debug.Log(i + " OFF:" + r + "  OR: " + orientation + " CARD: " + _cardinals[(int)normalizeOrientation]);
+			Debug.Log(i + " CORRECT_OR:" + statueCorrectOrientation + "  statueOrientation: " + statueOrientation);
 			//_statues[i].transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + ((normalizeOrientation * 45f) - 45f), Vector3.up);
 			//_statues[i].currentOrientation = normalizeOrientation;
 

@@ -18,7 +18,7 @@ public class InteractiveStatue : InteractiveItem
 	{
 		base.Start();
 		float angle = currentOrientation * 45f;
-		Quaternion target = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + angle, Vector3.up);
+		Quaternion target = Quaternion.identity * Quaternion.AngleAxis( angle, Vector3.up);
 		transform.rotation = target;
 	}
 
