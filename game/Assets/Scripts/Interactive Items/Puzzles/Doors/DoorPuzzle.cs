@@ -100,7 +100,7 @@ public class DoorPuzzle : MonoBehaviour
 				AudioManager.Instance.PlayOneShotSound(
 					_lockpickBroken.MixerGroupName,
 					_lockpickBroken.AudioClip.name,
-					transform.position,
+					_door.transform.position,
 					_lockpickBroken.Volume,
 					_lockpickBroken.SpatialBlend,
 					_lockpickBroken.Priority
