@@ -74,8 +74,9 @@ public class StatueManager : PuzzleManager, Randomizer
 
 			// Start with a random orientation
 			float orientation = Random.Range(0, 8);
-			_statues[i].transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + (orientation * 45f), Vector3.up);
-			_statues[i].currentOrientation = ((orientation + 8) - _offset) % 8;
+			float normalizeOrientation = ((orientation + 8) - _offset) % 8;
+			_statues[i].transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + (normalizeOrientation * 45f), Vector3.up);
+			_statues[i].currentOrientation = normalizeOrientation;
 
 			// Set clue position (randomly)
 			int index = Random.Range(0, _cluesPositions.Count - i);
