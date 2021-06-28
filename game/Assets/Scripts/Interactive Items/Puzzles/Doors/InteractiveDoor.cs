@@ -6,11 +6,11 @@ using UnityEngine;
 public class InteractiveDoor : InteractiveItem
 {
 	public bool isLocked = false;
-	public bool isFinalDoor = false;
+	public bool isFinalDoor = false
 
 	[SerializeField] private GameObject _interface = null;
 	[SerializeField] private InteractiveLever _lever = null;
-	[SerializeField] private Door _door = null;
+	[SerializeField] public Door _door = null;
 	[SerializeField] private float _closeAfterSeconds = 0;
 	[Tooltip("Use the first bank for open door sounds and the second one for close door sounds.")]
 	[SerializeField] private AudioCollection _audioCollection = null;
@@ -40,22 +40,11 @@ public class InteractiveDoor : InteractiveItem
 
 	public override void Activate(CharacterManager cm)
 	{
-		if (isFinalDoor)
-		{
-			StartCoroutine(cm.PlayerHUD.SetEventText("Some sort of dark magic is protecting this door.", charManager.PlayerHUD.eventColors[0]));
-			return;
-		}
-
 		charManager = cm;
 		gameObject.GetComponent<PhotonView>().RequestOwnership();
 		if (_door != null)
 		{
 			_door.Interaction(this, cm);
-		}
-		else
-		{
-			//ToggleDoor(cm);
-			//StartCoroutine(cm.PlayerHUD.SetEventText("The door is blocked", cm.PlayerHUD.eventColors[0]));
 		}
 
 	}
