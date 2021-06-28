@@ -146,6 +146,10 @@ public class GameManager : MonoBehaviour
 		PlayerHUD w1hud = _playersInfo[Role.Wizard_1].characterManager.PlayerHUD;
 		PlayerHUD w2hud = _playersInfo[Role.Wizard_2].characterManager.PlayerHUD;
 
+		kinghud.Mission.gameObject.SetActive(true);
+		w1hud.Mission.gameObject.SetActive(true);
+		w2hud.Mission.gameObject.SetActive(true);
+
 		if (_winner == Role.King)
 		{
 			// set correct text
@@ -178,7 +182,7 @@ public class GameManager : MonoBehaviour
 			hud.Fade(hud._fadeTime, ScreenFadeType.FadeOut);
 		}
 
-		Invoke("ExitMatch", 5.0f);
+		Invoke("ExitMatch", 8.0f);
 	}
 
 	private void ExitMatch()
