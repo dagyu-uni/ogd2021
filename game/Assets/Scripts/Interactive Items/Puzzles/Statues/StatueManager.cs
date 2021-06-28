@@ -73,11 +73,11 @@ public class StatueManager : PuzzleManager, Randomizer
 			_correctOrientations.Add(rand);
 
 			// Start with a random orientation
-			//float orientation = Random.Range(0, 8);
-			//Debug.Log(i + " OFF:" + r + "  OR: " + orientation);
-			//float normalizeOrientation = ((orientation + 8) - r) % 8;
+			float orientation = Random.Range(0, 8);
+			float normalizeOrientation = ((orientation + 8) - (r + 1)) % 8;
+			Debug.Log(i + " OFF:" + r + "  OR: " + orientation + " CARD: " + _cardinals[(int) normalizeOrientation]);
 			_statues[i].transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + (r * 45f), Vector3.up);
-			_statues[i].currentOrientation = r;
+			_statues[i].currentOrientation = normalizeOrientation;
 
 			// Set clue position (randomly)
 			int index = Random.Range(0, _cluesPositions.Count - i);
