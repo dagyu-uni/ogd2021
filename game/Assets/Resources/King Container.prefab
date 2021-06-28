@@ -6750,7 +6750,7 @@ MonoBehaviour:
   characterBody: {fileID: 7741838354352108227}
   _clampInDegrees: {x: 360, y: 180}
   _sensitivity: {x: 2, y: 2}
-  _smoothing: {x: 8, y: 8}
+  _smoothing: {x: 4, y: 4}
 --- !u!1 &7751548397110706003
 GameObject:
   m_ObjectHideFlags: 0
