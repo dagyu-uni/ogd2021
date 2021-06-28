@@ -104,7 +104,6 @@ public class InteractiveDoor : InteractiveItem
 
 	public void ToggleDoor(CharacterManager cm)
 	{
-		Debug.Log("LOCKED: " + isLocked);
 		if (isLocked)
 		{
 			StartCoroutine(SlerpOpenDoor(GetDirection(cm)));
