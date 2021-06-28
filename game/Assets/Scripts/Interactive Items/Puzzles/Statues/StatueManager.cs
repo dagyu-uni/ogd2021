@@ -75,7 +75,7 @@ public class StatueManager : PuzzleManager, Randomizer
 			// Start with a random orientation
 			float orientation = Random.Range(0, 8) * 45f;
 			_statues[i].transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + orientation, Vector3.up);
-			_statues[i].currentOrientation = (orientation - _offset) % 360f;
+			_statues[i].currentOrientation = orientation > _offset ? orientation - _offset : (orientation - _offset) % 360f;
 			Debug.Log("STATUA " + i + " OFFSET: " + _offset + " CURRENT_ORIENTATION: " + ((orientation - _offset) % 360f) + " O: " + orientation);
 
 			// Set clue position (randomly)
