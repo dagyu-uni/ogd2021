@@ -14,6 +14,14 @@ public class InteractiveStatue : InteractiveItem
 	private Quaternion _startinRot;
 	private float _interpolator = 0.0f;
 
+	protected override void Start()
+	{
+		base.Start();
+		float angle = currentOrientation * 45f;
+		Quaternion target = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + angle, Vector3.up);
+		transform.rotation = target;
+	}
+
 	public override string GetText(CharacterManager cm)
 	{
 		return _infoText;

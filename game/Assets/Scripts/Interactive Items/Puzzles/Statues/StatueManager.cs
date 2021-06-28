@@ -69,17 +69,20 @@ public class StatueManager : PuzzleManager, Randomizer
 		List<int> range = Enumerable.Range(0, _cluesPositions.Count).ToList<int>();
 		for (int i = 0; i < _statues.Count; i++)
 		{
-			int rand = Random.Range(0, 8);
-			_correctOrientations.Add(rand);
+			int statueCorrectOrientation = Random.Range(0, 8);
+			int statueCorrectOrientationWithOffset = (statueCorrectOrientation + r) % 8;
+			_correctOrientations.Add(statueCorrectOrientationWithOffset);
 
 			// Start with a random orientation
-			//float orientation = Random.Range(0, 8);
+			int statueOrientation = Random.Range(0, 8);
+			int statueOrientationWithOffset = (statueOrientation + r) % 8;
+			_statues[i].currentOrientation = statueOrientationWithOffset;
+
 			//float orientation = 0;
 			//float normalizeOrientation = ((orientation + 8) - r) % 8;
 			//Debug.Log(i + " OFF:" + r + "  OR: " + orientation + " CARD: " + _cardinals[(int)normalizeOrientation]);
 			//_statues[i].transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + ((normalizeOrientation * 45f) - 45f), Vector3.up);
 			//_statues[i].currentOrientation = normalizeOrientation;
-			_statues[i].currentOrientation = r;
 
 			// Set clue position (randomly)
 			int index = Random.Range(0, _cluesPositions.Count - i);
@@ -87,9 +90,9 @@ public class StatueManager : PuzzleManager, Randomizer
 			range.RemoveAt(index);
 			// Set clue text
 			Text _clueText = _clues[i].GetComponentInChildren(typeof(Text), true) as Text;
-			_clueText.text = _sentences[i] + _cardinals[rand];
+			_clueText.text = _sentences[i] + _cardinals[statueCorrectOrientation];
 
-			Debug.Log("ST" + i + " O: " + _statues[i].currentOrientation + " CO: " + (rand * 45) + " SENT " + _clueText.text);
+			//Debug.Log("ST" + i + " O: " + _statues[i].currentOrientation + " CO: " + (rand * 45) + " SENT " + _clueText.text);
 
 			Instantiate(_clues[i], _clues[i].transform.position, _clues[i].transform.rotation);
 		}
