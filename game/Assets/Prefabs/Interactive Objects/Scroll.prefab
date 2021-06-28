@@ -255,7 +255,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Leader of muses and poetry, you should know my name. I may reveal your
-    future if you turn me towards North-West
+    future if you turn me towards North-East
 --- !u!1 &1751973688736163937
 GameObject:
   m_ObjectHideFlags: 0
