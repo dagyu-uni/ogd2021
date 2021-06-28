@@ -26,7 +26,7 @@ public class InteractiveStatue : InteractiveItem
 		if (_interpolator != 0.0f)
 			return;
 
-	
+
 		_startinRot = transform.rotation;
 
 		// Rotate statue
