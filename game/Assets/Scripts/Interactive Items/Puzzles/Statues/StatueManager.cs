@@ -74,7 +74,8 @@ public class StatueManager : PuzzleManager, Randomizer
 
 			// Start with a random orientation
 			float orientation = Random.Range(0, 8);
-			float normalizeOrientation = ((orientation + 8) - _offset) % 8;
+			Debug.Log(i + " OFF:" + r + "  OR: " + orientation);
+			float normalizeOrientation = ((orientation + 8) - r) % 8;
 			_statues[i].transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + (normalizeOrientation * 45f), Vector3.up);
 			_statues[i].currentOrientation = normalizeOrientation;
 
